@@ -21,21 +21,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">Games</a>
+                            <ul class="dropdown-menu fade-up">
+                                <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="Playstation">Playstation</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="Xbox">Xbox</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="Nintendo">Nintendo</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="Android">Android</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="iOs">iOs</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="PC">PC</a>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
+                            <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">Add</a>
+                            <ul class="dropdown-menu fade-up">
                                 <a class="dropdown-item" asp-area="" asp-controller="Games" asp-action="Add">Add Game</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Platforms" asp-action="Add">Add Platform</a>
-                            </div>
+                            </ul>
                         </li>
                     </ul>
                 </div>
