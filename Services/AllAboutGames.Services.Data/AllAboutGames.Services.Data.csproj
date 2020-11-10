@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\AllAboutGames.Data.Common\AllAboutGames.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\AllAboutGames.Data.Models\AllAboutGames.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\AllAboutGames.Data\AllAboutGames.Data.csproj" />
+    <ProjectReference Include="..\..\Web\AllAboutGames.Web.ViewModels\AllAboutGames.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\AllAboutGames.Services.Mapping\AllAboutGames.Services.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>
