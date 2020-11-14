@@ -1,7 +1,16 @@
-﻿.table-hover tbody tr:hover td {
-    background: aqua;
+﻿
+
+
+
+div.td {
+  display: table-cell;
+  padding:0; margin:0;
+  font-size:0;
 }
 
+.table-hover tbody tr:hover td {
+    background: aqua;
+}
 
 div.carousel .carousel-item > img {
     width: 100%;

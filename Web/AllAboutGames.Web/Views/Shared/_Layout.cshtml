@@ -8,6 +8,7 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/Custom.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="/css/lightGallery.css" rel="stylesheet" asp-append-version="true"/>
 </head>
 <body>
     <header>
@@ -35,6 +36,9 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="All">Reviews</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown">Add</a>
                             <ul class="dropdown-menu fade-up">
@@ -55,11 +59,11 @@
         </main>
     </div>
     
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>

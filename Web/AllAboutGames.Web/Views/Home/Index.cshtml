@@ -2,8 +2,8 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
-<div>
-    <div class="float-left col-md-8">
+<section style="min-height: 100vh">
+    <div class="float-left col-md-8" style="padding-left:0">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -48,18 +48,19 @@
                     <h2>The Witcher 3<br><span>CD Project Red</span></h2>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" style="margin-left:140px; margin-top:13px">Click here for more details</button>
+            <button type="button" class="btn btn-primary" style="position:relative; left:200px; top:15px">Click here for more details</button>
         </div>
     </div>
-</div>
-<div>
-    <h3 style="padding-top:600px; margin-left:440px">Recent reviews</h3>
-    <table id="reviews-table" class="table table-sm table-hover" style="width:68%; margin-left:20px">
+</section>
+<section style="min-height: 100vh; position:relative; bottom:250px">
+    <h2 class="float-left" style="position:relative; left:500px; bottom:50px">Recent reviews</h2>
+    <table id="reviews-table" class="table table-sm table-hover float-left" style="width:60% ; padding:0; position:relative; top:20px; right:200px">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Username</th>
                 <th scope="col">Game</th>
                 <th scope="col">Rating</th>
+                <th scope="col">Posted on</th>
             </tr>
         </thead>
         <tbody>
@@ -80,10 +81,44 @@
             </tr>
         </tbody>
     </table>
-    <script>
-        $('.reviews-table').animate({
-            height: "0px"
-        }, 
-    </script>
-</div>
+    <div class="float-right col-md-3" style="position:relative; bottom:60px; right:50px">
+        <h3 style="margin-left:50px; margin-bottom:10px">Top Rated Games</h3>
+        <table class="table table-responsive-sm" style="outline-style:solid; outline-width:2px" width="300" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Poster</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td><div style="width:100px">The Withcer 3</div></td>
+                    <td><img src="https://wallpapercave.com/wp/wp4576868.jpg" height="100" width="170"/></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<section style="position:relative; bottom:800px">
+    <h1 style="margin-left:600px">Read about the newest console</h1>
+    <div style="margin-top:100px">
+        <img style="float:left" src="https://o.aolcdn.com/images/dims?quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2020-06%2Fed27dac0-ac98-11ea-bfff-f40bb81f4fdb&client=amp-blogside-v2&signature=5b2ab87a81ce3025ca04eafeb6bfca7719a7f5d1" height="600px" width="800px" border="1px">
+        <h5 style="width:800px; float:right; margin-right:200px">
+            Despite the assured message, the PS5 embraces its past more than I anticipated. But it also carves out an innovative path into the future, one that showcases how gaming experiences still have so much potential for increased player immersion and convenience. The result is a fantastic console with only a few notable shortcomings.
+
+            The PS5 is strikingly similar to its predecessor in many ways, carrying over much of the existing ecosystem so that consumers can transfer their games, saves and online identity with minimum fuss. But with every thread of resemblance comes a modification, whether it’s the wondrous DualSense controller or the endless quality-of-life changes provided by the SSD storage.
+
+            Everything feels smoother, making the act of jumping into games so much more inviting. While the PS5 doesn’t reach the high standards of backwards compatibility and performance of its competitors, this remains a piece of hardware with much potential, teasing a coming generation that will be filled with brilliant games, exciting advantages and many more surprises to look forward to.
+
+            But right now, how does the PS5 fare against what came before it? Will hardcore and casual consumers alike benefit from spending £449/£359 on the new console, despite a fairly small selection of launch titles. The answer is complicated, but one that’s ultimately slathered in positivity for what could be Sony’s best machine yet.
+        </h5>
+    </div>
+</section>
 
