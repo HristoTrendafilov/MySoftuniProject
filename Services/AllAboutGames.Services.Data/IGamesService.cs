@@ -1,14 +1,12 @@
 ﻿namespace AllAboutGames.Services.Data
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using AllAboutGames.Data.Models;
-    using AllAboutGames.Services.Data.InputModels;
     using AllAboutGames.Web.ViewModels.Game;
+    using AllAboutGames.Web.ViewModels.InputModels;
 
     public interface IGamesService
     {
-        CreateGameViewModel GetAllInfo();
+        AddGameViewModel GetAllInfo();
 
         Task AddGameAsync(AddGameInputModel model);
     }

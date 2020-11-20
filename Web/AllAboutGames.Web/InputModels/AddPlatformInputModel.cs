@@ -2,7 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using AllAboutGames.Web.CustomAttributes;
 
     public class AddPlatformInputModel
     {
@@ -13,7 +12,7 @@
         [Range(0, int.MaxValue)]
         public int GamesCount { get; set; }
 
-        [ValidUrl]
+        [Url]
         public string Image { get; set; }
 
         [MinLength(3)]

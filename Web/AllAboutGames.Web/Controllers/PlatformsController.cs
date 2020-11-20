@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     using AllAboutGames.Services.Data;
-    using AllAboutGames.Services.Data.InputModels;
+    using AllAboutGames.Web.ViewModels.InputModels;
     using Microsoft.AspNetCore.Mvc;
 
     public class PlatformsController : Controller
@@ -25,17 +25,25 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddPlatformInputModel model)
         {
-            if (this.ModelState.IsValid)
+            if (this.platformService.CheckIfPlatformExists(model.Name))
             {
-                if (this.platformService.CheckIfPlatformExists(model.Name))
-                {
-                    return this.Redirect("/Platforms/Add");
-                }
-
-                await this.platformService.AddPlatformAsync(model);
+                return this.Redirect("/Platforms/Add");
             }
 
-            return this.Redirect("/Platforms/Add");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            await this.platformService.AddPlatformAsync(model);
+            return this.RedirectToAction("Add");
+        }
+
+        public async Task<IActionResult> Playstation()
+        {
+            var viewModel = this.platformService.GetAllGamesByPlatform("Playstation");
+
+            return this.View("All", viewModel);
         }
     }
 }

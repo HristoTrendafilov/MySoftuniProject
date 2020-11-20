@@ -21,9 +21,6 @@
         [MaxLength(200)]
         public string Name { get; set; }
 
-        [Required]
-        public string Image { get; set; }
-
         public virtual ICollection<Game> Games { get; set; }
 
         public bool IsDeleted { get; set; }

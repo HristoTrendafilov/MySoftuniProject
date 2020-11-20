@@ -1,63 +1,84 @@
-﻿@model AllAboutGames.Web.ViewModels.Game.CreateGameViewModel
-<center>
-    <h1>Add video game here!</h1>
-    <form method="post">
-        <div class="form-group">
-            <label>Name</label>
-            <input name="name" style="width: 500px" class="form-control">
+﻿@using AllAboutGames.Web.ViewModels.Game
+@model AddGameViewModel
+<form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
+    <p class="h1 mb-4">Add new video game</p>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-4">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control mb-4">
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" step="0.01" name="price" style="width: 200px" class="form-control">
+        <div class="form-group col-md-4">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" type="number" class="form-control mb-4">
+            <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label>Image</label>
-            <input name="Image" style="width: 500px" class="form-control">
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-4">
+            <label asp-for="Developer"></label>
+            <input asp-for="Developer" class="form-control mb-4">
+            <span asp-validation-for="Developer" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label>Website</label>
-            <input name="Website" style="width: 500px" class="form-control">
+        <div class="form-group, col-md-4">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-control-file">
+            <span asp-validation-for="Image" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label>Release date</label>
-            <input type="date" name="releasedate" style="width: 200px" class="form-control">
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-4">
+            <label asp-for="Website"></label>
+            <input asp-for="Website" class="form-control mb-4">
+            <span asp-validation-for="Website" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label>Developed by</label>
-            <input name="developer" style="width: 200px" class="form-control">
+        <div class="form-group col-md-4">
+            <label asp-for="Trailer"></label>
+            <input asp-for="Trailer" class="form-control mb-4">
+            <span asp-validation-for="Trailer" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label>Published by</label>
-            <input name="publisher" style="width: 200px" class="form-control">
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-4">
+            <label asp-for="ReleaseDate"></label>
+            <input type="date" value="@DateTime.Now" asp-for="ReleaseDate" class="form-control mb-4">
+            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
         </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <textarea asp-for="Summary" style="width:1000px; position:relative; bottom:20px" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" placeholder="Summary"></textarea>
+        <span asp-validation-for="Summary" class="text-danger"></span>
+    </div>
+
+    <div>
         <h5>Select genres</h5>
         @foreach (var genre in Model.Genres)
         {
             <div class="form-check form-check-inline">
-                <input name="genre" class="form-check-input" type="checkbox" value="@genre.Name">
+                <input name="genres" class="form-check-input" type="checkbox" value="@genre.Name">
                 <label class="form-check-label" for="inlineCheckbox1">@genre.Name</label>
             </div>
         }
+    </div>
+    <div style="position:relative; top:20px">
         <h5>Select languages</h5>
         @foreach (var language in Model.Languages)
         {
             <div class="form-check form-check-inline">
-                <input name="language" class="form-check-input" type="checkbox" value="@language.Name">
+                <input name="languages" class="form-check-input" type="checkbox" value="@language.Name">
                 <label class="form-check-label" for="inlineCheckbox1">@language.Name</label>
             </div>
         }
+    </div>
+    <div style="position:relative; top:50px">
         <h5>Select platforms</h5>
         @foreach (var platform in Model.Platforms)
         {
             <div class="form-check form-check-inline">
-                <input name="platform" class="form-check-input" type="checkbox" value="@platform.Name">
+                <input name="platforms" class="form-check-input" type="checkbox" value="@platform.Name">
                 <label class="form-check-label" for="inlineCheckbox1">@platform.Name</label>
             </div>
         }
-        <div class="form-group">
-            <label>Summary</label>
-            <textarea name="summary" class="form-control" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</center>
+    </div>
+    <button style="position:relative; top:100px; margin-bottom:50px; width:200px" type="submit" class="btn btn-outline-primary">Add</button>
+</form>

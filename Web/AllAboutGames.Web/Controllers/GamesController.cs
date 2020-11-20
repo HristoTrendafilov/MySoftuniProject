@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using AllAboutGames.Services.Data;
-    using AllAboutGames.Services.Data.InputModels;
+    using AllAboutGames.Web.ViewModels.InputModels;
     using Microsoft.AspNetCore.Mvc;
 
     public class GamesController : Controller
@@ -26,12 +26,14 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddGameInputModel model)
         {
-            if (this.ModelState.IsValid)
+            var viewModel = this.gameService.GetAllInfo();
+
+            if (!this.ModelState.IsValid)
             {
-                await this.gameService.AddGameAsync(model);
-                return this.Redirect("/");
+                return this.View(viewModel);
             }
 
+            await this.gameService.AddGameAsync(model);
             return this.Redirect("/");
         }
     }
