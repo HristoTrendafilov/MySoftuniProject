@@ -23,5 +23,10 @@ namespace AllAboutGames.Data.Models
         public string GameId { get; set; }
 
         public Game Game { get; set; }
+
+        [ForeignKey(nameof(User))]
+        public string UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
     }
 }

@@ -7,7 +7,9 @@
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using AllAboutGames.Web.ViewModels.Game;
+    using AllAboutGames.Web.ViewModels.Games;
     using AllAboutGames.Web.ViewModels.InputModels;
+    using Microsoft.AspNetCore.Hosting;
 
     public class GamesService : IGamesService
     {
@@ -52,7 +54,7 @@
                 developer = new Developer() { Name = model.Developer };
             }
 
-            var imageName = this.UploadedFile(model);
+            var imageName = await this.UploadedFile(model);
 
             var game = new Game()
             {
@@ -99,27 +101,46 @@
             }
         }
 
-        private string UploadedFile(AddGameInputModel model)
+        public GameDetailsViewModel GetDetails(string id)
         {
-            if (model.Image != null && model.Image.Length > 0)
+            return this.gameRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new GameDetailsViewModel
+                {
+                    Name = x.Name,
+                    Developer = x.Developer.Name,
+                    Image = x.Image,
+                    Price = x.Price.ToString() + "$",
+                    Rating = x.Rating,
+                    TrailerUrl = x.TrailerUrl,
+                    Website = x.Website,
+                    Summary = x.Summary,
+                    Genres = string.Join(", ", x.GamesGenres.Select(gg => gg.Genre.Name)),
+                    Languages = string.Join(", ", x.GamesLanguages.Select(gl => gl.Language.Name)),
+                    Platforms = string.Join(", ", x.GamesPlatforms.Select(gp => gp.Platform.Name)),
+                    Comments = x.Comments.Select(c => new GameCommentsViewModel { Text = c.Text, User = c.User.UserName }),
+                })
+                .FirstOrDefault();
+        }
+
+        private async Task<string> UploadedFile(AddGameInputModel model)
+        {
+            var fileName = Path.GetFileName(model.Image.FileName);
+            var directory = $"wwwroot\\images\\games\\{model.Name}";
+
+            if (!Directory.Exists(directory))
             {
-                var fileName = Path.GetFileName(model.Image.FileName);
-                var directory = $"wwwroot\\images\\games\\{model.Name}";
-
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\games\\{model.Name}", fileName);
-
-                using (var fileSteam = new FileStream(filePath, FileMode.Create))
-                {
-                     model.Image.CopyToAsync(fileSteam);
-                }
+                Directory.CreateDirectory(directory);
             }
 
-            return model.Image.FileName;
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\games\\{model.Name}", fileName);
+
+            using (var fileSteam = new FileStream(filePath, FileMode.Create))
+            {
+                await model.Image.CopyToAsync(fileSteam);
+            }
+
+            return $"\\images\\games\\{model.Name}\\{fileName}";
         }
     }
 }

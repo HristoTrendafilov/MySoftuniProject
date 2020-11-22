@@ -41,7 +41,54 @@
 
         public async Task<IActionResult> Playstation()
         {
-            var viewModel = this.platformService.GetAllGamesByPlatform("Playstation");
+            var consoleName = this.ControllerContext.ActionDescriptor.ActionName;
+            this.ViewData["ConsoleName"] = consoleName;
+            var viewModel = this.platformService.GetAllGamesByPlatform(consoleName);
+
+            return this.View("All", viewModel);
+        }
+
+        public async Task<IActionResult> Xbox()
+        {
+            var consoleName = this.ControllerContext.ActionDescriptor.ActionName;
+            this.ViewData["ConsoleName"] = consoleName;
+            var viewModel = this.platformService.GetAllGamesByPlatform(consoleName);
+
+            return this.View("All", viewModel);
+        }
+
+        public async Task<IActionResult> PC()
+        {
+            var consoleName = this.ControllerContext.ActionDescriptor.ActionName;
+            this.ViewData["ConsoleName"] = consoleName;
+            var viewModel = this.platformService.GetAllGamesByPlatform(consoleName);
+
+            return this.View("All", viewModel);
+        }
+
+        public async Task<IActionResult> Nintendo()
+        {
+            var consoleName = this.ControllerContext.ActionDescriptor.ActionName;
+            this.ViewData["ConsoleName"] = consoleName;
+            var viewModel = this.platformService.GetAllGamesByPlatform(consoleName);
+
+            return this.View("All", viewModel);
+        }
+
+        public async Task<IActionResult> Android()
+        {
+            var consoleName = this.ControllerContext.ActionDescriptor.ActionName;
+            this.ViewData["ConsoleName"] = consoleName;
+            var viewModel = this.platformService.GetAllGamesByPlatform(consoleName);
+
+            return this.View("All", viewModel);
+        }
+
+        public async Task<IActionResult> iOS()
+        {
+            var consoleName = this.ControllerContext.ActionDescriptor.ActionName;
+            this.ViewData["ConsoleName"] = consoleName;
+            var viewModel = this.platformService.GetAllGamesByPlatform(consoleName);
 
             return this.View("All", viewModel);
         }

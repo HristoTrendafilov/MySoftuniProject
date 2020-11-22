@@ -36,5 +36,12 @@
             await this.gameService.AddGameAsync(model);
             return this.Redirect("/");
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            var viewModel = this.gameService.GetDetails(id);
+
+            return this.View(viewModel);
+        }
     }
 }

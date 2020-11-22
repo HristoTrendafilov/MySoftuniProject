@@ -59,7 +59,7 @@
         public IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform)
         {
             return this.gameRepository.All()
-                .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.StartsWith(platform)))
+                .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
                 .Select(x => new AllGamesByPlatformViewModel()
                 {
                     Id = x.Id,

@@ -177,9 +177,14 @@ namespace AllAboutGames.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CommentsForGames");
                 });
@@ -593,6 +598,10 @@ namespace AllAboutGames.Data.Migrations
                     b.HasOne("AllAboutGames.Data.Models.Game", "Game")
                         .WithMany("Comments")
                         .HasForeignKey("GameId");
+
+                    b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("AllAboutGames.Data.Models.Game", b =>
