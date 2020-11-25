@@ -42,6 +42,8 @@
 
         public DbSet<Language> Languages { get; set; }
 
+        public DbSet<Rating> Ratings { get; set; }
+
         public DbSet<GameGenre> GamesGenres { get; set; }
 
         public DbSet<GamePlatform> GamesPlatforms { get; set; }

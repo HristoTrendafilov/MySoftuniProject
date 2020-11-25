@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Services.Data
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -18,19 +19,22 @@
         private readonly IDeletableEntityRepository<Genre> genreRepository;
         private readonly IDeletableEntityRepository<Language> languageRepository;
         private readonly IDeletableEntityRepository<Developer> developerRepository;
+        private readonly IRatingsService ratingsService;
 
         public GamesService(
             IDeletableEntityRepository<Game> gameRepository,
             IDeletableEntityRepository<Platform> platformRepository,
             IDeletableEntityRepository<Genre> genreRepository,
             IDeletableEntityRepository<Language> languageRepository,
-            IDeletableEntityRepository<Developer> developerRepository)
+            IDeletableEntityRepository<Developer> developerRepository,
+            IRatingsService ratingsService)
         {
             this.gameRepository = gameRepository;
             this.platformRepository = platformRepository;
             this.genreRepository = genreRepository;
             this.languageRepository = languageRepository;
             this.developerRepository = developerRepository;
+            this.ratingsService = ratingsService;
         }
 
         public AddGameViewModel GetAllInfo()
@@ -54,13 +58,13 @@
                 developer = new Developer() { Name = model.Developer };
             }
 
-            var imageName = await this.UploadedFile(model);
+            var imagePath = await this.UploadedFile(model);
 
             var game = new Game()
             {
                 Name = model.Name,
                 Developer = developer,
-                Image = imageName,
+                Image = imagePath,
                 Price = model.Price,
                 ReleaseDate = model.ReleaseDate,
                 TrailerUrl = model.Trailer,
@@ -103,24 +107,37 @@
 
         public GameDetailsViewModel GetDetails(string id)
         {
-            return this.gameRepository.All()
+            var game = this.gameRepository.All()
                 .Where(x => x.Id == id)
                 .Select(x => new GameDetailsViewModel
                 {
+                    Id = x.Id,
                     Name = x.Name,
+                    RatingsCount = x.RatingsCount,
                     Developer = x.Developer.Name,
                     Image = x.Image,
-                    Price = x.Price.ToString() + "$",
-                    Rating = x.Rating,
+                    Price = x.Price == 0 ? "Free" : x.Price.ToString() + "$",
                     TrailerUrl = x.TrailerUrl,
                     Website = x.Website,
                     Summary = x.Summary,
+                    ReleaseDate = x.ReleaseDate.ToString("dd/MM/yyyy"),
                     Genres = string.Join(", ", x.GamesGenres.Select(gg => gg.Genre.Name)),
                     Languages = string.Join(", ", x.GamesLanguages.Select(gl => gl.Language.Name)),
                     Platforms = string.Join(", ", x.GamesPlatforms.Select(gp => gp.Platform.Name)),
                     Comments = x.Comments.Select(c => new GameCommentsViewModel { Text = c.Text, User = c.User.UserName }),
                 })
                 .FirstOrDefault();
+
+            if (game.RatingsCount > 0)
+            {
+                game.AverageRating = Math.Round(this.ratingsService.GetAverageRating(game.Id), 1);
+            }
+            else
+            {
+                game.AverageRating = 0;
+            }
+
+            return game;
         }
 
         private async Task<string> UploadedFile(AddGameInputModel model)

@@ -13,6 +13,8 @@
 
         bool CheckIfPlatformExists(string name);
 
-        IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform);
+        IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform, int page, int itemsToShow = 12);
+
+        int GetGamesCount(string platform);
     }
 }

@@ -37,7 +37,7 @@
             return this.Redirect("/");
         }
 
-        public async Task<IActionResult> Details(string id)
+        public IActionResult Details(string id)
         {
             var viewModel = this.gameService.GetDetails(id);
 

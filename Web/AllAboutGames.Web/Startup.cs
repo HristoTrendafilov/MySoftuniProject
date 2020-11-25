@@ -66,6 +66,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGamesService, GamesService>();
             services.AddTransient<IPlatformsService, PlatformsService>();
+            services.AddTransient<IRatingsService, RatingsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

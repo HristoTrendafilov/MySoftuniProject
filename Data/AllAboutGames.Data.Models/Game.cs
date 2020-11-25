@@ -16,6 +16,7 @@
             this.GamesLanguages = new HashSet<GameLanguage>();
 
             this.Reviews = new HashSet<Review>();
+            this.Ratings = new HashSet<Rating>();
             this.Id = Guid.NewGuid().ToString();
         }
 
@@ -27,8 +28,6 @@
         public string Name { get; set; }
 
         public double Price { get; set; }
-
-        public double Rating { get; set; }
 
         [Required]
         public string Summary { get; set; }
@@ -47,19 +46,21 @@
 
         public virtual Developer Developer { get; set; }
 
-        public string RatingsCount { get; set; }
+        public int RatingsCount { get; set; }
 
         public string TrailerUrl { get; set; }
 
-        public virtual ICollection<GameLanguage> GamesLanguages { get; set; }
-
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<CommentForGame> Comments { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
+
+        public virtual ICollection<GameLanguage> GamesLanguages { get; set; }
 
         public virtual ICollection<GamePlatform> GamesPlatforms { get; set; }
 
         public virtual ICollection<GameGenre> GamesGenres { get; set; }
-
-        public virtual ICollection<CommentForGame> Comments { get; set; }
 
         public bool IsDeleted { get; set; }
 

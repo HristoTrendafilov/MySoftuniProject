@@ -9,6 +9,7 @@
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
     using Microsoft.EntityFrameworkCore;
+    using AllAboutGames.Services.Mapping;
 
     public class PlatformsService : IPlatformsService
     {
@@ -56,17 +57,22 @@
             return this.platformRepository.All().Any(x => x.Name == name);
         }
 
-        public IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform)
+        public IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform, int page, int itemsToShow = 12)
         {
-            return this.gameRepository.All()
+            return this.gameRepository.AllAsNoTracking()
                 .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
-                .Select(x => new AllGamesByPlatformViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Image = x.Image,
-                })
+                .OrderByDescending(x => x.ReleaseDate)
+                .Skip((page - 1) * itemsToShow)
+                .Take(itemsToShow)
+                .To<AllGamesByPlatformViewModel>()
                 .ToList();
+        }
+
+        public int GetGamesCount(string platform)
+        {
+            return this.gameRepository.AllAsNoTracking()
+                .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
+                .Count();
         }
     }
 }

@@ -254,11 +254,8 @@ namespace AllAboutGames.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
-                    b.Property<string>("RatingsCount")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RatingsCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
@@ -410,6 +407,37 @@ namespace AllAboutGames.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Platforms");
+                });
+
+            modelBuilder.Entity("AllAboutGames.Data.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GameId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("AllAboutGames.Data.Models.Review", b =>
@@ -663,6 +691,17 @@ namespace AllAboutGames.Data.Migrations
                     b.HasOne("AllAboutGames.Data.Models.Developer", "Developer")
                         .WithMany()
                         .HasForeignKey("DeveloperId");
+                });
+
+            modelBuilder.Entity("AllAboutGames.Data.Models.Rating", b =>
+                {
+                    b.HasOne("AllAboutGames.Data.Models.Game", "Game")
+                        .WithMany("Ratings")
+                        .HasForeignKey("GameId");
+
+                    b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("AllAboutGames.Data.Models.Review", b =>
