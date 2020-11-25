@@ -1,0 +1,50 @@
+﻿body{
+    margin:0%;
+    padding:0%;
+}
+
+.nav-link {
+    font-size: 15px;
+    color:white;
+}
+.navbar-brand{
+    color:white;
+}
+
+.navbar{
+    position:absolute;
+    width:100%;
+    z-index:99;
+    background-color:transparent;
+}
+
+
+div.carousel .carousel-item > img {
+    width: 1519px;
+    height: 650px;
+}
+
+.carousel {
+    position:relative;
+    width: 100%;
+    height: auto;
+    top:0;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: deepskyblue;
+    cursor:pointer
+}
+
+.border-black {
+    color: grey;
+    /*border white with light shadow*/
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 5px #000;
+    font-family: 'Nunito', sans-serif;
+    border: 3px green solid;
+    color: deepskyblue;
+}
+
+
+
+

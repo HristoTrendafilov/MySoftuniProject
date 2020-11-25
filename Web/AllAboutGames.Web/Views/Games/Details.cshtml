@@ -1,0 +1,128 @@
+﻿@using AllAboutGames.Web.ViewModels.Games
+@model GameDetailsViewModel
+@section Css{
+    <link href="~/css/GameDetails.css" rel="stylesheet" asp-append-version="true" />
+}
+
+<center>
+    @for (int i = 0; i < 5; i++)
+    {
+        if (i < Math.Floor(Model.AverageRating))
+        {
+            <span class="fa fa-star checked star"></span>
+        }
+        else
+        {
+            <span class="fa fa-star star unchecked"></span>
+        }
+    }
+    <span style="color:white; font-size:30px; margin-left:20px"><span style="color:red">@Model.AverageRating</span>/5</span>
+    <h4 style="color:white; margin-top:10px">Votes: <span style="color:red">@Model.RatingsCount</span></h4>
+    <h1 style="margin-top:10px">@Model.Name</h1>
+    <h2><span style="color:red">Developer: </span>@Model.Developer</h2>
+    <h3><span style="color:red">Release date: </span>@Model.ReleaseDate</h3>
+    <h2><span style="color:red;">Price: </span>@Model.Price</h2>
+</center>
+<div style="margin-top:60px">
+    <div class="row">
+        <div class="float-left col-md-8">
+            <h2 style="margin-left:400px">Poster</h2>
+            <img class="border border-primary border-bigger img-fluid" src="@Model.Image" height="500" width="900">
+        </div>
+        <div class="float-right col-md-4" style="position:relative; right:100px">
+            <h2 style="margin-left:200px">Trailer</h2>
+            <iframe class="border border-primary border-bigger" width="550" height="415" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="info" style="margin-left:10px; margin-top:20px">
+        <h5><span style="color:red">Languages: </span>@Model.Languages</h5>
+        <h5><span style="color:red">Platforms: </span>@Model.Platforms</h5>
+        <h5><span style="color:red">Genres: </span>@Model.Genres</h5>
+    </div>
+    <center style="margin-top:50px">
+        <h2><span style="color:blue;">Official website: </span><a style="color:white" href="@Model.Website">@Model.Website</a></h2>
+        <h2 style="position:relative; top:40px; color:red">Rate the game</h2>
+    </center>
+    <div class="addreview">
+        <div class="post">
+            <div class="text">Thanks for rating us!</div>
+            <div class="edit">EDIT</div>
+        </div>
+        <div class="star-widget">
+            <input type="radio" name="rate" id="rate-5">
+            <label for="rate-5" class="fas fa-star"data-vote="5"></label>
+            <input type="radio" name="rate" id="rate-4">
+            <label for="rate-4" class="fas fa-star"data-vote="4"></label>
+            <input type="radio" name="rate" id="rate-3""> 
+            <label for="rate-3" class="fas fa-star"data-vote="3"></label>
+            <input type="radio" name="rate" id="rate-2">
+            <label for="rate-2" class="fas fa-star"data-vote="2"></label>
+            <input type="radio" name="rate" id="rate-1">
+            <label for="rate-1" class="fas fa-star"data-vote="1"></label>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div style="margin-top:100px; width:1400px; margin-left:50px">
+        <center>
+            <h2 style="margin-bottom:40px">Summary</h2>
+        </center>
+        <h4 class="summary">@Model.Summary</h4>
+    </div>
+</div>
+<div class="row d-flex justify-content-center mt-100 mb-100">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body text-center">
+                <h4 class="card-title">Latest Comments</h4>
+            </div>
+            <div class="comment-widgets">
+                <!-- Comment Row -->
+                <div class="d-flex flex-row comment-row m-t-0">
+                    <div class="p-2"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583336/AAA/4.jpg" alt="user" width="50" class="rounded-circle"></div>
+                    <div class="comment-text w-100">
+                        <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                        <div class="comment-footer"> <span class="text-muted float-right">April 14, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div>
+                    </div>
+                </div> <!-- Comment Row -->
+                <div class="d-flex flex-row comment-row">
+                    <div class="p-2"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583319/AAA/3.jpg" alt="user" width="50" class="rounded-circle"></div>
+                    <div class="comment-text active w-100">
+                        <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                        <div class="comment-footer"> <span class="text-muted float-right">May 10, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div>
+                    </div>
+                </div> <!-- Comment Row -->
+                <div class="d-flex flex-row comment-row">
+                    <div class="p-2"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="user" width="50" class="rounded-circle"></div>
+                    <div class="comment-text w-100">
+                        <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
+                        <div class="comment-footer"> <span class="text-muted float-right">August 1, 2019</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button" class="btn btn-danger btn-sm">Delete</button> </div>
+                    </div>
+                </div>
+            </div> <!-- Card -->
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+    <script src="~/js/GameDetails.js"></script>
+    <script>
+        $("label[data-vote]").each(function (el) {
+            $(this).click(function () {
+                var value = parseInt($(this).attr("data-vote"));
+                var gameId = "@Model.Id";
+                var data = { gameId: gameId, value: value };
+                console.log(value);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Ratings",
+                    data: JSON.stringify(data),
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    contentType: 'application/json',
+                })
+            });
+        });
+    </script>
+}

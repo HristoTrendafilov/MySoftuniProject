@@ -1,0 +1,20 @@
+﻿@using AllAboutGames.Web.ViewModels.Platforms
+@model AllGamesListViewModel
+
+@section Css{
+    <link href="~/css/AllGames.css" rel="stylesheet" asp-append-version="true" />
+}
+<center>
+    <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["PlatformName"] Games</h1>
+</center>
+<div class="cards-list">
+    @foreach (var game in Model.Games)
+    {
+        <a href="/Games/Details?id=@game.Id">
+            <div class="card 1">
+                <div class="card_image"> <img src="@game.Image" /> </div>
+            </div>
+        </a>
+    }
+</div>
+<partial name="_PagingPartial" model="@Model" />

@@ -1,0 +1,297 @@
+﻿.addreview {
+    position: relative;
+    left:320px;
+    margin-top:50px;
+    width: 900px;
+    background: #111;
+    padding: 20px 30px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+    .addreview .post {
+        display: none;
+    }
+
+    .addreview .text {
+        font-size: 25px;
+        color: #666;
+        font-weight: 500;
+    }
+
+    .addreview .edit {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        font-size: 16px;
+        color: #666;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+        .addreview .edit:hover {
+            text-decoration: underline;
+        }
+
+    .addreview .star-widget input {
+        display: none;
+    }
+
+.star-widget label {
+    font-size: 40px;
+    color: #444;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+    color: #fd4;
+}
+
+input:checked ~ label {
+    color: #fd4;
+}
+
+input#rate-5:checked ~ label {
+    color: #fe7;
+    text-shadow: 0 0 20px #952;
+}
+
+#rate-1:checked ~ form header:before {
+    content: "I just hate it 😠";
+}
+
+#rate-2:checked ~ form header:before {
+    content: "I don't like it 😒";
+}
+
+#rate-3:checked ~ form header:before {
+    content: "It is awesome 😄";
+}
+
+#rate-4:checked ~ form header:before {
+    content: "I just like it 😎";
+}
+
+#rate-5:checked ~ form header:before {
+    content: "I just love it 😍";
+}
+
+.addreview form {
+    display: none;
+}
+
+input:checked ~ form {
+    display: block;
+}
+
+form header {
+    width: 100%;
+    font-size: 25px;
+    color: #fe7;
+    font-weight: 500;
+    margin: 5px 0 20px 0;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+form .textarea {
+    height: 400px;
+    margin-top:60px;
+    width: 760px;
+    overflow: hidden;
+}
+
+    form .textarea textarea {
+        height: 100%;
+        width: 100%;
+        outline: none;
+        color: #eee;
+        border: 1px solid #333;
+        background: #222;
+        padding: 10px;
+        font-size: 17px;
+        resize: none;
+    }
+
+.textarea textarea:focus {
+    border-color: #444;
+}
+
+form .btn {
+    height: 45px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+    form .btn button {
+        height: 100%;
+        width: 100%;
+        border: 1px solid #444;
+        outline: none;
+        background: #222;
+        color: #999;
+        font-size: 17px;
+        font-weight: 500;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        form .btn button:hover {
+            background: #1b1b1b;
+        }
+
+
+body {
+    background-image: url("https://inseinc.com/wp-content/uploads/2020/03/Background-web.jpg")
+}
+h1 {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 70px;
+    border: 5px solid blue;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-color: blue;
+}
+h2 {
+    color: white;
+}
+.summary {
+    font-family: American Typewriter, serif;
+    border: solid white;
+    font-family: New Century Schoolbook, TeX Gyre Schola, serif;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    opacity: 10;
+    background-color: mediumblue;
+    color: black;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black;
+}
+p{
+    color:white;
+    margin-left:50px
+}
+h4,h3{
+    color:white
+}
+.info{
+    color:white
+}
+
+.mt-100 {
+    margin-top: 100px
+}
+
+.mb-100 {
+    margin-bottom: 100px
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid white;
+    border-radius: 5px
+}
+
+.card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem
+}
+
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px
+}
+
+.comment-widgets {
+    position: relative;
+    margin-bottom: 10px
+}
+
+    .comment-widgets .comment-row {
+        border-bottom: 1px solid transparent;
+        padding: 14px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin: 10px 0
+    }
+
+.p-2 {
+    padding: 0.5rem !important
+}
+
+.comment-text {
+    padding-left: 15px
+}
+
+.w-100 {
+    width: 100% !important
+}
+
+.m-b-15 {
+    margin-bottom: 15px
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76563rem;
+    line-height: 1.5;
+    border-radius: 1px
+}
+
+.btn-cyan {
+    color: #fff;
+    background-color: #27a9e3;
+    border-color: #27a9e3
+}
+
+    .btn-cyan:hover {
+        color: #fff;
+        background-color: #1a93ca;
+        border-color: #198bbe
+    }
+
+.comment-widgets .comment-row:hover {
+    background: rgba(0, 0, 0, 0.05)
+}
+
+.border-bigger {
+    border-width: 6px !important;
+}
+
+
+.star {
+    font-size:40px;
+    margin-top:20px
+}
+
+.checked {
+    color: orange;
+}
+.unchecked {
+    color: white
+}
