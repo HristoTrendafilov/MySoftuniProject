@@ -57,7 +57,7 @@
             return this.platformRepository.All().Any(x => x.Name == name);
         }
 
-        public IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform, int page, int itemsToShow = 12)
+        public IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform, int page, int itemsToShow = 8)
         {
             return this.gameRepository.AllAsNoTracking()
                 .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))

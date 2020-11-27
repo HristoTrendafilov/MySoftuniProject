@@ -45,6 +45,13 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-image: url("https://inseinc.com/wp-content/uploads/2020/03/Background-web.jpg")
+}
+h1,h2,h3,h4,h5,p{
+    color:white;
+}
+label{
+    color:white;
 }
 
 .footer {

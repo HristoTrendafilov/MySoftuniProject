@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+
     using AllAboutGames.Data.Models;
     using Microsoft.EntityFrameworkCore.Internal;
 
@@ -15,7 +16,7 @@
             }
 
             string[] languages = { "English", "Brazilian", "Portuguese", "French", "Polish", "German", "Russian", "Japanese",
-                "Korean", "Italian", "Turkish", "Arabic" };
+                "Korean", "Italian", "Turkish", "Arabic", };
 
             foreach (var language in languages)
             {

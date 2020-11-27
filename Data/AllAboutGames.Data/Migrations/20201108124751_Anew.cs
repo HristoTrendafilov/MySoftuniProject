@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace AllAboutGames.Data.Migrations
+﻿namespace AllAboutGames.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Anew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +19,7 @@ namespace AllAboutGames.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -30,7 +31,7 @@ namespace AllAboutGames.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false)
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -45,7 +46,7 @@ namespace AllAboutGames.Data.Migrations
                     Name = table.Column<string>(maxLength: 200, nullable: false),
                     Image = table.Column<string>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -59,7 +60,7 @@ namespace AllAboutGames.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -73,7 +74,7 @@ namespace AllAboutGames.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -91,7 +92,7 @@ namespace AllAboutGames.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -106,7 +107,7 @@ namespace AllAboutGames.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -125,7 +126,7 @@ namespace AllAboutGames.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    CountryId = table.Column<string>(nullable: false)
+                    CountryId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -154,7 +155,7 @@ namespace AllAboutGames.Data.Migrations
                     RatingsCount = table.Column<string>(nullable: true),
                     TrailerUrl = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -178,7 +179,7 @@ namespace AllAboutGames.Data.Migrations
                     ReleaseDate = table.Column<DateTime>(nullable: false),
                     DeveloperId = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -214,7 +215,7 @@ namespace AllAboutGames.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    CityId = table.Column<string>(nullable: true)
+                    CityId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -233,7 +234,7 @@ namespace AllAboutGames.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     Text = table.Column<string>(nullable: false),
-                    GameId = table.Column<string>(nullable: true)
+                    GameId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -251,7 +252,7 @@ namespace AllAboutGames.Data.Migrations
                 columns: table => new
                 {
                     GameId = table.Column<string>(nullable: false),
-                    GenreId = table.Column<string>(nullable: false)
+                    GenreId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -275,7 +276,7 @@ namespace AllAboutGames.Data.Migrations
                 columns: table => new
                 {
                     GameId = table.Column<string>(nullable: false),
-                    LanguageId = table.Column<string>(nullable: false)
+                    LanguageId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -299,7 +300,7 @@ namespace AllAboutGames.Data.Migrations
                 columns: table => new
                 {
                     GameId = table.Column<string>(nullable: false),
-                    PlatformId = table.Column<string>(nullable: false)
+                    PlatformId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -326,7 +327,7 @@ namespace AllAboutGames.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    ClaimValue = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -346,7 +347,7 @@ namespace AllAboutGames.Data.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -364,7 +365,7 @@ namespace AllAboutGames.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -390,7 +391,7 @@ namespace AllAboutGames.Data.Migrations
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    Value = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -411,7 +412,7 @@ namespace AllAboutGames.Data.Migrations
                     Text = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     GameId = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {

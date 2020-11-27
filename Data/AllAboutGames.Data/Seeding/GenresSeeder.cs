@@ -15,10 +15,12 @@
                 return;
             }
 
-            string[] genres = { "Indie", "Action", "Adventure", "Casual", "Simulation", "Strategy", "RPG",
+            string[] genres =
+                { "Indie", "Action", "Adventure", "Casual", "Simulation", "Strategy", "RPG",
                 "Singleplayer", "Violent", "Sports", "Racing", "Multiplayer", "Puzzle", "Fantasy",
                 "First-Person", "Horror", "Sci-fi", "Shooter", "Retro", "Co-Op", "Exploration", "Open world", "Third person",
-                "PVP", "Space", "Fighting", "Aliens", };
+                "PVP", "Space", "Fighting", "Aliens",
+                };
 
             foreach (var genre in genres)
             {

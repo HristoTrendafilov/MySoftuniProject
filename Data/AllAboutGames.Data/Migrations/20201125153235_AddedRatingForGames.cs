@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace AllAboutGames.Data.Migrations
+﻿namespace AllAboutGames.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedRatingForGames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +22,7 @@ namespace AllAboutGames.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     GameId = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    RateValue = table.Column<byte>(nullable: false)
+                    RateValue = table.Column<byte>(nullable: false),
                 },
                 constraints: table =>
                 {

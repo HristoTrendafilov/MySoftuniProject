@@ -63,7 +63,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IGamesService, GamesService>();
             services.AddTransient<IPlatformsService, PlatformsService>();
             services.AddTransient<IRatingsService, RatingsService>();

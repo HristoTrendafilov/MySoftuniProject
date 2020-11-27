@@ -10,7 +10,7 @@
 
     public class PlatformsController : Controller
     {
-        private const int ItemsPerPage = 12;
+        private const int ItemsPerPage = 8;
         private readonly IPlatformsService platformService;
 
         public PlatformsController(IPlatformsService platformService)
@@ -41,7 +41,7 @@
             return this.RedirectToAction("Add");
         }
 
-        public async Task<IActionResult> Playstation(int id = 1)
+        public IActionResult Playstation(int id = 1)
         {
             var platformName = this.ControllerContext.ActionDescriptor.ActionName;
             var viewModel = this.GetData(id, platformName, ItemsPerPage);
@@ -49,7 +49,7 @@
             return this.View("All", viewModel);
         }
 
-        public async Task<IActionResult> Xbox(int id = 1)
+        public IActionResult Xbox(int id = 1)
         {
             var platformName = this.ControllerContext.ActionDescriptor.ActionName;
             var viewModel = this.GetData(id, platformName, ItemsPerPage);
@@ -57,7 +57,7 @@
             return this.View("All", viewModel);
         }
 
-        public async Task<IActionResult> PC(int id)
+        public IActionResult PC(int id)
         {
             var platformName = this.ControllerContext.ActionDescriptor.ActionName;
             var viewModel = this.GetData(id, platformName, ItemsPerPage);
@@ -65,7 +65,7 @@
             return this.View("All", viewModel);
         }
 
-        public async Task<IActionResult> Nintendo(int id = 1)
+        public IActionResult Nintendo(int id = 1)
         {
             var platformName = this.ControllerContext.ActionDescriptor.ActionName;
             var viewModel = this.GetData(id, platformName, ItemsPerPage);
@@ -73,7 +73,7 @@
             return this.View("All", viewModel);
         }
 
-        public async Task<IActionResult> Android(int id = 1)
+        public IActionResult Android(int id = 1)
         {
             var platformName = this.ControllerContext.ActionDescriptor.ActionName;
             var viewModel = this.GetData(id, platformName, ItemsPerPage);
@@ -81,7 +81,7 @@
             return this.View("All", viewModel);
         }
 
-        public async Task<IActionResult> iOS(int id = 1)
+        public IActionResult iOS(int id = 1)
         {
             var platformName = this.ControllerContext.ActionDescriptor.ActionName;
             var viewModel = this.GetData(id, platformName, ItemsPerPage);
@@ -91,7 +91,7 @@
 
         private AllGamesListViewModel GetData(int id, string platformName, int itemsPerPage)
         {
-            this.ViewData[platformName] = platformName;
+            this.ViewData["PlatformName"] = platformName;
             return new AllGamesListViewModel
             {
                 ItemsPerPage = itemsPerPage,

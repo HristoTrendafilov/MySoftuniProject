@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels
+﻿namespace AllAboutGames.Web.ViewModels
 {
+    using System;
+
     public class PagingViewModel
     {
         public int PageNumber { get; set; }

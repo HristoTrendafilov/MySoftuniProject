@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace AllAboutGames.Web.Controllers
+﻿namespace AllAboutGames.Web.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class ReviewsController : Controller
     {
         public IActionResult All()

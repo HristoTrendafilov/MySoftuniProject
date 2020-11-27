@@ -11,10 +11,15 @@
     @foreach (var game in Model.Games)
     {
         <a href="/Games/Details?id=@game.Id">
-            <div class="card 1">
-                <div class="card_image"> <img src="@game.Image" /> </div>
+            <div>
+                <center>
+                    <h4 style="margin-left:30px; color:blue">@game.Name</h4>
+                </center>
+                <div class="card 1">
+                    <div class="card_image"> <img src="@game.Image" /> </div>
+                </div>
             </div>
         </a>
     }
 </div>
-<partial name="_PagingPartial" model="@Model" />
+<partial name="_PagingPartial" model="@Model" view-data="ViewData" />

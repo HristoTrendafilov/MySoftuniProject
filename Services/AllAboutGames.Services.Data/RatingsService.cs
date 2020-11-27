@@ -18,9 +18,14 @@
 
         public double GetAverageRating(string gameId)
         {
-            var averageRating = this.ratingsRepository.All().Where(x => x.GameId == gameId).Average(x => x.Value);
+            var rating = this.ratingsRepository.All().Where(x => x.GameId == gameId);
 
-            return averageRating;
+            if (rating == null)
+            {
+                return 0;
+            }
+
+            return rating.Average(x => x.Value);
         }
 
         public async Task SetRatingAsync(string gameId, string userId, int value)

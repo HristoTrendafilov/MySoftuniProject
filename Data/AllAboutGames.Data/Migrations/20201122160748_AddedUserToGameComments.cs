@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace AllAboutGames.Data.Migrations
+﻿namespace AllAboutGames.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedUserToGameComments : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

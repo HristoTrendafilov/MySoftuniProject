@@ -117,7 +117,7 @@
                     Developer = x.Developer.Name,
                     Image = x.Image,
                     Price = x.Price == 0 ? "Free" : x.Price.ToString() + "$",
-                    TrailerUrl = x.TrailerUrl,
+                    TrailerUrl = x.TrailerUrl.Replace("watch?v=", "embed/"),
                     Website = x.Website,
                     Summary = x.Summary,
                     ReleaseDate = x.ReleaseDate.ToString("dd/MM/yyyy"),
