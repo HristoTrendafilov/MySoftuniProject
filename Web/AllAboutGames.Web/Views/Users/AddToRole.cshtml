@@ -1,0 +1,22 @@
+﻿@using AllAboutGames.Web.ViewModels.Users
+@model AddUserToRoleViewModel
+@{ 
+    var usersItems = this.Model.Users.Select(x => new SelectListItem(x.Value, x.Value));
+    var roleItems = this.Model.Roles.Select(x => new SelectListItem(x.Value, x.Value));
+}
+<form method="post" class="col-md-6 offset-md-3">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <center>
+        <div class="form-group">
+            <label asp-for="Users"></label>
+            <select class="form-control" asp-for="Users" asp-items="usersItems"></select>
+            <span asp-validation-for="Users" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Roles"></label>
+            <select class="form-control" asp-for="Roles" asp-items="roleItems"></select>
+            <span asp-validation-for="Roles" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success" style="width:120px">Add</button>
+    </center>
+</form>

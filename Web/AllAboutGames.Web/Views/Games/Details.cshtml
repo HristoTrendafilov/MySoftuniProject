@@ -3,7 +3,10 @@
 @section Css{
     <link href="~/css/GameDetails.css" rel="stylesheet" asp-append-version="true" />
 }
-
+@if (this.ViewData["Success"] != null)
+{
+    <script language='javascript' type='text/javascript'>alert('Thanks for the review!');</script>
+}
 <center>
     @for (int i = 0; i < 5; i++)
     {
@@ -50,15 +53,27 @@
         </div>
         <div class="star-widget">
             <input type="radio" name="rate" id="rate-5">
-            <label for="rate-5" class="fas fa-star"data-vote="5"></label>
+            <label for="rate-5" class="fas fa-star" data-vote="5"></label>
             <input type="radio" name="rate" id="rate-4">
-            <label for="rate-4" class="fas fa-star"data-vote="4"></label>
-            <input type="radio" name="rate" id="rate-3""> 
-            <label for="rate-3" class="fas fa-star"data-vote="3"></label>
+            <label for="rate-4" class="fas fa-star" data-vote="4"></label>
+            <input type="radio" name="rate" id="rate-3">
+            <label for="rate-3" class="fas fa-star" data-vote="3"></label>
             <input type="radio" name="rate" id="rate-2">
-            <label for="rate-2" class="fas fa-star"data-vote="2"></label>
+            <label for="rate-2" class="fas fa-star" data-vote="2"></label>
             <input type="radio" name="rate" id="rate-1">
-            <label for="rate-1" class="fas fa-star"data-vote="1"></label>
+            <label for="rate-1" class="fas fa-star" data-vote="1"></label>
+            @if (this.User.IsInRole("Reviewer"))
+            {
+                <form method="post" asp-controller="Reviews" asp-action="Add">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <header></header>
+                    <div class="textarea">
+                        <textarea asp-for="ReviewText" name="text" cols="30" placeholder="Describe your experience.."></textarea>
+                        <input name="gameId" value="@Model.Id" type="hidden" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Post</button>
+                </form>
+            }
         </div>
     </div>
 </div>
@@ -103,7 +118,7 @@
         </div>
     </div>
 </div>
-@section Scripts{ 
+@section Scripts{
     <script src="~/js/GameDetails.js"></script>
     <script>
         $("label[data-vote]").each(function (el) {

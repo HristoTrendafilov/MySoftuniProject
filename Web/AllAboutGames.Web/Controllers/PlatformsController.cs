@@ -6,6 +6,7 @@
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class PlatformsController : Controller
@@ -18,12 +19,14 @@
             this.platformService = platformService;
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Add()
         {
             return this.View();
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> Add(AddPlatformInputModel model)
         {

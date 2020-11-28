@@ -44,7 +44,7 @@
                 await this.ratingsRepository.AddAsync(rating);
 
                 game.RatingsCount++;
-            await this.gameRepository.SaveChangesAsync();
+                await this.gameRepository.SaveChangesAsync();
             }
 
             rating.Value = value;

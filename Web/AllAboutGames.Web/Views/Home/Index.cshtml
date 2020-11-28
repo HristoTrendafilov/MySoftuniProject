@@ -1,4 +1,6 @@
 ﻿@using AllAboutGames.Common
+@using AllAboutGames.Web.ViewModels.Home
+@model IndexPageViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -46,18 +48,18 @@
 </div>
 <section style="margin-top:60px;">
     <div class="box float-left" style="margin-bottom: 100px; margin-left:50px">
-        <h3 style="margin-left:50px">Top Rated Game</h3>
+        <h3 style="margin-left:50px; color:red">Top Rated Game</h3>
         <div class="card">
             <div class="imgBx">
-                <img src="https://s13emagst.akamaized.net/products/1580/1579258/images/res_588eeecec30e5bc671f2089316ebcffa.jpg" alt="images">
+                <img src="@Model.TopRatedGame.Image" alt="images">
             </div>
             <div class="details">
-                <h2>SomeOne Famous<br><span>Director</span></h2>
+                <h2>@Model.TopRatedGame.Name<br><span>@Model.TopRatedGame.DeveloperName</span></h2>
             </div>
         </div>
-        <a href="#" class="btn btn-primary" style="margin-top:20px; width:300px">View Detail</a>
+        <a href="/Games/Details?id=@Model.TopRatedGame.Id" class="btn btn-primary" style="margin-top:20px; width:300px">View Detail</a>
     </div>
-    <h3 style="margin-left:860px">Recent Reviews</h3>
+    <h3 style="margin-left:860px; color:blue">Recent Reviews</h3>
     <table class="table table-striped float-right table-hover table-light" style="width:60%; margin-top:10px; margin-right:80px">
         <thead>
             <tr>
@@ -68,60 +70,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-                <td>12.12.2020</td>
-            </tr>
-            <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>fat</td>
-                <td>12.12.2020</td>
-            </tr>
-            <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>twitter</td>
-                <td>12.12.2020</td>
-            </tr>
-            <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>twitter</td>
-                <td>12.12.2020</td>
-            </tr>
-            <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>twitter</td>
-                <td>12.12.2020</td>
-            </tr>
-            <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>twitter</td>
-                <td>12.12.2020</td>
-            </tr>
+            @foreach (var review in Model.Reviews)
+            {
+                <tr>
+                    <td>@review.ReviewedByUserName</td>
+                    <td>@review.GameName</td>
+                    <td>@review.GameRating</td>
+                    <td>@review.CreatedOn</td>
+                </tr>
+            }
         </tbody>
     </table>
 </section>
 <div class="container" style="margin-top:500px; margin-bottom:150px">
-    <h1 class="text-center">Read about the newest console</h1>
-    <div class="row text-center">
-        <div class="col-md-6" style="position:relative; right:180px; top:50px">
-            <img style="border:solid; border-color:blue; border-width:5px" src="https://o.aolcdn.com/images/dims?quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-uploaded-images%2F2020-06%2Fed27dac0-ac98-11ea-bfff-f40bb81f4fdb&client=amp-blogside-v2&signature=5b2ab87a81ce3025ca04eafeb6bfca7719a7f5d1" height="450">
-        </div>
-        <div class="col-md-6" style="margin-top:70px">
-            <p style="font-size:18px">
-                PlayStation 5 (PS5) is a home video game console developed by Sony Interactive Entertainment. Announced in 2019 as the successor to the PlayStation 4, the PS5 was released on November 12, 2020 in North America, Australia, New Zealand, Japan, Singapore, and South Korea, and is set to launch on November 19, 2020 for the rest of the world.
-
-                The platform launched in two variants: a base model with an Ultra HD Blu-ray-compatible optical disc drive, and a Digital Edition lacking this drive, serving as a lower-cost variant for consumers who prefer to buy games through digital download.
-
-                The PlayStation 5's main features include a solid-state drive customized for high-speed data streaming to enable significant improvements in storage performance, an AMD GPU capable of 4K resolution display at up to 120 frames per second, hardware-accelerated ray tracing for realistic lighting and reflections, the Tempest Engine allowing for 3D audio effects, and backward compatibility with most PlayStation 4 and PlayStation VR games.
-            </p>
-
-        </div>
+    <h1 class="text-center" style="color:red; border:solid; border-width:5px; border-color:blue">Read about the newest console</h1>
+    <div>
+        <h1 class="text-center" style="color:blue; margin-top:50px">@Model.Platform.Name</h1>
+        <img style="border:solid; border-color:blue; border-width:5px; margin-top:20px; margin-left:150px" src="@Model.Platform.Image" width="750">
+        <h3 style="font-size:18px; margin-top:70px; width:1300px; position:relative; right:100px">
+            @Model.Platform.Info
+        </h3>
     </div>
 </div>

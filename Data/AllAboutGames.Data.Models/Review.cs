@@ -3,10 +3,10 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
+    using AllAboutGames.Data.Common.Models;
     using AllAboutGames.Data.Models;
 
-    public class Review
+    public class Review : IDeletableEntity
     {
         public Review()
         {
@@ -32,5 +32,9 @@
         public string UserId { get; set; }
 
         public virtual ApplicationUser ReviewedBy { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AllAboutGames.Web.ViewModels.Games
 {
@@ -31,6 +32,9 @@ namespace AllAboutGames.Web.ViewModels.Games
         public string Platforms { get; set; }
 
         public string Genres { get; set; }
+
+        [Required(ErrorMessage = "Review text should contain at least 4 characters.")]
+        public string ReviewText { get; set; }
 
         public IEnumerable<GameCommentsViewModel> Comments { get; set; }
     }

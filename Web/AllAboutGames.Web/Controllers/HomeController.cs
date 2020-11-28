@@ -1,21 +1,24 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
     using System.Diagnostics;
-
+    using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly IIndexService indexService;
+
+        public HomeController(IIndexService indexService)
         {
-            return this.View();
+            this.indexService = indexService;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Index()
         {
-            return this.View();
+            var viewModel = this.indexService.GetData();
+            return this.View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
