@@ -1,15 +1,17 @@
 ﻿namespace AllAboutGames.Services.Data
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
     using Microsoft.EntityFrameworkCore;
-    using AllAboutGames.Services.Mapping;
 
     public class PlatformsService : IPlatformsService
     {
@@ -39,12 +41,14 @@
                 };
             }
 
+            var imagePath = await this.UploadedFile(model);
+
             var platform = new Platform()
             {
                 Info = model.Info,
                 ReleaseDate = model.ReleaseDate,
                 Developer = developer,
-                Image = model.Image,
+                Image = imagePath,
                 Name = model.Name,
             };
 
@@ -52,20 +56,25 @@
             await this.platformRepository.SaveChangesAsync();
         }
 
-        public bool CheckIfPlatformExists(string name)
+        public async Task CheckIfPlatformExistsByNameAsync(string name)
         {
-            return this.platformRepository.All().Any(x => x.Name == name);
+            var platform = await this.platformRepository.All().FirstOrDefaultAsync(x => x.Name == name);
+
+            if (platform == null)
+            {
+                throw new ArgumentException("Platform already exists.");
+            }
         }
 
-        public IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform, int page, int itemsToShow = 8)
+        public async Task<IEnumerable<AllGamesByPlatformViewModel>> GetAllGamesByPlatformAsync(string platform, int page, int itemsToShow = 8)
         {
-            return this.gameRepository.AllAsNoTracking()
+            return await this.gameRepository.AllAsNoTracking()
                 .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
                 .OrderByDescending(x => x.ReleaseDate)
                 .Skip((page - 1) * itemsToShow)
                 .Take(itemsToShow)
                 .To<AllGamesByPlatformViewModel>()
-                .ToList();
+                .ToListAsync();
         }
 
         public int GetGamesCount(string platform)
@@ -73,6 +82,26 @@
             return this.gameRepository.AllAsNoTracking()
                 .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
                 .Count();
+        }
+
+        private async Task<string> UploadedFile(AddPlatformInputModel model)
+        {
+            var fileName = Path.GetFileName(model.Image.FileName);
+            var directory = $"wwwroot\\images\\platforms\\{model.Name}";
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\platforms\\{model.Name}", fileName);
+
+            using (var fileSteam = new FileStream(filePath, FileMode.Create))
+            {
+                await model.Image.CopyToAsync(fileSteam);
+            }
+
+            return $"\\images\\platforms\\{model.Name}\\{fileName}";
         }
     }
 }

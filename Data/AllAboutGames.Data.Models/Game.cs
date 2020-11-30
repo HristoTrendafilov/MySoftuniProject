@@ -27,6 +27,7 @@
         [MaxLength(300)]
         public string Name { get; set; }
 
+        [Required]
         public double Price { get; set; }
 
         [Required]
@@ -40,15 +41,15 @@
         [Required]
         public DateTime ReleaseDate { get; set; }
 
+        public int RatingsCount { get; set; }
+
+        public string TrailerUrl { get; set; }
+
         [Required]
         [ForeignKey(nameof(Developer))]
         public string DeveloperId { get; set; }
 
         public virtual Developer Developer { get; set; }
-
-        public int RatingsCount { get; set; }
-
-        public string TrailerUrl { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
 

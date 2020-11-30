@@ -1,9 +1,12 @@
 ﻿namespace AllAboutGames.Services.Data
 {
-    using AllAboutGames.Data.Common.Repositories;
-    using AllAboutGames.Data.Models;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using AllAboutGames.Data.Common.Repositories;
+    using AllAboutGames.Data.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class RatingsService : IRatingsService
     {
@@ -25,13 +28,13 @@
                 return 0;
             }
 
-            return rating.Average(x => x.Value);
+            return Math.Round(rating.Average(x => x.Value), 1);
         }
 
         public async Task SetRatingAsync(string gameId, string userId, int value)
         {
-            var rating = this.ratingsRepository.All().FirstOrDefault(x => x.GameId == gameId && x.UserId == userId);
-            var game = this.gameRepository.All().FirstOrDefault(x => x.Id == gameId);
+            var rating = await this.ratingsRepository.All().FirstOrDefaultAsync(x => x.GameId == gameId && x.UserId == userId);
+            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == gameId);
 
             if (rating == null)
             {

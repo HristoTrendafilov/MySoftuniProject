@@ -10,6 +10,6 @@
     {
         Task AddAsync(AddReviewInputModel model);
 
-        IEnumerable<AllReviewsViewModel> GetAll();
+        Task<IEnumerable<AllReviewsViewModel>> GetAllAsync();
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels;
 
@@ -15,9 +16,9 @@
             this.indexService = indexService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var viewModel = this.indexService.GetData();
+            var viewModel = await this.indexService.GetDataAsync();
             return this.View(viewModel);
         }
 

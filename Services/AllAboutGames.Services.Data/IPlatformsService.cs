@@ -11,9 +11,9 @@
     {
         Task AddPlatformAsync(AddPlatformInputModel model);
 
-        bool CheckIfPlatformExists(string name);
+        Task CheckIfPlatformExistsByNameAsync(string name);
 
-        IEnumerable<AllGamesByPlatformViewModel> GetAllGamesByPlatform(string platform, int page, int itemsToShow = 12);
+        Task<IEnumerable<AllGamesByPlatformViewModel>> GetAllGamesByPlatformAsync(string platform, int page, int itemsToShow = 12);
 
         int GetGamesCount(string platform);
     }

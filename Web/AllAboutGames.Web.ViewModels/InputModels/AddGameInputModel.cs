@@ -1,8 +1,9 @@
 ﻿namespace AllAboutGames.Web.ViewModels.InputModels
 {
-    using Microsoft.AspNetCore.Http;
     using System;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.AspNetCore.Http;
 
     public class AddGameInputModel
     {
@@ -17,12 +18,8 @@
 
         public IFormFile Image { get; set; }
 
-        [Url]
-        [Required(ErrorMessage = "Invalid Url.")]
         public string Website { get; set; }
 
-        [Url]
-        [Required(ErrorMessage = "Invalid Url.")]
         public string Trailer { get; set; }
 
         public DateTime ReleaseDate { get; set; }
@@ -32,10 +29,13 @@
         [Required(ErrorMessage = "Developer name should be between 3 and 200 characters.")]
         public string Developer { get; set; }
 
+        [Required(ErrorMessage = "Select language.")]
         public string[] Languages { get; set; }
 
+        [Required(ErrorMessage = "Select genre.")]
         public string[] Genres { get; set; }
 
+        [Required(ErrorMessage = "Select platform.")]
         public string[] Platforms { get; set; }
 
         [MinLength(10)]

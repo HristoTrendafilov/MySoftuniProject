@@ -15,9 +15,9 @@
             this.reviewService = reviewService;
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var viewModel = this.reviewService.GetAll();
+            var viewModel = await this.reviewService.GetAllAsync();
             return this.View(viewModel);
         }
 

@@ -3,11 +3,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Reviews;
+    using Microsoft.EntityFrameworkCore;
 
     public class ReviewsService : IReviewsService
     {
@@ -24,7 +26,7 @@
 
         public async Task AddAsync(AddReviewInputModel model)
         {
-            var review = this.reviewRepository.All().FirstOrDefault(x => x.GameId == model.GameId && x.UserId == model.UserId);
+            var review = await this.reviewRepository.All().FirstOrDefaultAsync(x => x.GameId == model.GameId && x.UserId == model.UserId);
 
             if (review == null)
             {
@@ -41,11 +43,11 @@
             await this.reviewRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<AllReviewsViewModel> GetAll()
+        public async Task<IEnumerable<AllReviewsViewModel>> GetAllAsync()
         {
-            return this.gameRepository.All().Where(x => x.Reviews.Count > 0)
+            return await this.gameRepository.All().Where(x => x.Reviews.Count > 0)
                 .To<AllReviewsViewModel>()
-                .ToList();
+                .ToListAsync();
         }
     }
 }

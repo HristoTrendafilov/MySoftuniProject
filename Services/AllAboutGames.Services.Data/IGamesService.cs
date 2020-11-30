@@ -7,10 +7,18 @@
 
     public interface IGamesService
     {
-        AddGameViewModel GetAllInfo();
+        Task<AddGameViewModel> GetAllInfoAsync();
 
         Task AddGameAsync(AddGameInputModel model);
 
-        GameDetailsViewModel GetDetails(string id);
+        Task<GameDetailsViewModel> GetDetailsAsync(string id);
+
+        Task EditGameAsync(string id, EditGameInputModel model);
+
+        Task DeleteGameAsync(string id);
+
+        Task CheckIfGameExistsByNameAsync(string name);
+
+        Task CheckIfGameExistsByIdAsync(string id);
     }
 }

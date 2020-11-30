@@ -1,9 +1,10 @@
 ﻿using AllAboutGames.Web.ViewModels.Home;
+using System.Threading.Tasks;
 
 namespace AllAboutGames.Services.Data
 {
     public interface IIndexService
     {
-        IndexPageViewModel GetData();
+        Task<IndexPageViewModel> GetDataAsync();
     }
 }

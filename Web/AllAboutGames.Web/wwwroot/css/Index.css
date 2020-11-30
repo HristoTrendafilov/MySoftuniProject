@@ -45,6 +45,17 @@ div.carousel .carousel-item > img {
     color: deepskyblue;
 }
 
+.star {
+    font-size: 40px;
+    margin-top: 20px
+}
 
+.checked {
+    color: orange;
+}
+
+.unchecked {
+    color: white
+}
 
 

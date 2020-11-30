@@ -17,10 +17,9 @@
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            var viewModel = this.gameService.GetAllInfo();
+            var viewModel = await this.gameService.GetAllInfoAsync();
 
             return this.View(viewModel);
         }
@@ -29,7 +28,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddGameInputModel model)
         {
-            var viewModel = this.gameService.GetAllInfo();
+            var viewModel = await this.gameService.GetAllInfoAsync();
 
             if (!this.ModelState.IsValid)
             {
@@ -40,12 +39,42 @@
             return this.Redirect("/");
         }
 
-        public IActionResult Details(string id, string success = null)
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Edit(string id)
         {
-            this.ViewData["Success"] = success;
-            var viewModel = this.gameService.GetDetails(id);
+            var viewModel = await this.gameService.GetAllInfoAsync();
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(viewModel);
+            }
 
             return this.View(viewModel);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, EditGameInputModel model)
+        {
+            await this.gameService.EditGameAsync(id, model);
+
+            return this.Redirect($"/Games/Details?id={id}");
+        }
+
+        public async Task<IActionResult> Details(string id, string success = null)
+        {
+            this.ViewData["Success"] = success;
+            var viewModel = await this.gameService.GetDetailsAsync(id);
+
+            return this.View(viewModel);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.gameService.DeleteGameAsync(id);
+
+            return this.Redirect("/");
         }
     }
 }

@@ -287,9 +287,17 @@ namespace AllAboutGames.Data.Migrations
                     b.Property<string>("GenreId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.HasKey("GameId", "GenreId");
 
                     b.HasIndex("GenreId");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("GamesGenres");
                 });
@@ -302,7 +310,15 @@ namespace AllAboutGames.Data.Migrations
                     b.Property<string>("LanguageId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.HasKey("GameId", "LanguageId");
+
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("LanguageId");
 
@@ -317,7 +333,15 @@ namespace AllAboutGames.Data.Migrations
                     b.Property<string>("PlatformId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.HasKey("GameId", "PlatformId");
+
+                    b.HasIndex("IsDeleted");
 
                     b.HasIndex("PlatformId");
 

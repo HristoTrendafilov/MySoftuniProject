@@ -1,6 +1,7 @@
 ﻿@using AllAboutGames.Web.ViewModels.Game
 @model AddGameViewModel
 <form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <h1>Add new video game</h1>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
@@ -55,7 +56,7 @@
         @foreach (var genre in Model.Genres)
         {
             <div class="form-check form-check-inline">
-                <input name="genres" class="form-check-input" type="checkbox" value="@genre.Name">
+                <input name="genres" class="form-check-input" type="checkbox" value="@genre.Id">
                 <label class="form-check-label" for="inlineCheckbox1">@genre.Name</label>
             </div>
         }
@@ -65,7 +66,7 @@
         @foreach (var language in Model.Languages)
         {
             <div class="form-check form-check-inline">
-                <input name="languages" class="form-check-input" type="checkbox" value="@language.Name">
+                <input name="languages" class="form-check-input" type="checkbox" value="@language.Id">
                 <label class="form-check-label" for="inlineCheckbox1">@language.Name</label>
             </div>
         }
@@ -75,7 +76,7 @@
         @foreach (var platform in Model.Platforms)
         {
             <div class="form-check form-check-inline">
-                <input name="platforms" class="form-check-input" type="checkbox" value="@platform.Name">
+                <input name="platforms" class="form-check-input" type="checkbox" value="@platform.Id">
                 <label class="form-check-label" for="inlineCheckbox1">@platform.Name</label>
             </div>
         }

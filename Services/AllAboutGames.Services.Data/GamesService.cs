@@ -10,7 +10,8 @@
     using AllAboutGames.Web.ViewModels.Game;
     using AllAboutGames.Web.ViewModels.Games;
     using AllAboutGames.Web.ViewModels.InputModels;
-    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
 
     public class GamesService : IGamesService
     {
@@ -19,6 +20,9 @@
         private readonly IDeletableEntityRepository<Genre> genreRepository;
         private readonly IDeletableEntityRepository<Language> languageRepository;
         private readonly IDeletableEntityRepository<Developer> developerRepository;
+        private readonly IDeletableEntityRepository<GameGenre> gameGenreRepository;
+        private readonly IDeletableEntityRepository<GameLanguage> gameLanguageRepository;
+        private readonly IDeletableEntityRepository<GamePlatform> gamePlatformRepository;
         private readonly IRatingsService ratingsService;
 
         public GamesService(
@@ -27,6 +31,9 @@
             IDeletableEntityRepository<Genre> genreRepository,
             IDeletableEntityRepository<Language> languageRepository,
             IDeletableEntityRepository<Developer> developerRepository,
+            IDeletableEntityRepository<GameGenre> gameGenreRepository,
+            IDeletableEntityRepository<GameLanguage> gameLanguageRepository,
+            IDeletableEntityRepository<GamePlatform> gamePlatformRepository,
             IRatingsService ratingsService)
         {
             this.gameRepository = gameRepository;
@@ -34,16 +41,19 @@
             this.genreRepository = genreRepository;
             this.languageRepository = languageRepository;
             this.developerRepository = developerRepository;
+            this.gameGenreRepository = gameGenreRepository;
+            this.gameLanguageRepository = gameLanguageRepository;
+            this.gamePlatformRepository = gamePlatformRepository;
             this.ratingsService = ratingsService;
         }
 
-        public AddGameViewModel GetAllInfo()
+        public async Task<AddGameViewModel> GetAllInfoAsync()
         {
-            var viewModel = new AddGameViewModel()
+            var viewModel = new AddGameViewModel
             {
-                Genres = this.genreRepository.All().OrderBy(x => x.Name).ToList(),
-                Languages = this.languageRepository.All().OrderBy(x => x.Name).ToList(),
-                Platforms = this.platformRepository.All().OrderBy(x => x.Name).ToList(),
+                Genres = await this.genreRepository.All().OrderBy(x => x.Name).ToListAsync(),
+                Languages = await this.languageRepository.All().OrderBy(x => x.Name).ToListAsync(),
+                Platforms = await this.platformRepository.All().OrderBy(x => x.Name).ToListAsync(),
             };
 
             return viewModel;
@@ -51,14 +61,16 @@
 
         public async Task AddGameAsync(AddGameInputModel model)
         {
-            var developer = this.developerRepository.All().FirstOrDefault(x => x.Name == model.Developer);
+            await this.CheckIfGameExistsByNameAsync(model.Name);
+
+            var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
 
             if (developer == null)
             {
                 developer = new Developer() { Name = model.Developer };
             }
 
-            var imagePath = await this.UploadedFile(model);
+            var imagePath = await this.UploadedFile(model.Image, model.Name);
 
             var game = new Game()
             {
@@ -72,42 +84,42 @@
                 Website = model.Website,
             };
 
-            foreach (var genre in model.Genres)
+            foreach (var genreId in model.Genres)
             {
-                var currentGenre = this.genreRepository.All().FirstOrDefault(x => x.Name == genre);
+                var gameGenre = new GameGenre() { GameId = game.Id, GenreId = genreId };
 
-                game.GamesGenres.Add(new GameGenre() { Game = game, Genre = currentGenre });
+                await this.gameGenreRepository.AddAsync(gameGenre);
+                game.GamesGenres.Add(gameGenre);
             }
 
-            foreach (var language in model.Languages)
+            foreach (var languageId in model.Languages)
             {
-                var currentLanguage = this.languageRepository.All().FirstOrDefault(x => x.Name == language);
+                var gameLanguage = new GameLanguage() { GameId = game.Id, LanguageId = languageId };
 
-                game.GamesLanguages.Add(new GameLanguage() { Game = game, Language = currentLanguage });
+                await this.gameLanguageRepository.AddAsync(gameLanguage);
+                game.GamesLanguages.Add(gameLanguage);
             }
 
-            foreach (var platform in model.Platforms)
+            foreach (var platformId in model.Platforms)
             {
-                var currentPlatform = this.platformRepository.All().FirstOrDefault(x => x.Name == platform);
+                var gamePlatform = new GamePlatform() { GameId = game.Id, PlatformId = platformId };
 
-                game.GamesPlatforms.Add(new GamePlatform() { Game = game, Platform = currentPlatform });
+                await this.gamePlatformRepository.AddAsync(gamePlatform);
+                game.GamesPlatforms.Add(gamePlatform);
             }
 
             await this.gameRepository.AddAsync(game);
             await this.gameRepository.SaveChangesAsync();
+            await this.gameGenreRepository.SaveChangesAsync();
+            await this.gameLanguageRepository.SaveChangesAsync();
+            await this.gamePlatformRepository.SaveChangesAsync();
         }
 
-        public void CheckIfGameNameExists(string name)
+        public async Task<GameDetailsViewModel> GetDetailsAsync(string id)
         {
-            if (this.gameRepository.All().Any(x => x.Name == name))
-            {
-                return;
-            }
-        }
+            await this.CheckIfGameExistsByIdAsync(id);
 
-        public GameDetailsViewModel GetDetails(string id)
-        {
-            var game = this.gameRepository.All()
+            var game = await this.gameRepository.All()
                 .Where(x => x.Id == id)
                 .Select(x => new GameDetailsViewModel
                 {
@@ -126,11 +138,11 @@
                     Platforms = string.Join(", ", x.GamesPlatforms.Select(gp => gp.Platform.Name)),
                     Comments = x.Comments.Select(c => new GameCommentsViewModel { Text = c.Text, User = c.User.UserName }),
                 })
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             if (game.RatingsCount > 0)
             {
-                game.AverageRating = Math.Round(this.ratingsService.GetAverageRating(game.Id), 1);
+                game.AverageRating = this.ratingsService.GetAverageRating(game.Id);
             }
             else
             {
@@ -140,24 +152,206 @@
             return game;
         }
 
-        private async Task<string> UploadedFile(AddGameInputModel model)
+        public async Task EditGameAsync(string id, EditGameInputModel model)
         {
-            var fileName = Path.GetFileName(model.Image.FileName);
-            var directory = $"wwwroot\\images\\games\\{model.Name}";
+            await this.CheckIfGameExistsByIdAsync(id);
+
+            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var imagePath = await this.UploadedFile(model.Image, model.Name);
+
+            var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
+
+            if (developer == null)
+            {
+                developer = new Developer() { Name = model.Developer };
+            }
+
+            game.Name = model.Name;
+            game.Image = imagePath;
+            game.Price = model.Price;
+            game.ReleaseDate = model.ReleaseDate;
+            game.Summary = model.Summary;
+            game.Website = model.Website;
+            game.TrailerUrl = model.Trailer;
+            game.Developer = developer;
+
+            await this.gameRepository.SaveChangesAsync();
+
+            var gameGenres = await this.gameGenreRepository.All().Where(x => x.GameId == game.Id).ToListAsync();
+            var gameLanguages = await this.gameLanguageRepository.All().Where(x => x.GameId == game.Id).ToListAsync();
+            var gamePlatforms = await this.gamePlatformRepository.All().Where(x => x.GameId == game.Id).ToListAsync();
+
+            if (gameGenres.Count != 0)
+            {
+                foreach (var genre in gameGenres)
+                {
+                    this.gameGenreRepository.HardDelete(genre);
+                    await this.gameGenreRepository.SaveChangesAsync();
+                }
+            }
+
+            await this.UpdateGameGenres(model, game);
+
+            if (gameLanguages.Count != 0)
+            {
+                foreach (var language in gameLanguages)
+                {
+                    this.gameLanguageRepository.HardDelete(language);
+                    await this.gameLanguageRepository.SaveChangesAsync();
+                }
+            }
+
+            await this.UpdateGameLanguages(model, game);
+
+            if (gamePlatforms.Count != 0)
+            {
+                foreach (var platform in gamePlatforms)
+                {
+                    this.gamePlatformRepository.HardDelete(platform);
+                    await this.gamePlatformRepository.SaveChangesAsync();
+                }
+            }
+
+            await this.UpdateGamePlatforms(model, game);
+        }
+
+        public async Task DeleteGameAsync(string id)
+        {
+            await this.CheckIfGameExistsByIdAsync(id);
+
+            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (game == null)
+            {
+                throw new NullReferenceException("Game not found");
+            }
+
+            game.IsDeleted = true;
+            game.DeletedOn = DateTime.UtcNow;
+            this.gameRepository.Update(game);
+            await this.gameRepository.SaveChangesAsync();
+
+            var gameGenres = await this.gameGenreRepository
+                .All()
+                .Where(x => x.GameId == id)
+                .ToListAsync();
+
+            var gameLanguages = await this.gameLanguageRepository
+                .All()
+                .Where(x => x.GameId == id)
+                .ToListAsync();
+
+            var gamePlatforms = await this.gamePlatformRepository
+                .All()
+                .Where(x => x.GameId == id)
+                .ToListAsync();
+
+            foreach (var gameGenre in gameGenres)
+            {
+                gameGenre.IsDeleted = true;
+                gameGenre.DeletedOn = DateTime.UtcNow;
+                this.gameGenreRepository.Update(gameGenre);
+            }
+
+            foreach (var gamelanguage in gameLanguages)
+            {
+                gamelanguage.IsDeleted = true;
+                gamelanguage.DeletedOn = DateTime.UtcNow;
+                this.gameLanguageRepository.Update(gamelanguage);
+            }
+
+            foreach (var gamePlatform in gamePlatforms)
+            {
+                gamePlatform.IsDeleted = true;
+                gamePlatform.DeletedOn = DateTime.UtcNow;
+                this.gamePlatformRepository.Update(gamePlatform);
+            }
+
+            await this.gameGenreRepository.SaveChangesAsync();
+            await this.gameLanguageRepository.SaveChangesAsync();
+            await this.gamePlatformRepository.SaveChangesAsync();
+        }
+
+        public async Task CheckIfGameExistsByIdAsync(string id)
+        {
+            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (game == null)
+            {
+                throw new ArgumentException("Game not found.");
+            }
+        }
+
+        public async Task CheckIfGameExistsByNameAsync(string name)
+        {
+            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == name);
+
+            if (game != null)
+            {
+                throw new ArgumentException("Game already exists.");
+            }
+        }
+
+        private async Task UpdateGameGenres(EditGameInputModel model, Game game)
+        {
+            foreach (var genreId in model.Genres)
+            {
+                var gameGenre = new GameGenre { GameId = game.Id, GenreId = genreId };
+
+                await this.gameGenreRepository.AddAsync(gameGenre);
+                game.GamesGenres.Add(gameGenre);
+            }
+
+            await this.gameGenreRepository.SaveChangesAsync();
+            await this.gameRepository.SaveChangesAsync();
+        }
+
+        private async Task UpdateGameLanguages(EditGameInputModel model, Game game)
+        {
+            foreach (var languageId in model.Languages)
+            {
+                var gameLanguage = new GameLanguage { GameId = game.Id, LanguageId = languageId };
+
+                await this.gameLanguageRepository.AddAsync(gameLanguage);
+                game.GamesLanguages.Add(gameLanguage);
+            }
+
+            await this.gameLanguageRepository.SaveChangesAsync();
+            await this.gameRepository.SaveChangesAsync();
+        }
+
+        private async Task UpdateGamePlatforms(EditGameInputModel model, Game game)
+        {
+            foreach (var platformId in model.Platforms)
+            {
+                var gamePlatform = new GamePlatform { GameId = game.Id, PlatformId = platformId };
+
+                await this.gamePlatformRepository.AddAsync(gamePlatform);
+                game.GamesPlatforms.Add(gamePlatform);
+            }
+
+            await this.gamePlatformRepository.SaveChangesAsync();
+            await this.gameRepository.SaveChangesAsync();
+        }
+
+        private async Task<string> UploadedFile(IFormFile image, string gameName)
+        {
+            var fileName = Path.GetFileName(image.FileName);
+            var directory = $"wwwroot\\images\\games\\{gameName}";
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\games\\{model.Name}", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\games\\{gameName}", fileName);
 
             using (var fileSteam = new FileStream(filePath, FileMode.Create))
             {
-                await model.Image.CopyToAsync(fileSteam);
+                await image.CopyToAsync(fileSteam);
             }
 
-            return $"\\images\\games\\{model.Name}\\{fileName}";
+            return $"\\images\\games\\{gameName}\\{fileName}";
         }
     }
 }

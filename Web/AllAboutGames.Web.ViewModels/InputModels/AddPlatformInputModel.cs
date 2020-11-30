@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
 
     public class AddPlatformInputModel
     {
@@ -11,9 +12,8 @@
         [Required(ErrorMessage = "Name should be between 3 and 100 characters.")]
         public string Name { get; set; }
 
-        [Url]
-        [Required(ErrorMessage = "Invalid Url.")]
-        public string Image { get; set; }
+        [Required(ErrorMessage = "Please select image")]
+        public IFormFile Image { get; set; }
 
         [MinLength(3)]
         [MaxLength(100)]

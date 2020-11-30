@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace AllAboutGames.Web.ViewModels.Platforms
 {
@@ -6,7 +7,7 @@ namespace AllAboutGames.Web.ViewModels.Platforms
     {
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public IFormFile Image { get; set; }
 
         public string Info { get; set; }
 

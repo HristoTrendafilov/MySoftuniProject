@@ -8,23 +8,35 @@
     <script language='javascript' type='text/javascript'>alert('Thanks for the review!');</script>
 }
 <center>
-    @for (int i = 0; i < 5; i++)
+    @if (this.User.IsInRole("Administrator"))
     {
-        if (i < Math.Floor(Model.AverageRating))
-        {
-            <span class="fa fa-star checked star"></span>
-        }
-        else
-        {
-            <span class="fa fa-star star unchecked"></span>
-        }
+        <a href="/Games/Edit?id=@Model.Id">
+            <button type="button" class="btn btn-primary" style="margin-right:50px; width:100px">Edit</button>
+        </a>
     }
-    <span style="color:white; font-size:30px; margin-left:20px"><span style="color:red">@Model.AverageRating</span>/5</span>
-    <h4 style="color:white; margin-top:10px">Votes: <span style="color:red">@Model.RatingsCount</span></h4>
-    <h1 style="margin-top:10px">@Model.Name</h1>
-    <h2><span style="color:red">Developer: </span>@Model.Developer</h2>
-    <h3><span style="color:red">Release date: </span>@Model.ReleaseDate</h3>
-    <h2><span style="color:red;">Price: </span>@Model.Price</h2>
+        @for (int i = 0; i < 5; i++)
+        {
+            if (i < Math.Floor(Model.AverageRating))
+            {
+                <span class="fa fa-star checked star"></span>
+            }
+            else
+            {
+                <span class="fa fa-star star unchecked"></span>
+            }
+        }
+        <span style="color:white; font-size:30px; margin-left:20px"><span style="color:red">@Model.AverageRating</span>/5</span>
+        @if (this.User.IsInRole("Administrator"))
+        {
+            <a href="/Games/Delete?id=@Model.Id">
+                <button type="button" class="btn btn-danger" style="margin-left:50px; width:100px">Delete</button>
+            </a>
+        }
+        <h4 style="color:white; margin-top:10px">Votes: <span style="color:red">@Model.RatingsCount</span></h4>
+        <h1 style="margin-top:10px">@Model.Name</h1>
+        <h2><span style="color:red">Developer: </span>@Model.Developer</h2>
+        <h3><span style="color:red">Release date: </span>@Model.ReleaseDate</h3>
+        <h2><span style="color:red;">Price: </span>@Model.Price</h2>
 </center>
 <div style="margin-top:60px">
     <div class="row">
