@@ -42,7 +42,7 @@
 
             var recentReviews = this.reviewRepository.All()
                 .OrderByDescending(x => x.CreatedOn)
-                .Take(10);
+                .Take(9);
 
             return new IndexPageViewModel
             {
@@ -62,9 +62,11 @@
                 },
                 Reviews = recentReviews.Select(x => new IndexPageReviewsViewModel
                 {
+                    Id = x.Id,
+                    GameId = x.GameId,
                     CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy"),
                     GameName = x.Game.Name,
-                    GameRating = this.ratingsService.GetAverageRating(topRatedGame.Id),
+                    GameRating = x.Rating.Value,
                     ReviewedByUserName = x.ReviewedBy.UserName,
                 }),
             };

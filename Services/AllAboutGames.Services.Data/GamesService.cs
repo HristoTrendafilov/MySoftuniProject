@@ -61,7 +61,12 @@
 
         public async Task AddGameAsync(AddGameInputModel model)
         {
-            await this.CheckIfGameExistsByNameAsync(model.Name);
+            var checkGame = this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == model.Name);
+
+            if (checkGame == null)
+            {
+                throw new ArgumentException("Game already exists.");
+            }
 
             var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
 
@@ -89,7 +94,7 @@
                 var gameGenre = new GameGenre() { GameId = game.Id, GenreId = genreId };
 
                 await this.gameGenreRepository.AddAsync(gameGenre);
-                game.GamesGenres.Add(gameGenre);
+                game.GameGenres.Add(gameGenre);
             }
 
             foreach (var languageId in model.Languages)
@@ -97,7 +102,7 @@
                 var gameLanguage = new GameLanguage() { GameId = game.Id, LanguageId = languageId };
 
                 await this.gameLanguageRepository.AddAsync(gameLanguage);
-                game.GamesLanguages.Add(gameLanguage);
+                game.GameLanguages.Add(gameLanguage);
             }
 
             foreach (var platformId in model.Platforms)
@@ -105,7 +110,7 @@
                 var gamePlatform = new GamePlatform() { GameId = game.Id, PlatformId = platformId };
 
                 await this.gamePlatformRepository.AddAsync(gamePlatform);
-                game.GamesPlatforms.Add(gamePlatform);
+                game.GamePlatforms.Add(gamePlatform);
             }
 
             await this.gameRepository.AddAsync(game);
@@ -129,13 +134,13 @@
                     Developer = x.Developer.Name,
                     Image = x.Image,
                     Price = x.Price == 0 ? "Free" : x.Price.ToString() + "$",
-                    TrailerUrl = x.TrailerUrl.Replace("watch?v=", "embed/"),
-                    Website = x.Website,
+                    TrailerUrl = x.TrailerUrl != null ? x.TrailerUrl.Replace("watch?v=", "embed/") : null,
+                    Website = x.Website ?? "No website available.",
                     Summary = x.Summary,
                     ReleaseDate = x.ReleaseDate.ToString("dd/MM/yyyy"),
-                    Genres = string.Join(", ", x.GamesGenres.Select(gg => gg.Genre.Name)),
-                    Languages = string.Join(", ", x.GamesLanguages.Select(gl => gl.Language.Name)),
-                    Platforms = string.Join(", ", x.GamesPlatforms.Select(gp => gp.Platform.Name)),
+                    Genres = string.Join(", ", x.GameGenres.Select(gg => gg.Genre.Name)),
+                    Languages = string.Join(", ", x.GameLanguages.Select(gl => gl.Language.Name)),
+                    Platforms = string.Join(", ", x.GamePlatforms.Select(gp => gp.Platform.Name)),
                     Comments = x.Comments.Select(c => new GameCommentsViewModel { Text = c.Text, User = c.User.UserName }),
                 })
                 .FirstOrDefaultAsync();
@@ -282,16 +287,6 @@
             }
         }
 
-        public async Task CheckIfGameExistsByNameAsync(string name)
-        {
-            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == name);
-
-            if (game != null)
-            {
-                throw new ArgumentException("Game already exists.");
-            }
-        }
-
         private async Task UpdateGameGenres(EditGameInputModel model, Game game)
         {
             foreach (var genreId in model.Genres)
@@ -299,7 +294,7 @@
                 var gameGenre = new GameGenre { GameId = game.Id, GenreId = genreId };
 
                 await this.gameGenreRepository.AddAsync(gameGenre);
-                game.GamesGenres.Add(gameGenre);
+                game.GameGenres.Add(gameGenre);
             }
 
             await this.gameGenreRepository.SaveChangesAsync();
@@ -313,7 +308,7 @@
                 var gameLanguage = new GameLanguage { GameId = game.Id, LanguageId = languageId };
 
                 await this.gameLanguageRepository.AddAsync(gameLanguage);
-                game.GamesLanguages.Add(gameLanguage);
+                game.GameLanguages.Add(gameLanguage);
             }
 
             await this.gameLanguageRepository.SaveChangesAsync();
@@ -327,7 +322,7 @@
                 var gamePlatform = new GamePlatform { GameId = game.Id, PlatformId = platformId };
 
                 await this.gamePlatformRepository.AddAsync(gamePlatform);
-                game.GamesPlatforms.Add(gamePlatform);
+                game.GamePlatforms.Add(gamePlatform);
             }
 
             await this.gamePlatformRepository.SaveChangesAsync();

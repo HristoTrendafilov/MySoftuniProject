@@ -17,8 +17,6 @@
 
         Task DeleteGameAsync(string id);
 
-        Task CheckIfGameExistsByNameAsync(string name);
-
         Task CheckIfGameExistsByIdAsync(string id);
     }
 }

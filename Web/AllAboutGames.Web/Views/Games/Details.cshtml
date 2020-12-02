@@ -46,7 +46,14 @@
         </div>
         <div class="float-right col-md-4" style="position:relative; right:100px">
             <h2 style="margin-left:200px">Trailer</h2>
-            <iframe class="border border-primary border-bigger" width="550" height="415" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+            @if (Model.TrailerUrl == null)
+            {
+                <h2>No trailer available</h2>
+            }
+            else
+            {
+                <iframe class="border border-primary border-bigger" width="550" height="415" src="@Model.TrailerUrl" frameborder="0" allowfullscreen></iframe>
+            }
         </div>
     </div>
     <div class="info" style="margin-left:10px; margin-top:20px">
@@ -89,7 +96,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div>
     <div style="margin-top:100px; width:1400px; margin-left:50px">
         <center>
             <h2 style="margin-bottom:40px">Summary</h2>

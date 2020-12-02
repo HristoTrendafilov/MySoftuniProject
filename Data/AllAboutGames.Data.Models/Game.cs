@@ -11,9 +11,9 @@
     {
         public Game()
         {
-            this.GamesPlatforms = new HashSet<GamePlatform>();
-            this.GamesGenres = new HashSet<GameGenre>();
-            this.GamesLanguages = new HashSet<GameLanguage>();
+            this.GamePlatforms = new HashSet<GamePlatform>();
+            this.GameGenres = new HashSet<GameGenre>();
+            this.GameLanguages = new HashSet<GameLanguage>();
 
             this.Reviews = new HashSet<Review>();
             this.Ratings = new HashSet<Rating>();
@@ -57,11 +57,11 @@
 
         public virtual ICollection<Rating> Ratings { get; set; }
 
-        public virtual ICollection<GameLanguage> GamesLanguages { get; set; }
+        public virtual ICollection<GameLanguage> GameLanguages { get; set; }
 
-        public virtual ICollection<GamePlatform> GamesPlatforms { get; set; }
+        public virtual ICollection<GamePlatform> GamePlatforms { get; set; }
 
-        public virtual ICollection<GameGenre> GamesGenres { get; set; }
+        public virtual ICollection<GameGenre> GameGenres { get; set; }
 
         public bool IsDeleted { get; set; }
 

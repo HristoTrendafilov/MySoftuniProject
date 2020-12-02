@@ -19,7 +19,7 @@
         [Required]
         public string Text { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         [Required]
         [ForeignKey(nameof(Game))]
@@ -32,6 +32,12 @@
         public string UserId { get; set; }
 
         public virtual ApplicationUser ReviewedBy { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Rating))]
+        public int RatingId { get; set; }
+
+        public virtual Rating Rating { get; set; }
 
         public bool IsDeleted { get; set; }
 

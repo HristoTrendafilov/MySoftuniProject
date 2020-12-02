@@ -11,5 +11,7 @@
         Task AddAsync(AddReviewInputModel model);
 
         Task<IEnumerable<AllReviewsViewModel>> GetAllAsync();
+
+        Task<ReviewDetailsViewModel> GetReviewDetailsAsync(string id);
     }
 }

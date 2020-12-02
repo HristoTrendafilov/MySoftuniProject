@@ -69,7 +69,7 @@
         public async Task<IEnumerable<AllGamesByPlatformViewModel>> GetAllGamesByPlatformAsync(string platform, int page, int itemsToShow = 8)
         {
             return await this.gameRepository.AllAsNoTracking()
-                .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
+                .Where(x => x.GamePlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
                 .OrderByDescending(x => x.ReleaseDate)
                 .Skip((page - 1) * itemsToShow)
                 .Take(itemsToShow)
@@ -80,7 +80,7 @@
         public int GetGamesCount(string platform)
         {
             return this.gameRepository.AllAsNoTracking()
-                .Where(x => x.GamesPlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
+                .Where(x => x.GamePlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
                 .Count();
         }
 
