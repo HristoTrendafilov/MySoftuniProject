@@ -18,5 +18,7 @@
         Task DeleteGameAsync(string id);
 
         Task CheckIfGameExistsByIdAsync(string id);
+
+        Task<EditGameViewModel> GetEditModel(string id);
     }
 }

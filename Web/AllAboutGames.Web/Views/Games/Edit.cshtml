@@ -1,23 +1,24 @@
-﻿@using AllAboutGames.Web.ViewModels.Game
-@model AddGameViewModel
+﻿@using AllAboutGames.Web.ViewModels.Games
+@model EditGameViewModel
+
 <form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
-    <h1>Edit @Model.Name</h1>
+    <h1 style="color:deepskyblue">Edit <span style="color:red">@Model.Name</span></h1>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control mb-4">
+            <input asp-for="Name" class="form-control mb-4" value="@Model.Name">
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group col-md-4">
             <label asp-for="Price"></label>
-            <input asp-for="Price" type="number" class="form-control mb-4">
+            <input asp-for="Price" type="number" class="form-control mb-4" value="@Model.Price">
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Developer"></label>
-            <input asp-for="Developer" class="form-control mb-4">
+            <input asp-for="Developer" class="form-control mb-4" value="@Model.Developer">
             <span asp-validation-for="Developer" class="text-danger"></span>
         </div>
         <div class="form-group, col-md-4">
@@ -29,24 +30,25 @@
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Website"></label>
-            <input asp-for="Website" class="form-control mb-4">
+            <input asp-for="Website" class="form-control mb-4" value="@Model.Website">
             <span asp-validation-for="Website" class="text-danger"></span>
         </div>
         <div class="form-group col-md-4">
             <label asp-for="Trailer"></label>
-            <input asp-for="Trailer" class="form-control mb-4">
+            <input asp-for="Trailer" class="form-control mb-4" value="@Model.Trailer">
             <span asp-validation-for="Trailer" class="text-danger"></span>
         </div>
     </div>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="ReleaseDate"></label>
-            <input type="date" value="@DateTime.Now" asp-for="ReleaseDate" class="form-control mb-4">
+            <input type="date" asp-for="ReleaseDate" class="form-control mb-4">
             <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+
         </div>
     </div>
     <div class="form-row justify-content-center">
-        <textarea asp-for="Summary" style="width:1000px; position:relative; bottom:20px" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" placeholder="Summary"></textarea>
+        <textarea asp-for="Summary" style="width:1000px; position:relative; bottom:20px" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="10" placeholder="Summary">@Model.Summary</textarea>
         <span asp-validation-for="Summary" class="text-danger"></span>
     </div>
 
@@ -54,31 +56,61 @@
         <h5>Select genres</h5>
         @foreach (var genre in Model.Genres)
         {
-            <div class="form-check form-check-inline">
-                <input name="genres" class="form-check-input" type="checkbox" value="@genre.Id">
-                <label class="form-check-label" for="inlineCheckbox1">@genre.Name</label>
-            </div>
+            if (Model.GameGenres.Any(x => x.Name == genre.Name))
+            {
+                <div class="form-check form-check-inline">
+                    <input name="genres" class="form-check-input" type="checkbox" value="@genre.Id" checked>
+                    <label class="form-check-label" for="inlineCheckbox1">@genre.Name</label>
+                </div>
+            }
+            else
+            {
+                <div class="form-check form-check-inline">
+                    <input name="genres" class="form-check-input" type="checkbox" value="@genre.Id">
+                    <label class="form-check-label" for="inlineCheckbox1">@genre.Name</label>
+                </div>
+            }
         }
     </div>
     <div style="position:relative; top:20px">
         <h5>Select languages</h5>
         @foreach (var language in Model.Languages)
         {
-            <div class="form-check form-check-inline">
-                <input name="languages" class="form-check-input" type="checkbox" value="@language.Id">
-                <label class="form-check-label" for="inlineCheckbox1">@language.Name</label>
-            </div>
+            if (Model.GameLanguages.Any(x => x.Name == language.Name))
+            {
+                <div class="form-check form-check-inline">
+                    <input name="languages" class="form-check-input" type="checkbox" value="@language.Id" checked>
+                    <label class="form-check-label" for="inlineCheckbox1">@language.Name</label>
+                </div>
+            }
+            else
+            {
+                <div class="form-check form-check-inline">
+                    <input name="languages" class="form-check-input" type="checkbox" value="@language.Id">
+                    <label class="form-check-label" for="inlineCheckbox1">@language.Name</label>
+                </div>
+            }
         }
     </div>
     <div style="position:relative; top:50px">
         <h5>Select platforms</h5>
         @foreach (var platform in Model.Platforms)
         {
-            <div class="form-check form-check-inline">
-                <input name="platforms" class="form-check-input" type="checkbox" value="@platform.Id">
-                <label class="form-check-label" for="inlineCheckbox1">@platform.Name</label>
-            </div>
+            if (Model.GamePlatforms.Any(x => x.Name == platform.Name))
+            {
+                <div class="form-check form-check-inline">
+                    <input name="platforms" class="form-check-input" type="checkbox" value="@platform.Id" checked>
+                    <label class="form-check-label" for="inlineCheckbox1">@platform.Name</label>
+                </div>
+            }
+            else
+            {
+                <div class="form-check form-check-inline">
+                    <input name="platforms" class="form-check-input" type="checkbox" value="@platform.Id">
+                    <label class="form-check-label" for="inlineCheckbox1">@platform.Name</label>
+                </div>
+            }
         }
     </div>
-    <button style="position:relative; top:100px; margin-bottom:50px; width:200px" type="submit" class="btn btn-outline-primary">Add</button>
+    <button style="position:relative; top:100px; margin-bottom:50px; width:200px" type="submit" class="btn btn-outline-primary">Edit</button>
 </form>

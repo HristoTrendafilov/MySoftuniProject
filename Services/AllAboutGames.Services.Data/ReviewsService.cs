@@ -87,11 +87,11 @@
             {
                 GameName = game.Name,
                 AverageRating = this.ratingsService.GetAverageRating(id),
-                OneStarRatingPercent = oneStarRating.ToString() + "%",
-                TwoStarRatingPercent = twoStarRating.ToString() + "%",
-                ThreeStarRatingPercent = threeStarRating.ToString() + "%",
-                FourStarRatingPercent = fourStarRating.ToString() + "%",
-                FiveStarRatingPercent = fiveStarRating.ToString() + "%",
+                OneStarRatingPercent = oneStarRating.ToString("N1") + "%",
+                TwoStarRatingPercent = twoStarRating.ToString("N1") + "%",
+                ThreeStarRatingPercent = threeStarRating.ToString("N1") + "%",
+                FourStarRatingPercent = fourStarRating.ToString("N1") + "%",
+                FiveStarRatingPercent = fiveStarRating.ToString("N1") + "%",
                 UserReviews = this.reviewRepository.AllAsNoTracking().Where(x => x.GameId == id).Select(x => new AllUserReviewsViewModel
                 {
                     Id = x.UserId,

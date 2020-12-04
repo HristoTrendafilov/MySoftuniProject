@@ -42,7 +42,7 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(string id)
         {
-            var viewModel = await this.gameService.GetAllInfoAsync();
+            var viewModel = await this.gameService.GetEditModel(id);
 
             if (!this.ModelState.IsValid)
             {

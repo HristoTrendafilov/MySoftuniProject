@@ -59,11 +59,34 @@
             return viewModel;
         }
 
+        public async Task<EditGameViewModel> GetEditModel(string id)
+        {
+            return await this.gameRepository.AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => new EditGameViewModel
+                {
+                    Developer = x.Developer.Name,
+                    Name = x.Name,
+                    Price = x.Price,
+                    ReleaseDate = x.ReleaseDate,
+                    Summary = x.Summary,
+                    Trailer = x.TrailerUrl,
+                    Website = x.Website,
+                    GameGenres = this.genreRepository.All().Where(x => x.GamesGenres.Any(gg => gg.GameId == id)).ToList(),
+                    GameLanguages = this.languageRepository.All().Where(x => x.GamesLanguages.Any(gg => gg.GameId == id)).ToList(),
+                    GamePlatforms = this.platformRepository.All().Where(x => x.GamesPlatforms.Any(gg => gg.GameId == id)).ToList(),
+                    Genres = this.genreRepository.All().ToList(),
+                    Languages = this.languageRepository.All().ToList(),
+                    Platforms = this.platformRepository.All().ToList(),
+                })
+                .FirstOrDefaultAsync();
+        }
+
         public async Task AddGameAsync(AddGameInputModel model)
         {
-            var checkGame = this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == model.Name);
+            var checkGame = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == model.Name);
 
-            if (checkGame == null)
+            if (checkGame != null)
             {
                 throw new ArgumentException("Game already exists.");
             }

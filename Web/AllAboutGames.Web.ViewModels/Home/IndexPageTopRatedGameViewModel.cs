@@ -14,5 +14,7 @@
         public string Image { get; set; }
 
         public double Rating { get; set; }
+
+        public int RatingsCount { get; set; }
     }
 }

@@ -5,38 +5,41 @@
 }
 @if (this.ViewData["Success"] != null)
 {
-    <script language='javascript' type='text/javascript'>alert('Thanks for the review!');</script>
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <center>
+        <strong>Thank you for the review!</strong>
+    </center>
+</div>
 }
 <center>
     @if (this.User.IsInRole("Administrator"))
     {
         <a href="/Games/Edit?id=@Model.Id">
-            <button type="button" class="btn btn-primary" style="margin-right:50px; width:100px">Edit</button>
+            <button type="button" class="btn btn-outline-info" style="margin-right:50px; width:100px">Edit</button>
         </a>
     }
-        @for (int i = 0; i < 5; i++)
+    @for (int i = 0; i < 5; i++)
+    {
+        if (i < Math.Floor(Model.AverageRating))
         {
-            if (i < Math.Floor(Model.AverageRating))
-            {
-                <span class="fa fa-star checked star"></span>
-            }
-            else
-            {
-                <span class="fa fa-star star unchecked"></span>
-            }
+            <span class="fa fa-star checked star"></span>
         }
-        <span style="color:white; font-size:30px; margin-left:20px"><span style="color:red">@Model.AverageRating</span>/5</span>
-        @if (this.User.IsInRole("Administrator"))
+        else
         {
-            <a href="/Games/Delete?id=@Model.Id">
-                <button type="button" class="btn btn-danger" style="margin-left:50px; width:100px">Delete</button>
-            </a>
+            <span class="fa fa-star star unchecked"></span>
         }
-        <h4 style="color:white; margin-top:10px">Votes: <span style="color:red">@Model.RatingsCount</span></h4>
-        <h1 style="margin-top:10px">@Model.Name</h1>
-        <h2><span style="color:red">Developer: </span>@Model.Developer</h2>
-        <h3><span style="color:red">Release date: </span>@Model.ReleaseDate</h3>
-        <h2><span style="color:red;">Price: </span>@Model.Price</h2>
+    }
+    <span style="color:white; font-size:30px; margin-left:20px"><span style="color:red">@Model.AverageRating</span>/5</span>
+    @if (this.User.IsInRole("Administrator"))
+    {
+        <a type="button" class="btn btn-outline-danger" style="margin-left:50px; width:100px" data-toggle="modal" data-target="#deleteGame">Delete</a>
+    }
+    <h4 style="color:white; margin-top:10px">Votes: <span style="color:red">@Model.RatingsCount</span></h4>
+    <h1 style="margin-top:10px">@Model.Name</h1>
+    <h2><span style="color:red">Developer: </span>@Model.Developer</h2>
+    <h3><span style="color:red">Release date: </span>@Model.ReleaseDate</h3>
+    <h2><span style="color:red;">Price: </span>@Model.Price</h2>
 </center>
 <div style="margin-top:60px">
     <div class="row">
@@ -48,7 +51,7 @@
             <h2 style="margin-left:200px">Trailer</h2>
             @if (Model.TrailerUrl == null)
             {
-                <h2>No trailer available</h2>
+                <h2 style="color:red; margin-left:100px">No trailer available</h2>
             }
             else
             {
@@ -62,39 +65,50 @@
         <h5><span style="color:red">Genres: </span>@Model.Genres</h5>
     </div>
     <center style="margin-top:50px">
-        <h2><span style="color:blue;">Official website: </span><a style="color:white" href="@Model.Website">@Model.Website</a></h2>
-        <h2 style="position:relative; top:40px; color:red">Rate the game</h2>
+        <h2><span style="color:deepskyblue;">Official website: </span><a style="color:white" href="@Model.Website">@Model.Website</a></h2>
     </center>
-    <div class="addreview">
-        <div class="post">
-            <div class="text">Thanks for rating us!</div>
-            <div class="edit">EDIT</div>
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <center>
+            <h2 style="position:relative; top:40px; color:blue">Rate the game</h2>
+        </center>
+        <div class="addreview">
+            <div class="post">
+                <div class="text">Thanks for rating us!</div>
+                <div class="edit">EDIT</div>
+            </div>
+            <div class="star-widget">
+                <input type="radio" name="rate" id="rate-5">
+                <label for="rate-5" class="fas fa-star" data-vote="5"></label>
+                <input type="radio" name="rate" id="rate-4">
+                <label for="rate-4" class="fas fa-star" data-vote="4"></label>
+                <input type="radio" name="rate" id="rate-3">
+                <label for="rate-3" class="fas fa-star" data-vote="3"></label>
+                <input type="radio" name="rate" id="rate-2">
+                <label for="rate-2" class="fas fa-star" data-vote="2"></label>
+                <input type="radio" name="rate" id="rate-1">
+                <label for="rate-1" class="fas fa-star" data-vote="1"></label>
+                @if (this.User.IsInRole("Reviewer"))
+                {
+                    <form method="post" asp-controller="Reviews" asp-action="Add">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <header></header>
+                        <div class="textarea">
+                            <textarea asp-for="ReviewText" name="text" cols="30" placeholder="Describe your experience.."></textarea>
+                            <input name="gameId" value="@Model.Id" type="hidden" />
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Post</button>
+                    </form>
+                }
+            </div>
         </div>
-        <div class="star-widget">
-            <input type="radio" name="rate" id="rate-5">
-            <label for="rate-5" class="fas fa-star" data-vote="5"></label>
-            <input type="radio" name="rate" id="rate-4">
-            <label for="rate-4" class="fas fa-star" data-vote="4"></label>
-            <input type="radio" name="rate" id="rate-3">
-            <label for="rate-3" class="fas fa-star" data-vote="3"></label>
-            <input type="radio" name="rate" id="rate-2">
-            <label for="rate-2" class="fas fa-star" data-vote="2"></label>
-            <input type="radio" name="rate" id="rate-1">
-            <label for="rate-1" class="fas fa-star" data-vote="1"></label>
-            @if (this.User.IsInRole("Reviewer"))
-            {
-                <form method="post" asp-controller="Reviews" asp-action="Add">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <header></header>
-                    <div class="textarea">
-                        <textarea asp-for="ReviewText" name="text" cols="30" placeholder="Describe your experience.."></textarea>
-                        <input name="gameId" value="@Model.Id" type="hidden" />
-                    </div>
-                    <button type="submit" class="btn btn-success">Post</button>
-                </form>
-            }
-        </div>
-    </div>
+    }
+    else
+    {
+        <center>
+            <h2 style="position:relative; top:40px; color:deepskyblue; border:solid; border-width:2px; margin-left:500px; margin-right:500px">Login to rate this game.</h2>
+        </center>
+    }
 </div>
 <div>
     <div style="margin-top:100px; width:1400px; margin-left:50px">
@@ -137,9 +151,32 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <script src="~/js/GameDetails.js"></script>
-    <script>
+<!-- Modal -->
+<div id="myModal">
+    <div class="modal fade" id="deleteGame" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to delete the game?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="/Games/Delete?id=@Model.Id">
+                        <button type="button" class="btn btn-primary">Delete</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/GameDetails.js"></script>
+<script>
         $("label[data-vote]").each(function (el) {
             $(this).click(function () {
                 var value = parseInt($(this).attr("data-vote"));
@@ -158,5 +195,10 @@
                 })
             });
         });
-    </script>
+</script>
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#deleteGame').trigger('focus')
+    })
+</script>
 }

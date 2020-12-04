@@ -59,6 +59,7 @@
                     Image = topRatedGame.Image,
                     Name = topRatedGame.Name,
                     Rating = this.ratingsService.GetAverageRating(topRatedGame.Id),
+                    RatingsCount = topRatedGame.RatingsCount,
                 },
                 Reviews = recentReviews.Select(x => new IndexPageReviewsViewModel
                 {
