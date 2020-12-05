@@ -7,16 +7,19 @@
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     public class PlatformsController : Controller
     {
         private const int ItemsPerPage = 8;
         private readonly IPlatformsService platformService;
+        private readonly IWebHostEnvironment environment;
 
-        public PlatformsController(IPlatformsService platformService)
+        public PlatformsController(IPlatformsService platformService, IWebHostEnvironment environment)
         {
             this.platformService = platformService;
+            this.environment = environment;
         }
 
         [Authorize(Roles = "Administrator")]
@@ -30,12 +33,14 @@
         [HttpPost]
         public async Task<IActionResult> Add(AddPlatformInputModel model)
         {
+            var rootPath = this.environment.WebRootPath;
+
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            await this.platformService.AddPlatformAsync(model);
+            await this.platformService.AddPlatformAsync(model, rootPath);
             return this.RedirectToAction("Add");
         }
 
@@ -89,7 +94,7 @@
 
         private async Task<AllGamesListViewModel> GetDataAsync(int id, string platformName, int itemsPerPage)
         {
-            this.ViewData["PlatformName"] = platformName;
+            this.ViewData["ActionName"] = platformName;
             return new AllGamesListViewModel
             {
                 ItemsPerPage = itemsPerPage,

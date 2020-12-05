@@ -11,6 +11,7 @@
     using AllAboutGames.Services.Mapping;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     public class PlatformsService : IPlatformsService
@@ -29,7 +30,7 @@
             this.gameRepository = gameRepository;
         }
 
-        public async Task AddPlatformAsync(AddPlatformInputModel model)
+        public async Task AddPlatformAsync(AddPlatformInputModel model, string rootPath)
         {
             var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
 
@@ -41,7 +42,7 @@
                 };
             }
 
-            var imagePath = await this.UploadedFile(model);
+            var imagePath = await this.UploadedFile(model.Image, model.Name, rootPath);
 
             var platform = new Platform()
             {
@@ -84,24 +85,24 @@
                 .Count();
         }
 
-        private async Task<string> UploadedFile(AddPlatformInputModel model)
+        private async Task<string> UploadedFile(IFormFile image, string platformName, string rootPath)
         {
-            var fileName = Path.GetFileName(model.Image.FileName);
-            var directory = $"wwwroot\\images\\platforms\\{model.Name}";
+            var fileName = Path.GetFileName(image.FileName);
+            var directory = $"{rootPath}\\images\\platforms\\{platformName}";
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\platforms\\{model.Name}", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"{rootPath}\\images\\platforms\\{platformName}", fileName);
 
             using (var fileSteam = new FileStream(filePath, FileMode.Create))
             {
-                await model.Image.CopyToAsync(fileSteam);
+                await image.CopyToAsync(fileSteam);
             }
 
-            return $"\\images\\platforms\\{model.Name}\\{fileName}";
+            return $"\\images\\platforms\\{platformName}\\{fileName}";
         }
     }
 }

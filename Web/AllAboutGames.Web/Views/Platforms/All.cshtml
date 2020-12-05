@@ -10,7 +10,7 @@
 <div class="cards-list">
     @foreach (var game in Model.Games)
     {
-        <a href="/Games/Details?id=@game.Id">
+        <a asp-controller="Games" asp-action="Details" asp-route-id="@game.Id">
             <div>
                 <center>
                     <h5 style="margin-left:30px; color:blue; width: 250px">@game.Name</h5>

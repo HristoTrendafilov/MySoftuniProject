@@ -10,8 +10,10 @@
     {
         Task AddAsync(AddReviewInputModel model);
 
-        Task<IEnumerable<AllReviewsViewModel>> GetAllAsync();
+        Task<IEnumerable<AllReviewsViewModel>> GetAllAsync(int page, int itemsToShow = 8);
 
         Task<ReviewDetailsViewModel> GetReviewDetailsAsync(string id);
+
+        int GetReviewsCount();
     }
 }

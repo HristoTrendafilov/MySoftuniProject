@@ -93,7 +93,14 @@
                 {
                     <div class="reviews-members pt-4 pb-4">
                         <div class="media">
-                            <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
+                            @if (review.Image == null)
+                            {
+                                <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
+                            }
+                            else
+                            {
+                                <a href="#"><img alt="Generic placeholder image" src="@review.Image" class="mr-3 rounded-pill"></a>
+                            }
                             <div class="media-body">
                                 <div class="reviews-members-header">
                                     <h6 class="mb-1"><a class="text-black" href="#">@review.Username</a></h6>

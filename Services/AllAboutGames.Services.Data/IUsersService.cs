@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using AllAboutGames.Data.Models;
+    using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Users;
 
     public interface IUsersService
@@ -11,8 +11,12 @@
 
         AddUserToRoleViewModel GetDataForRoleAdding();
 
-        IEnumerable<KeyValuePair<string,string>> GetUsers();
+        IEnumerable<KeyValuePair<string, string>> GetUsers();
 
         Task AddUserToRole(AddUserToRoleInputModel model);
+
+        Task<UserProfilePageViewModel> GetUserDetailsAsync(string id);
+
+        Task ChangeProfilePictureAsync(AddProfilePictureToUserInputModel model, string rootPath);
     }
 }

@@ -15,7 +15,7 @@ namespace AllAboutGames.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -69,6 +69,7 @@ namespace AllAboutGames.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CityId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -76,6 +77,9 @@ namespace AllAboutGames.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -116,6 +120,9 @@ namespace AllAboutGames.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -612,9 +619,11 @@ namespace AllAboutGames.Data.Migrations
 
             modelBuilder.Entity("AllAboutGames.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("AllAboutGames.Data.Models.City", null)
+                    b.HasOne("AllAboutGames.Data.Models.City", "City")
                         .WithMany("Users")
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AllAboutGames.Data.Models.City", b =>
@@ -633,7 +642,7 @@ namespace AllAboutGames.Data.Migrations
                         .HasForeignKey("GameId");
 
                     b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("CommentsGames")
                         .HasForeignKey("UserId");
                 });
 
@@ -649,7 +658,7 @@ namespace AllAboutGames.Data.Migrations
             modelBuilder.Entity("AllAboutGames.Data.Models.GameGenre", b =>
                 {
                     b.HasOne("AllAboutGames.Data.Models.Game", "Game")
-                        .WithMany("GamesGenres")
+                        .WithMany("GameGenres")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -664,7 +673,7 @@ namespace AllAboutGames.Data.Migrations
             modelBuilder.Entity("AllAboutGames.Data.Models.GameLanguage", b =>
                 {
                     b.HasOne("AllAboutGames.Data.Models.Game", "Game")
-                        .WithMany("GamesLanguages")
+                        .WithMany("GameLanguages")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -679,7 +688,7 @@ namespace AllAboutGames.Data.Migrations
             modelBuilder.Entity("AllAboutGames.Data.Models.GamePlatform", b =>
                 {
                     b.HasOne("AllAboutGames.Data.Models.Game", "Game")
-                        .WithMany("GamesPlatforms")
+                        .WithMany("GamePlatforms")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -724,7 +733,7 @@ namespace AllAboutGames.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "ReviewedBy")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

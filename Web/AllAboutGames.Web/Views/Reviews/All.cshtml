@@ -1,12 +1,12 @@
 ﻿@using AllAboutGames.Web.ViewModels.Reviews
-@model IEnumerable<AllReviewsViewModel>
+@model AllReviewsListViewModel
 @section Css{
     <link href="~/css/Cards.css" rel="stylesheet" asp-append-version="true" />
 }
 <center style="margin-top:50px"> <h1>Reviews</h1> </center>
 <div class="container-fluid" style="margin-top:50px">
     <div class="row justify-content-center">
-        @foreach (var game in @Model)
+        @foreach (var game in @Model.Reviews)
         {
             <div class="col-auto mb-3">
                 <div>
@@ -18,9 +18,10 @@
                             <h2>@game.Name<br><span>@game.DeveloperName</span></h2>
                         </div>
                     </div>
-                    <a href="/Reviews/Details?id=@game.Id" class="btn btn-primary" style="margin-top:20px; width:200px; margin-left:50px">Check Reviews</a>
+                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@game.Id" class="btn btn-primary" style="margin-top:20px; width:200px; margin-left:50px">Check Reviews</a>
                 </div>
             </div>
         }
     </div>
 </div>
+<partial name="_PagingPartial" model="@Model" view-data="ViewData" />

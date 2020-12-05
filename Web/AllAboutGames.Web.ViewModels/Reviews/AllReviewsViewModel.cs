@@ -12,5 +12,9 @@
         public string Name { get; set; }
 
         public string DeveloperName { get; set; }
+
+        public int PageNumber { get; set; }
+
+        public int ReviewsCount { get; set; }
     }
 }

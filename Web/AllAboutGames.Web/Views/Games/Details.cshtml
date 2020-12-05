@@ -5,17 +5,17 @@
 }
 @if (this.ViewData["Success"] != null)
 {
-<div class="alert alert-success alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <center>
-        <strong>Thank you for the review!</strong>
-    </center>
-</div>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <center>
+            <strong>Thank you for the review!</strong>
+        </center>
+    </div>
 }
 <center>
     @if (this.User.IsInRole("Administrator"))
     {
-        <a href="/Games/Edit?id=@Model.Id">
+        <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.Id">
             <button type="button" class="btn btn-outline-info" style="margin-right:50px; width:100px">Edit</button>
         </a>
     }
@@ -33,7 +33,8 @@
     <span style="color:white; font-size:30px; margin-left:20px"><span style="color:red">@Model.AverageRating</span>/5</span>
     @if (this.User.IsInRole("Administrator"))
     {
-        <a type="button" class="btn btn-outline-danger" style="margin-left:50px; width:100px" data-toggle="modal" data-target="#deleteGame">Delete</a>
+        <button type="button" class="btn btn-outline-danger" style="margin-left:50px; width:100px" data-toggle="modal" data-target="#deleteGame">Delete</button>
+
     }
     <h4 style="color:white; margin-top:10px">Votes: <span style="color:red">@Model.RatingsCount</span></h4>
     <h1 style="margin-top:10px">@Model.Name</h1>
@@ -167,7 +168,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a href="/Games/Delete?id=@Model.Id">
+                    <a asp-controller="Games" asp-action="Delete" asp-route-id="@Model.Id">
                         <button type="button" class="btn btn-primary">Delete</button>
                     </a>
                 </div>
@@ -175,8 +176,14 @@
         </div>
     </div>
 </div>
-<script src="~/js/GameDetails.js"></script>
-<script>
+@section Scripts{
+    <script src="~/js/GameDetails.js"></script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#deleteGame').trigger('focus')
+        })
+    </script>
+    <script>
         $("label[data-vote]").each(function (el) {
             $(this).click(function () {
                 var value = parseInt($(this).attr("data-vote"));
@@ -195,10 +202,5 @@
                 })
             });
         });
-</script>
-<script>
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#deleteGame').trigger('focus')
-    })
-</script>
+    </script>
 }

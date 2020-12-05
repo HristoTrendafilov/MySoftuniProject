@@ -9,7 +9,7 @@
 
     public interface IPlatformsService
     {
-        Task AddPlatformAsync(AddPlatformInputModel model);
+        Task AddPlatformAsync(AddPlatformInputModel model, string rootPath);
 
         Task CheckIfPlatformExistsByNameAsync(string name);
 

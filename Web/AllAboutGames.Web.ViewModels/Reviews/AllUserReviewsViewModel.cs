@@ -8,6 +8,8 @@ namespace AllAboutGames.Web.ViewModels.Reviews
     {
         public string Id { get; set; }
 
+        public string Image { get; set; }
+
         public string Username { get; set; }
 
         public string CreatedOn { get; set; }

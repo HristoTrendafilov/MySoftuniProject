@@ -55,9 +55,11 @@
             await this.reviewRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllReviewsViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllReviewsViewModel>> GetAllAsync(int page, int itemsToShow = 8)
         {
             return await this.gameRepository.All().Where(x => x.Reviews.Count > 0)
+                .Skip((page - 1) * itemsToShow)
+                .Take(itemsToShow)
                 .To<AllReviewsViewModel>()
                 .ToListAsync();
         }
@@ -82,7 +84,6 @@
             var twoStarRating = ((double)game.Ratings.Where(x => x.Value == 2).Count() / totalRatings) * 100;
             var oneStarRating = ((double)game.Ratings.Where(x => x.Value == 1).Count() / totalRatings) * 100;
 
-
             var viewModel = new ReviewDetailsViewModel
             {
                 GameName = game.Name,
@@ -95,6 +96,7 @@
                 UserReviews = this.reviewRepository.AllAsNoTracking().Where(x => x.GameId == id).Select(x => new AllUserReviewsViewModel
                 {
                     Id = x.UserId,
+                    Image = x.ReviewedBy.ProfilePicture,
                     Username = x.ReviewedBy.UserName,
                     CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy"),
                     Text = x.Text,
@@ -103,6 +105,11 @@
             };
 
             return viewModel;
+        }
+
+        public int GetReviewsCount()
+        {
+            return this.gameRepository.All().Where(x => x.Reviews.Count > 0).Count();
         }
     }
 }

@@ -3,7 +3,8 @@ namespace AllAboutGames.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using AllAboutGames.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
@@ -16,7 +17,10 @@ namespace AllAboutGames.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+
             this.Ratings = new HashSet<Rating>();
+            this.Reviews = new HashSet<Review>();
+            this.CommentsGames = new HashSet<CommentForGame>();
         }
 
         // Audit info
@@ -29,6 +33,17 @@ namespace AllAboutGames.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(City))]
+        public string CityId { get; set; }
+
+        public City City { get; set; }
+
+        public string ProfilePicture { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
@@ -36,5 +51,9 @@ namespace AllAboutGames.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<CommentForGame> CommentsGames { get; set; }
     }
 }

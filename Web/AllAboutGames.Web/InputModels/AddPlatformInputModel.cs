@@ -2,7 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-
     public class AddPlatformInputModel
     {
         [MinLength(3)]

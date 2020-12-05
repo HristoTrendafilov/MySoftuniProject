@@ -13,6 +13,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20201130193413_AddedRequiredForGamePrice.cs" />
     <Compile Remove="Migrations\20201130193413_AddedRequiredForGamePrice.Designer.cs" />
+    <Compile Remove="Migrations\20201205104005_AddedDateOfBirthToUser.cs" />
+    <Compile Remove="Migrations\20201205104005_AddedDateOfBirthToUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

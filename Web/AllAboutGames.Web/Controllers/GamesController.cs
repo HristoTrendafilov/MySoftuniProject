@@ -5,15 +5,18 @@
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     public class GamesController : Controller
     {
         private readonly IGamesService gameService;
+        private readonly IWebHostEnvironment environment;
 
-        public GamesController(IGamesService gameService)
+        public GamesController(IGamesService gameService, IWebHostEnvironment environment)
         {
             this.gameService = gameService;
+            this.environment = environment;
         }
 
         [Authorize(Roles = "Administrator")]
@@ -35,7 +38,8 @@
                 return this.View(viewModel);
             }
 
-            await this.gameService.AddGameAsync(model);
+            var rootPath = this.environment.WebRootPath;
+            await this.gameService.AddGameAsync(model, rootPath);
             return this.Redirect("/");
         }
 
@@ -56,7 +60,8 @@
         [HttpPost]
         public async Task<IActionResult> Edit(string id, EditGameInputModel model)
         {
-            await this.gameService.EditGameAsync(id, model);
+            var rootPath = this.environment.WebRootPath;
+            await this.gameService.EditGameAsync(id, model, rootPath);
 
             return this.Redirect($"/Games/Details?id={id}");
         }

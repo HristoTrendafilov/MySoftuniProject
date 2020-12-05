@@ -73,7 +73,7 @@
             <div class="details">
                 <h2>@Model.TopRatedGame.Name<br><span>@Model.TopRatedGame.DeveloperName</span></h2>
             </div>
-            <a href="/Games/Details?id=@Model.TopRatedGame.Id" class="btn btn-outline-info" style="margin-top:360px">View Detail</a>
+            <a asp-controller="Games" asp-action="Details" asp-route-id="@Model.TopRatedGame.Id" class="btn btn-outline-info" style="margin-top:360px">View Detail</a>
         </div>
     </div>
     <div class="col-md-7">

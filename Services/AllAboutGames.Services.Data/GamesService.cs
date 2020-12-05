@@ -82,7 +82,7 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task AddGameAsync(AddGameInputModel model)
+        public async Task AddGameAsync(AddGameInputModel model, string rootPath)
         {
             var checkGame = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == model.Name);
 
@@ -98,7 +98,7 @@
                 developer = new Developer() { Name = model.Developer };
             }
 
-            var imagePath = await this.UploadedFile(model.Image, model.Name);
+            var imagePath = await this.UploadedFile(model.Image, model.Name, rootPath);
 
             var game = new Game()
             {
@@ -180,12 +180,12 @@
             return game;
         }
 
-        public async Task EditGameAsync(string id, EditGameInputModel model)
+        public async Task EditGameAsync(string id, EditGameInputModel model, string rootPath)
         {
             await this.CheckIfGameExistsByIdAsync(id);
 
             var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-            var imagePath = await this.UploadedFile(model.Image, model.Name);
+            var imagePath = await this.UploadedFile(model.Image, model.Name, rootPath);
 
             var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
 
@@ -352,17 +352,17 @@
             await this.gameRepository.SaveChangesAsync();
         }
 
-        private async Task<string> UploadedFile(IFormFile image, string gameName)
+        private async Task<string> UploadedFile(IFormFile image, string gameName, string rootPath)
         {
             var fileName = Path.GetFileName(image.FileName);
-            var directory = $"wwwroot\\images\\games\\{gameName}";
+            var directory = $"{rootPath}\\images\\games\\{gameName}";
 
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\images\\games\\{gameName}", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"{rootPath}\\images\\games\\{gameName}", fileName);
 
             using (var fileSteam = new FileStream(filePath, FileMode.Create))
             {
