@@ -1,7 +1,7 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
     using System.Threading.Tasks;
-
+    using AllAboutGames.Common;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
     using Microsoft.AspNetCore.Authorization;
@@ -19,7 +19,7 @@
             this.environment = environment;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Add()
         {
             var viewModel = await this.gameService.GetAllInfoAsync();
@@ -27,7 +27,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Add(AddGameInputModel model)
         {
@@ -43,7 +43,7 @@
             return this.Redirect("/");
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit(string id)
         {
             var viewModel = await this.gameService.GetEditModel(id);
@@ -56,7 +56,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Edit(string id, EditGameInputModel model)
         {
@@ -74,7 +74,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
             await this.gameService.DeleteGameAsync(id);

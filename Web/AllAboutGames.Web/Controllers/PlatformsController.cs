@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-
+    using AllAboutGames.Common;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
@@ -22,14 +22,14 @@
             this.environment = environment;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet]
         public IActionResult Add()
         {
             return this.View();
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Add(AddPlatformInputModel model)
         {
@@ -99,7 +99,7 @@
             {
                 ItemsPerPage = itemsPerPage,
                 PageNumber = id,
-                GamesCount = this.platformService.GetGamesCount(platformName),
+                Count = this.platformService.GetGamesCount(platformName),
                 Games = await this.platformService.GetAllGamesByPlatformAsync(platformName, id, itemsPerPage),
             };
         }

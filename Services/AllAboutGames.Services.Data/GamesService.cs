@@ -49,14 +49,12 @@
 
         public async Task<AddGameViewModel> GetAllInfoAsync()
         {
-            var viewModel = new AddGameViewModel
+            return new AddGameViewModel
             {
                 Genres = await this.genreRepository.All().OrderBy(x => x.Name).ToListAsync(),
                 Languages = await this.languageRepository.All().OrderBy(x => x.Name).ToListAsync(),
                 Platforms = await this.platformRepository.All().OrderBy(x => x.Name).ToListAsync(),
             };
-
-            return viewModel;
         }
 
         public async Task<EditGameViewModel> GetEditModel(string id)
@@ -248,11 +246,6 @@
             await this.CheckIfGameExistsByIdAsync(id);
 
             var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
-
-            if (game == null)
-            {
-                throw new NullReferenceException("Game not found");
-            }
 
             game.IsDeleted = true;
             game.DeletedOn = DateTime.UtcNow;

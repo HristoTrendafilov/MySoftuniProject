@@ -18,7 +18,7 @@
                             <h2>@game.Name<br><span>@game.DeveloperName</span></h2>
                         </div>
                     </div>
-                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@game.Id" class="btn btn-primary" style="margin-top:20px; width:200px; margin-left:50px">Check Reviews</a>
+                    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@game.Id" asp-route-pageNumber="1" class="btn btn-primary" style="margin-top:20px; width:200px; margin-left:50px">Check Reviews</a>
                 </div>
             </div>
         }

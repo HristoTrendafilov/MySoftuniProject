@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AllAboutGames.Web.ViewModels.Reviews
 {
-    public class AllReviewsListViewModel : PagingViewModel
+    public class AllUserReviewsListViewModel : PagingViewModel
     {
-        public IEnumerable<AllReviewsViewModel> Reviews { get; set; }
+        public ReviewDetailsViewModel Reviews { get; set; }
     }
 }

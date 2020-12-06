@@ -64,7 +64,7 @@
                 .ToListAsync();
         }
 
-        public async Task<ReviewDetailsViewModel> GetReviewDetailsAsync(string id)
+        public async Task<ReviewDetailsViewModel> GetReviewDetailsAsync(string id, int pageNumber, int itemsToShow = 5)
         {
             var game = await this.gameRepository
                 .AllAsNoTracking()
@@ -93,15 +93,22 @@
                 ThreeStarRatingPercent = threeStarRating.ToString("N1") + "%",
                 FourStarRatingPercent = fourStarRating.ToString("N1") + "%",
                 FiveStarRatingPercent = fiveStarRating.ToString("N1") + "%",
-                UserReviews = this.reviewRepository.AllAsNoTracking().Where(x => x.GameId == id).Select(x => new AllUserReviewsViewModel
+                UserReviews = this.reviewRepository
+                .AllAsNoTracking()
+                .Where(x => x.GameId == id)
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(x => new AllUserReviewsViewModel
                 {
-                    Id = x.UserId,
+                    Id = x.Id,
                     Image = x.ReviewedBy.ProfilePicture,
                     Username = x.ReviewedBy.UserName,
-                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy"),
+                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy hh:mm"),
                     Text = x.Text,
                     Rating = x.Rating.Value,
-                }),
+                })
+                .Skip((pageNumber - 1) * itemsToShow)
+                .Take(itemsToShow)
+                .ToList(),
             };
 
             return viewModel;
@@ -110,6 +117,28 @@
         public int GetReviewsCount()
         {
             return this.gameRepository.All().Where(x => x.Reviews.Count > 0).Count();
+        }
+
+        public async Task<int> GetCurrentGameReviewsCount(string id)
+        {
+            var game = await this.gameRepository.All().Include(x => x.Reviews).FirstOrDefaultAsync(x => x.Id == id);
+
+            return game.Reviews.Count();
+        }
+
+        public async Task DeleteReviewsAsync(string id)
+        {
+            var review = await this.reviewRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (review == null)
+            {
+                throw new ArgumentException("Review not found.");
+            }
+
+            review.IsDeleted = true;
+            review.DeletedOn = DateTime.UtcNow;
+            this.reviewRepository.Update(review);
+            await this.reviewRepository.SaveChangesAsync();
         }
     }
 }

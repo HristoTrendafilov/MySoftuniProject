@@ -13,7 +13,7 @@
                 </div>
                 <form method="post" asp-controller="Users" asp-action="Profile" enctype="multipart/form-data" id="form">
                     <input name="id" value="@Model.Id" hidden/>
-                    <input name="username" value="@Model.Username" hidden/>
+                    <input name="username" value="@Model.UserName" hidden/>
                     <input asp-for="ProfilePicture" id='fileid' type='file' hidden />
                     <input id='buttonid' type='button' class="btn btn-outline-info" value="Change profile picture" style="margin-left:80px"/>
                 </form>
@@ -21,9 +21,10 @@
                     <div class="user-image">
                         <img src="@Model.ProfilePicture" class="img-radius" alt="User-Profile-Image">
                     </div>
-                    <h6 class="f-w-600 m-t-25 m-b-10">@Model.Username</h6>
-                    <p class="text-muted">@Model.DateOfBirth</p>
-                    <p class="text-muted">From: @Model.City</p>
+                    <h6 class="f-w-600 m-t-25 m-b-10">@Model.UserName</h6>
+                    <p class="text-muted">Birthdate: @Model.DateOfBirth</p>
+                    <p class="text-muted">Registered on: @Model.CreatedOn</p>
+                    <p class="text-muted">From: @Model.CityName/@Model.CountryName</p>
                     <hr>
                     <div class="bg-c-blue counter-block m-t-10 p-20">
                         <div class="row">

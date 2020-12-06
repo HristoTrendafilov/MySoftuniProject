@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using AllAboutGames.Services.Mapping;
 
     public class UsersService : IUsersService
     {
@@ -75,18 +76,10 @@
 
         public async Task<UserProfilePageViewModel> GetUserDetailsAsync(string id)
         {
-            var user = await this.userRepository.All().Where(x => x.Id == id).Select(x => new UserProfilePageViewModel
-            {
-                Id = x.Id,
-                Username = x.UserName,
-                City = x.City.Name,
-                DateOfBirth = x.DateOfBirth.ToString("dd/MM/yyyy"),
-                ProfilePicture = x.ProfilePicture ?? "https://bootdey.com/img/Content/avatar/avatar7.png",
-                ReviewsCount = x.Reviews.Count,
-                CommentsCount = x.CommentsGames.Count,
-            }).FirstOrDefaultAsync();
-
-            return user;
+            return await this.userRepository.All()
+                .Where(x => x.Id == id)
+                .To<UserProfilePageViewModel>()
+                .FirstOrDefaultAsync();
         }
 
         public IEnumerable<KeyValuePair<string, string>> GetUsers()

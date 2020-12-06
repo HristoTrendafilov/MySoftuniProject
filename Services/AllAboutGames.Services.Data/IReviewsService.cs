@@ -12,8 +12,12 @@
 
         Task<IEnumerable<AllReviewsViewModel>> GetAllAsync(int page, int itemsToShow = 8);
 
-        Task<ReviewDetailsViewModel> GetReviewDetailsAsync(string id);
+        Task<ReviewDetailsViewModel> GetReviewDetailsAsync(string id, int pageNumber, int itemsToShow = 5);
 
         int GetReviewsCount();
+
+        Task<int> GetCurrentGameReviewsCount(string id);
+
+        Task DeleteReviewsAsync(string id);
     }
 }
