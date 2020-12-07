@@ -7,6 +7,7 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using Microsoft.AspNetCore.Authentication;
@@ -124,7 +125,7 @@
                     await this.cityRepository.SaveChangesAsync();
                 }
 
-                var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, DateOfBirth = this.Input.DateOfBirth, CityId = city.Id};
+                var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, DateOfBirth = this.Input.DateOfBirth, CityId = city.Id };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
@@ -138,7 +139,8 @@
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: this.Request.Scheme);
 
-                    await this.emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
+                    await this.emailSender.SendEmailAsync(
+                        this.Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (this.userManager.Options.SignIn.RequireConfirmedAccount)
@@ -151,6 +153,7 @@
                         return this.LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);

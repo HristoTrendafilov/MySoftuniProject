@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace AllAboutGames.Web.ViewModels.Reviews
+﻿namespace AllAboutGames.Web.ViewModels.Reviews
 {
+    using System.Collections.Generic;
+
     public class ReviewDetailsViewModel
     {
+        public string GameId { get; set; }
+
         public string GameName { get; set; }
 
         public double AverageRating { get; set; }

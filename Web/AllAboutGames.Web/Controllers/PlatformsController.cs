@@ -1,7 +1,7 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
+
     using AllAboutGames.Common;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;

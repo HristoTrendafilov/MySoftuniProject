@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.Reviews
+﻿namespace AllAboutGames.Web.ViewModels.Reviews
 {
     public class AllUserReviewsListViewModel : PagingViewModel
     {

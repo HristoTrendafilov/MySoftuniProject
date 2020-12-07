@@ -53,7 +53,7 @@
 
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public virtual ICollection<CommentForGame> Comments { get; set; }
+        public virtual ICollection<GameComment> Comments { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
 

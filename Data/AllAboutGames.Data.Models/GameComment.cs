@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-
-namespace AllAboutGames.Data.Models
+﻿namespace AllAboutGames.Data.Models
 {
-    public class CommentForGame
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public class GameComment
     {
-        public CommentForGame()
+        public GameComment()
         {
             this.Id = Guid.NewGuid().ToString();
         }

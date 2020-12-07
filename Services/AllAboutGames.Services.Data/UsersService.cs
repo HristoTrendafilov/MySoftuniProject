@@ -7,12 +7,12 @@
 
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using AllAboutGames.Services.Mapping;
 
     public class UsersService : IUsersService
     {

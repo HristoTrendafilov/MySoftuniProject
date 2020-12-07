@@ -48,7 +48,13 @@
 
         public DbSet<GameLanguage> GamesLanguages { get; set; }
 
-        public DbSet<CommentForGame> CommentsForGames { get; set; }
+        public DbSet<GameComment> GameComments { get; set; }
+
+        public DbSet<ForumCategory> ForumCategories { get; set; }
+
+        public DbSet<ForumPost> ForumPosts { get; set; }
+
+        public DbSet<ForumComment> ForumComments { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

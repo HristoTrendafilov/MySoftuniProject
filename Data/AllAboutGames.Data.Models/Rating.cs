@@ -1,8 +1,9 @@
-﻿using AllAboutGames.Data.Common.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace AllAboutGames.Data.Models
+﻿namespace AllAboutGames.Data.Models
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using AllAboutGames.Data.Common.Models;
+
     public class Rating : BaseModel<int>
     {
         [ForeignKey(nameof(Game))]

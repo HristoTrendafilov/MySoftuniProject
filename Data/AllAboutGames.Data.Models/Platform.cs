@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using AllAboutGames.Data.Common.Models;
 
     public class Platform : IDeletableEntity

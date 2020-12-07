@@ -15,8 +15,8 @@
 <center>
     @if (this.User.IsInRole("Administrator"))
     {
-        <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.Id">
-            <button type="button" class="btn btn-outline-info" style="margin-right:50px; width:100px">Edit</button>
+        <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-info" style="margin-right:50px; width:100px">
+            Edit
         </a>
     }
     @for (int i = 0; i < 5; i++)

@@ -5,6 +5,7 @@ namespace AllAboutGames.Data.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using AllAboutGames.Data.Common.Models;
 
     using Microsoft.AspNetCore.Identity;
@@ -20,7 +21,8 @@ namespace AllAboutGames.Data.Models
 
             this.Ratings = new HashSet<Rating>();
             this.Reviews = new HashSet<Review>();
-            this.CommentsGames = new HashSet<CommentForGame>();
+            this.CommentsGames = new HashSet<GameComment>();
+            this.ForumPosts = new HashSet<ForumPost>();
         }
 
         // Audit info
@@ -54,6 +56,8 @@ namespace AllAboutGames.Data.Models
 
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public virtual ICollection<CommentForGame> CommentsGames { get; set; }
+        public virtual ICollection<GameComment> CommentsGames { get; set; }
+
+        public virtual ICollection<ForumPost> ForumPosts { get; set; }
     }
 }

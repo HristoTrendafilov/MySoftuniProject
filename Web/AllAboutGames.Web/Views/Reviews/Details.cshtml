@@ -1,5 +1,6 @@
 ﻿@using AllAboutGames.Web.ViewModels.Reviews
 @using AllAboutGames.Common
+@using System.Security.Claims;
 @model AllUserReviewsListViewModel
 @section Css{
     <link href="/css/reviewDetails.css" rel="stylesheet" asp-append-version="true" />
@@ -111,9 +112,13 @@
                                 <div class="reviews-members-body">
                                     <p>@review.Text</p>
                                 </div>
-                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                @if (this.User.Identity.IsAuthenticated)
                                 {
-                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteGame">Delete</button>
+                                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) ||
+                                 this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
+                                    {
+                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteGame">Delete</button>
+                                    }
                                 }
                             </div>
                             <div id="myModal">
@@ -131,7 +136,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id">
+                                                <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" asp-route-gameId="@Model.Reviews.GameId">
                                                     <button type="button" class="btn btn-primary">Delete</button>
                                                 </a>
                                             </div>
@@ -153,5 +158,7 @@
         $('#myModal').on('shown.bs.modal', function () {
             $('#deleteGame').trigger('focus')
         })
+    </script>
+    <script>
     </script>
 }

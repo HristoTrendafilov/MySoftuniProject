@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace AllAboutGames.Web.ViewModels.Games
+﻿namespace AllAboutGames.Web.ViewModels.Games
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class GameDetailsViewModel
     {
         public string Id { get; set; }

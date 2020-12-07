@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-
-namespace AllAboutGames.Web.ViewModels.Platforms
+﻿namespace AllAboutGames.Web.ViewModels.Platforms
 {
+    using System;
+
+    using Microsoft.AspNetCore.Http;
+
     public class CreatePlatformViewModel
     {
         public string Name { get; set; }

@@ -2,6 +2,7 @@
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
+
     using AllAboutGames.Common;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
@@ -43,7 +44,7 @@
             model.UserId = userId;
             await this.reviewService.AddAsync(model);
 
-            return this.Redirect($"/Games/Details?id={model.GameId}&success=true");
+            return this.RedirectToAction("Details", "Games", new { id = model.GameId, success = true });
         }
 
         public async Task<IActionResult> Details(string id, int pageNumber = 1)
@@ -60,12 +61,12 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Delete(string id)
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.ReviwerRoleName)]
+        public async Task<IActionResult> Delete(DeleteReviewInputModel model)
         {
-            await this.reviewService.DeleteReviewsAsync(id);
+            await this.reviewService.DeleteReviewsAsync(model.Id);
 
-            return this.RedirectToAction("Details");
+            return this.RedirectToAction("Details", new { id = model.GameId, pageNumber = 1 });
         }
     }
 }

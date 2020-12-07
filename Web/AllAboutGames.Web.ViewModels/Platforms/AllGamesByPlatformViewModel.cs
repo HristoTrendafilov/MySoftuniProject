@@ -1,7 +1,7 @@
 ﻿namespace AllAboutGames.Web.ViewModels.Platforms
 {
-    using AllAboutGames.Services.Mapping;
     using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
 
     public class AllGamesByPlatformViewModel : IMapFrom<Game>
     {

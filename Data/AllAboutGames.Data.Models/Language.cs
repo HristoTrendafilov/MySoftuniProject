@@ -1,9 +1,10 @@
 ﻿namespace AllAboutGames.Data.Models
 {
-    using AllAboutGames.Data.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using AllAboutGames.Data.Common.Models;
 
     public class Language : IDeletableEntity
     {

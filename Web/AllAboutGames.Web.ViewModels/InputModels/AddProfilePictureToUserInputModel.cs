@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.InputModels
+﻿namespace AllAboutGames.Web.ViewModels.InputModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using Microsoft.AspNetCore.Http;
+
     public class AddProfilePictureToUserInputModel
     {
         public string Id { get; set; }

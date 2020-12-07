@@ -87,6 +87,7 @@
             var viewModel = new ReviewDetailsViewModel
             {
                 GameName = game.Name,
+                GameId = game.Id,
                 AverageRating = this.ratingsService.GetAverageRating(id),
                 OneStarRatingPercent = oneStarRating.ToString("N1") + "%",
                 TwoStarRatingPercent = twoStarRating.ToString("N1") + "%",
@@ -100,6 +101,7 @@
                 .Select(x => new AllUserReviewsViewModel
                 {
                     Id = x.Id,
+                    ReviewerId = x.ReviewedBy.Id,
                     Image = x.ReviewedBy.ProfilePicture,
                     Username = x.ReviewedBy.UserName,
                     CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy hh:mm"),

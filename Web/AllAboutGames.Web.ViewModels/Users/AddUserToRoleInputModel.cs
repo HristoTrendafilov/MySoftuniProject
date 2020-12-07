@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AllAboutGames.Web.ViewModels.Users
+﻿namespace AllAboutGames.Web.ViewModels.Users
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class AddUserToRoleInputModel
     {
         [Required(ErrorMessage = "Select username")]

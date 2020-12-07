@@ -1,13 +1,13 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using AllAboutGames.Common;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     public class UsersController : Controller

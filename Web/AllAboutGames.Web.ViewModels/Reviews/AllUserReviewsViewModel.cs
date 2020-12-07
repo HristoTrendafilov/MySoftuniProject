@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.Reviews
+﻿namespace AllAboutGames.Web.ViewModels.Reviews
 {
     public class AllUserReviewsViewModel
     {
         public string Id { get; set; }
+
+        public string ReviewerId { get; set; }
 
         public string Image { get; set; }
 

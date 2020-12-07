@@ -3,8 +3,8 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using AllAboutGames.Data.Common.Models;
-    using AllAboutGames.Data.Models;
 
     public class Review : IDeletableEntity
     {

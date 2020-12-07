@@ -1,11 +1,11 @@
-﻿using AllAboutGames.Data.Models;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.Games
+﻿namespace AllAboutGames.Web.ViewModels.Games
 {
+    using System;
+    using System.Collections.Generic;
+
+    using AllAboutGames.Data.Models;
+    using Microsoft.AspNetCore.Http;
+
     public class EditGameViewModel
     {
         public string Name { get; set; }

@@ -1,7 +1,4 @@
-﻿using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-
-namespace AllAboutGames.Web.ViewModels.Home
+﻿namespace AllAboutGames.Web.ViewModels.Home
 {
     public class IndexPageNewestPlatformViewModel
     {

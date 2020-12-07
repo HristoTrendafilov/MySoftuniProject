@@ -1,30 +1,32 @@
 ﻿namespace AllAboutGames.Data.Models
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
     using AllAboutGames.Data.Common.Models;
 
-    public class Genre : IDeletableEntity
+    public class ForumCategory : IDeletableEntity
     {
-        public Genre()
+        public ForumCategory()
         {
-            this.GamesGenres = new HashSet<GameGenre>();
             this.Id = Guid.NewGuid().ToString();
+            this.ForumPosts = new HashSet<ForumPost>();
         }
 
-        [Key]
         public string Id { get; set; }
 
-        [Required]
-        [MaxLength(100)]
         public string Name { get; set; }
 
-        public virtual ICollection<GameGenre> GamesGenres { get; set; }
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public string Image { get; set; }
 
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual ICollection<ForumPost> ForumPosts { get; set; }
     }
 }

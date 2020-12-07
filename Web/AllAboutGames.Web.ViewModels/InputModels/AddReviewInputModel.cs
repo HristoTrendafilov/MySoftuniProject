@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AllAboutGames.Web.ViewModels.InputModels
+﻿namespace AllAboutGames.Web.ViewModels.InputModels
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class AddReviewInputModel
     {
         public string GameId { get; set; }
