@@ -71,16 +71,16 @@
         text-align: center;
     }
 
-        .card .details h2 {
+        .card .details h3 {
             margin: 0;
             padding: 0;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 16px;
             color: #777;
             text-transform: uppercase;
         }
 
-            .card .details h2 span {
+            .card .details h3 span {
                 font-weight: 500;
                 font-size: 16px;
                 color: #f38695;

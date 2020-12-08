@@ -1,6 +1,5 @@
 ﻿.addreview {
     margin-top:50px;
-    width: 900px;
     background: #111;
     padding: 20px 30px;
     border: 1px solid #444;
@@ -62,23 +61,23 @@ input#rate-5:checked ~ label {
 }
 
 #rate-1:checked ~ form header:before {
-    content: "I just hate it 😠";
+    content: "just hate it 😠";
 }
 
 #rate-2:checked ~ form header:before {
-    content: "I don't like it 😒";
+    content: "don't like it 😒";
 }
 
 #rate-3:checked ~ form header:before {
-    content: "It is awesome 😄";
+    content: "awesome 😄";
 }
 
 #rate-4:checked ~ form header:before {
-    content: "I just like it 😎";
+    content: "just like it 😎";
 }
 
 #rate-5:checked ~ form header:before {
-    content: "I just love it 😍";
+    content: "just love it 😍";
 }
 
 .addreview form {
@@ -100,23 +99,12 @@ form header {
 }
 
 form .textarea {
-    height: 400px;
+    height: 100%;
     margin-top:60px;
-    width: 760px;
+    width: 100%;
     overflow: hidden;
 }
 
-    form .textarea textarea {
-        height: 100%;
-        width: 100%;
-        outline: none;
-        color: #eee;
-        border: 1px solid #333;
-        background: #222;
-        padding: 10px;
-        font-size: 17px;
-        resize: none;
-    }
 
 .textarea textarea:focus {
     border-color: #444;

@@ -5,7 +5,7 @@
     <link href="~/css/AllGames.css" rel="stylesheet" asp-append-version="true" />
 }
 <center>
-    <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["PlatformName"] Games</h1>
+    <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["ActionName"] Games</h1>
 </center>
 <div class="cards-list">
     @foreach (var game in Model.Games)
