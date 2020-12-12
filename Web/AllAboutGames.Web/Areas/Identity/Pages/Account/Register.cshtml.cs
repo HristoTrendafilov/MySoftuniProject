@@ -125,7 +125,7 @@
                     await this.cityRepository.SaveChangesAsync();
                 }
 
-                var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, DateOfBirth = this.Input.DateOfBirth, CityId = city.Id };
+                var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, DateOfBirth = this.Input.DateOfBirth, CityId = city.Id, ProfilePicture = "https://bootdey.com/img/Content/avatar/avatar7.png" };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {

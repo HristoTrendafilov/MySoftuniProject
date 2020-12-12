@@ -4,22 +4,26 @@
 @section Css{
     <link href="~/css/AllGames.css" rel="stylesheet" asp-append-version="true" />
 }
-<center>
-    <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["ActionName"] Games</h1>
-</center>
-<div class="cards-list">
-    @foreach (var game in Model.Games)
-    {
-        <a asp-controller="Games" asp-action="Details" asp-route-id="@game.Id">
-            <div>
-                <center>
-                    <h5 style="margin-left:30px; color:blue; width: 250px">@game.Name</h5>
-                </center>
-                <div class="card 1">
-                    <div class="card_image"> <img src="@game.Image" /> </div>
+<div>
+    <center>
+        <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["ActionName"] Games</h1>
+    </center>
+    <div class="cards-list">
+        @foreach (var game in Model.Games)
+        {
+            <a asp-controller="Games" asp-action="Details" asp-route-id="@game.Id">
+                <div>
+                    <div style="display:flex; align-items:center; justify-content:center">
+                        <center>
+                            <h5 style="margin-left:30px; color:blue; width: 250px">@game.Name</h5>
+                        </center>
+                    </div>
+                    <div class="card 1">
+                        <div class="card_image"> <img src="@game.Image" /> </div>
+                    </div>
                 </div>
-            </div>
-        </a>
-    }
+            </a>
+        }
+    </div>
 </div>
 <partial name="_PagingPartial" model="@Model" view-data="ViewData" />

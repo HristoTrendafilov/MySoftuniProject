@@ -13,6 +13,7 @@
         [Required(ErrorMessage = "Price can't be negative number.")]
         public double Price { get; set; }
 
+        [Required(ErrorMessage = "Image is required")]
         public IFormFile Image { get; set; }
 
         public string Website { get; set; }

@@ -21,7 +21,7 @@ namespace AllAboutGames.Data.Models
 
             this.Ratings = new HashSet<Rating>();
             this.Reviews = new HashSet<Review>();
-            this.CommentsGames = new HashSet<GameComment>();
+            this.GameComments = new HashSet<GameComment>();
             this.ForumPosts = new HashSet<ForumPost>();
         }
 
@@ -56,7 +56,7 @@ namespace AllAboutGames.Data.Models
 
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public virtual ICollection<GameComment> CommentsGames { get; set; }
+        public virtual ICollection<GameComment> GameComments { get; set; }
 
         public virtual ICollection<ForumPost> ForumPosts { get; set; }
     }

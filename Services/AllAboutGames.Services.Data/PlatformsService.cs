@@ -5,7 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
@@ -16,18 +16,23 @@
 
     public class PlatformsService : IPlatformsService
     {
+        private const string MainFilePath = "platforms";
+
         private readonly IDeletableEntityRepository<Platform> platformRepository;
         private readonly IDeletableEntityRepository<Developer> developerRepository;
         private readonly IDeletableEntityRepository<Game> gameRepository;
+        private readonly IGamesService gamesService;
 
         public PlatformsService(
             IDeletableEntityRepository<Platform> platformRepository,
             IDeletableEntityRepository<Developer> developerRepository,
-            IDeletableEntityRepository<Game> gameRepository)
+            IDeletableEntityRepository<Game> gameRepository,
+            IGamesService gamesService)
         {
             this.platformRepository = platformRepository;
             this.developerRepository = developerRepository;
             this.gameRepository = gameRepository;
+            this.gamesService = gamesService;
         }
 
         public async Task AddPlatformAsync(AddPlatformInputModel model, string rootPath)
@@ -42,7 +47,7 @@
                 };
             }
 
-            var imagePath = await this.UploadedFile(model.Image, model.Name, rootPath);
+            var imagePath = await GlobalMethods.UploadedFile(model.Image, model.Name, rootPath, MainFilePath);
 
             var platform = new Platform()
             {
@@ -83,26 +88,6 @@
             return this.gameRepository.AllAsNoTracking()
                 .Where(x => x.GamePlatforms.Any(gp => gp.Platform.Name.Contains(platform)))
                 .Count();
-        }
-
-        private async Task<string> UploadedFile(IFormFile image, string platformName, string rootPath)
-        {
-            var fileName = Path.GetFileName(image.FileName);
-            var directory = $"{rootPath}\\images\\platforms\\{platformName}";
-
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"{rootPath}\\images\\platforms\\{platformName}", fileName);
-
-            using (var fileSteam = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(fileSteam);
-            }
-
-            return $"\\images\\platforms\\{platformName}\\{fileName}";
         }
     }
 }

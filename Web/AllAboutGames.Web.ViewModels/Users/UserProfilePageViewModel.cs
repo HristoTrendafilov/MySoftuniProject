@@ -32,8 +32,6 @@
                     opt.MapFrom(x => x.DateOfBirth.ToString("dd/MM/yyyy")))
                 .ForMember(x => x.CountryName, opt =>
                     opt.MapFrom(x => x.City.Country.Name))
-                .ForMember(x => x.ProfilePicture, opt =>
-                    opt.MapFrom(x => x.ProfilePicture ?? "https://bootdey.com/img/Content/avatar/avatar7.png"))
                 .ForMember(x => x.CreatedOn, opt =>
                     opt.MapFrom(x => x.CreatedOn.ToString("dd/MM/yyy")));
         }

@@ -95,17 +95,10 @@
                 {
                     <div class="reviews-members pt-4 pb-4">
                         <div class="media">
-                            @if (review.Image == null)
-                            {
-                                <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
-                            }
-                            else
-                            {
-                                <a href="#"><img alt="Generic placeholder image" src="@review.Image" class="mr-3 rounded-pill"></a>
-                            }
+                            <a asp-controller="Users" asp-action="Profile" asp-route-id="@review.ReviewerId"><img alt="Generic placeholder image" src="@review.Image" class="mr-3 rounded-pill"></a>
                             <div class="media-body">
                                 <div class="reviews-members-header">
-                                    <h6 class="mb-1"><a class="text-black" href="#">@review.Username</a></h6>
+                                    <h6 class="mb-1"><a asp-controller="Users" asp-action="Profile" asp-route-id="@review.ReviewerId" class="text-black">@review.Username</a></h6>
                                     <span>Rating: @review.Rating</span>
                                     <p class="text-gray">@review.CreatedOn</p>
                                 </div>
@@ -115,7 +108,7 @@
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) ||
-                                 this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
+                                this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
                                     {
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteReview">Delete</button>
                                     }
@@ -156,7 +149,7 @@
 @section Scripts{
     <script>
         $('#myModal').on('shown.bs.modal', function () {
-            $('#deleteGame').trigger('focus')
+            $('#deleteReview').trigger('focus')
         })
     </script>
     <script>

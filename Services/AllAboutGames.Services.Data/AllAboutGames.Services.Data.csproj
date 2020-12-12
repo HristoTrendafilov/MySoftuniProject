@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AllAboutGames.Common\AllAboutGames.Common.csproj" />
     <ProjectReference Include="..\..\Data\AllAboutGames.Data.Common\AllAboutGames.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\AllAboutGames.Data.Models\AllAboutGames.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\AllAboutGames.Data\AllAboutGames.Data.csproj" />

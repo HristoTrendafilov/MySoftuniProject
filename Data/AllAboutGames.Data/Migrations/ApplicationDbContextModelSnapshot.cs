@@ -219,18 +219,22 @@ namespace AllAboutGames.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -255,6 +259,7 @@ namespace AllAboutGames.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Text")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -277,21 +282,31 @@ namespace AllAboutGames.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ForumCategoryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -745,11 +760,15 @@ namespace AllAboutGames.Data.Migrations
                 {
                     b.HasOne("AllAboutGames.Data.Models.ForumCategory", "ForumCategory")
                         .WithMany("ForumPosts")
-                        .HasForeignKey("ForumCategoryId");
+                        .HasForeignKey("ForumCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
                         .WithMany("ForumPosts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AllAboutGames.Data.Models.Game", b =>
@@ -768,7 +787,7 @@ namespace AllAboutGames.Data.Migrations
                         .HasForeignKey("GameId");
 
                     b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
-                        .WithMany("CommentsGames")
+                        .WithMany("GameComments")
                         .HasForeignKey("UserId");
                 });
 

@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
     using AllAboutGames.Data.Common.Models;
 
     public class ForumPost : IDeletableEntity
@@ -11,19 +13,27 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.ForumComments = new HashSet<ForumComment>();
+            this.CreatedOn = DateTime.UtcNow;
         }
 
+        [Key]
         public string Id { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
+        [Required]
         public string Content { get; set; }
 
+        public int Likes { get; set; }
+
+        [Required]
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
+        [Required]
         [ForeignKey(nameof(ForumCategory))]
         public string ForumCategoryId { get; set; }
 
@@ -35,6 +45,6 @@
 
         public DateTime? DeletedOn { get; set; }
 
-        public DateTime CreatedOn => DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; }
     }
 }

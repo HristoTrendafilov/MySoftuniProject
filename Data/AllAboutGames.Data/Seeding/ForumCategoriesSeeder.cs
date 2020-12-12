@@ -14,7 +14,7 @@
                 return;
             }
 
-            string[] forumCategories = { "News", "Music", "Sport", "Gaming", "Coronavirus" };
+            string[] forumCategories = { "News", "Music", "Sport", "Gaming", "Coronavirus", "General" };
 
             foreach (var category in forumCategories)
             {

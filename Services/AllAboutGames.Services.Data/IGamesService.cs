@@ -5,6 +5,7 @@
     using AllAboutGames.Web.ViewModels.Game;
     using AllAboutGames.Web.ViewModels.Games;
     using AllAboutGames.Web.ViewModels.InputModels;
+    using Microsoft.AspNetCore.Http;
 
     public interface IGamesService
     {

@@ -1,5 +1,6 @@
 ﻿using AllAboutGames.Data.Common.Models;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AllAboutGames.Data.Models
@@ -9,8 +10,10 @@ namespace AllAboutGames.Data.Models
         public ForumComment()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.CreatedOn = DateTime.UtcNow;
         }
 
+        [Key]
         public string Id { get; set; }
 
         [ForeignKey(nameof(ForumPost))]
@@ -18,6 +21,7 @@ namespace AllAboutGames.Data.Models
 
         public ForumPost ForumPost { get; set; }
 
+        [Required]
         public string Text { get; set; }
 
         [ForeignKey(nameof(User))]
@@ -29,6 +33,6 @@ namespace AllAboutGames.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public DateTime CreatedOn => DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; }
     }
 }

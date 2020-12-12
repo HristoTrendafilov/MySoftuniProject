@@ -75,7 +75,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize(GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
             await this.gameService.DeleteGameAsync(id);

@@ -7,13 +7,14 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     @await this.RenderSectionAsync("Css", required: false)
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="/images/default-monochrome-white.svg" width="200">

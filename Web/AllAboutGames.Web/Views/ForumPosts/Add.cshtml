@@ -1,0 +1,31 @@
+﻿@using AllAboutGames.Web.ViewModels.InputModels
+@model AddForumPostInputModel
+@{ 
+    this.ViewData["Title"] = "Add New blog post";
+}
+
+<center>
+    <h1>@this.ViewData["Title"]</h1>
+</center>
+
+<form class="text-center border border-light p-5" method="post">
+    <center>
+        <div class="form-group col-md-4">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" width:20em />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Content"></label>
+            <textarea asp-for="Content" class="form-control rounded-0" rows="5"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="ForumCategoryId"></label>
+            <select class="form-control" asp-for="ForumCategoryId" asp-items="Model.ForumCategories.Select(x => new SelectListItem(x.Name, x.Id))"></select>
+            <span asp-validation-for="ForumCategoryId" class="text-danger"></span>
+        </div>
+        <hr />
+        <input type="submit" class="btn btn-outline-success" value="Add" style="width:200px" />
+    </center>
+</form>

@@ -1,0 +1,72 @@
+﻿@using AllAboutGames.Web.ViewModels.Forum;
+@model IndexViewModel
+@section Css{
+    <link href="/css/forumIndex.css" rel="stylesheet" asp-append-version="true" />
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="p-xs">
+                        <div class="pull-left m-r-md">
+                            <i class="fa fa-globe text-navy mid-icon"></i>
+                        </div>
+                        <h2 style="color: black">Welcome to our forum</h2>
+                        <span>Feel free to choose topic you're interested in.</span>
+                    </div>
+                </div>
+
+                <div class="ibox-content forum-container">
+
+                    <div class="forum-title">
+                        <div class="pull-right forum-desc">
+                            <samll>Total posts: 320,800</samll>
+                        </div>
+                        <h3 style="color:black">Categories</h3>
+                    </div>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="forum-item active">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+                                        @Html.Raw(@category.Image)
+                                    </div>
+                                    <a asp-controller="ForumCategories" asp-action="Details" asp-route-id="@category.Id" class="forum-item-title">@category.Name</a>
+                                    <div class="forum-sub-title">@category.Description</div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
+                                        1216
+                                    </span>
+                                    <div>
+                                        <small>Views</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
+                                        368
+                                    </span>
+                                    <div>
+                                        <small>Topics</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 forum-info">
+                                    <span class="views-number">
+                                        <span class="views-number">
+                                            @category.ForumPostsCount
+                                        </span>
+                                    </span>
+                                    <div>
+                                        <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
