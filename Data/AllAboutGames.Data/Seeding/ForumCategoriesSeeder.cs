@@ -18,7 +18,7 @@
 
             foreach (var category in forumCategories)
             {
-                await dbContext.ForumCategories.AddAsync(new ForumCategory { Name = category, Description = category, Title = category, });
+                await dbContext.ForumCategories.AddAsync(new ForumCategory { Name = category, Description = category, });
                 await dbContext.SaveChangesAsync();
             }
         }

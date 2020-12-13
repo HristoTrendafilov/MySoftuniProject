@@ -1,8 +1,11 @@
 ﻿@using AllAboutGames.Web.ViewModels.Games
 @model EditGameViewModel
+@{
+    this.ViewData["Title"] = "Edit " + Model.Name;
+}
 
 <form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
-    <h1 style="color:deepskyblue">Edit <span style="color:red">@Model.Name</span></h1>
+    <h1 style="color:deepskyblue">Edit <span class="text-danger">@Model.Name</span></h1>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Name"></label>

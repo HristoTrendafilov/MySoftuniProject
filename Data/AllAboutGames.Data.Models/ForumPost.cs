@@ -13,6 +13,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.ForumComments = new HashSet<ForumComment>();
+            this.ForumLikes = new HashSet<ForumLike>();
             this.CreatedOn = DateTime.UtcNow;
         }
 
@@ -24,8 +25,6 @@
 
         [Required]
         public string Content { get; set; }
-
-        public int Likes { get; set; }
 
         [Required]
         [ForeignKey(nameof(User))]
@@ -40,6 +39,8 @@
         public ForumCategory ForumCategory { get; set; }
 
         public virtual ICollection<ForumComment> ForumComments { get; set; }
+
+        public virtual ICollection<ForumLike> ForumLikes { get; set; }
 
         public bool IsDeleted { get; set; }
 

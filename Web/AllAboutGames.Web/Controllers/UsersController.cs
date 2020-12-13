@@ -1,13 +1,17 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using AllAboutGames.Common;
+    using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class UsersController : Controller
@@ -15,7 +19,9 @@
         private readonly IUsersService usersService;
         private readonly IWebHostEnvironment environment;
 
-        public UsersController(IUsersService usersService, IWebHostEnvironment environment)
+        public UsersController(
+            IUsersService usersService,
+            IWebHostEnvironment environment)
         {
             this.usersService = usersService;
             this.environment = environment;

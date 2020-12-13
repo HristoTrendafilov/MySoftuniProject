@@ -4,7 +4,7 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
-@section Css{
+@section CustomCss{
     <link href="~/css/Index.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/Cards.css" rel="stylesheet" asp-append-version="true" />
 }
@@ -51,8 +51,8 @@
 <div class="row no-gutters" style="margin-top:60px">
     <div class="col-md-5">
         <div>
-            <h3 style="color:red; margin-left:100px">Top Rated Game</h3>
-            <h4 style="margin-left:160px">Votes: <span style="color:red;">@Model.TopRatedGame.RatingsCount</span></h4>
+            <h3 class="text-danger" margin-left:100px">Top Rated Game</h3>
+            <h4 style="margin-left:160px">Votes: <span class="text-danger">@Model.TopRatedGame.RatingsCount</span></h4>
             <div style="margin-left:50px">
                 @for (int i = 0; i < 5; i++)
                 {
@@ -65,7 +65,7 @@
                         <span class="fa fa-star star unchecked"></span>
                     }
                 }
-                <span style="color:white; font-size:30px;"><span style="color:red">@Model.TopRatedGame.Rating</span>/5</span>
+                <span style="color:white; font-size:30px;"><span class="text-danger">@Model.TopRatedGame.Rating</span>/5</span>
             </div>
         </div>
         <div class="card" style="margin-top:10px; margin-right:280px">
@@ -107,7 +107,7 @@
     <figure class="figure" style="margin-bottom:100px; margin-top:50px">
         <center>
             <h2 style="color:deepskyblue">Read about the newest console</h2>
-            <h3 style="color:red">@Model.Platform.Name</h3>
+            <h3 class="text-danger">@Model.Platform.Name</h3>
         </center>
         <div class="row no-gutters" style="margin-top:50px">
             <div class="col-md-5">

@@ -7,7 +7,7 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using Microsoft.AspNetCore.Authentication;
@@ -125,8 +125,17 @@
                     await this.cityRepository.SaveChangesAsync();
                 }
 
-                var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, DateOfBirth = this.Input.DateOfBirth, CityId = city.Id, ProfilePicture = "https://bootdey.com/img/Content/avatar/avatar7.png" };
+                var user = new ApplicationUser
+                {
+                    UserName = this.Input.Username,
+                    Email = this.Input.Email,
+                    DateOfBirth = this.Input.DateOfBirth,
+                    CityId = city.Id, 
+                    ProfilePicture = "https://bootdey.com/img/Content/avatar/avatar7.png",
+                };
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
+
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
@@ -158,6 +167,8 @@
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);
                 }
+
+                await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
             }
 
             // If we got this far, something failed, redisplay form

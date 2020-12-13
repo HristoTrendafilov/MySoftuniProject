@@ -1,6 +1,11 @@
 ﻿@using AllAboutGames.Web.ViewModels.Forum;
 @model IndexViewModel
-@section Css{
+@using AllAboutGames.Common
+@using System.Security.Claims;
+@{
+    this.ViewData["Title"] = "Forum";
+}
+@section CustomCss{
     <link href="/css/forumIndex.css" rel="stylesheet" asp-append-version="true" />
 }
 <div class="container">
@@ -24,6 +29,13 @@
                             <samll>Total posts: 320,800</samll>
                         </div>
                         <h3 style="color:black">Categories</h3>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <a asp-controller="ForumCategories" asp-action="Add" type="button" class="btn btn-outline-success" style="width:150px">Add category</a>
+                            }
+                        }
                     </div>
                     @foreach (var category in Model.Categories)
                     {
@@ -35,22 +47,14 @@
                                     </div>
                                     <a asp-controller="ForumCategories" asp-action="Details" asp-route-id="@category.Id" class="forum-item-title">@category.Name</a>
                                     <div class="forum-sub-title">@category.Description</div>
-                                </div>
-                                <div class="col-md-1 forum-info">
-                                    <span class="views-number">
-                                        1216
-                                    </span>
-                                    <div>
-                                        <small>Views</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-1 forum-info">
-                                    <span class="views-number">
-                                        368
-                                    </span>
-                                    <div>
-                                        <small>Topics</small>
-                                    </div>
+                                    @if (this.User.Identity.IsAuthenticated)
+                                    {
+                                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                        {
+                                            <a asp-controller="ForumCategories" asp-action="Delete" asp-route-id="@category.Id" type="button" class="btn btn-outline-danger" style="width:150px;">Delete category</a>
+                                            <a asp-controller="ForumCategories" asp-action="Edit" asp-route-id="@category.Id" type="button" class="btn btn-outline-info" style="width:150px;">Edit category</a>
+                                        }
+                                    }
                                 </div>
                                 <div class="col-md-1 forum-info">
                                     <span class="views-number">

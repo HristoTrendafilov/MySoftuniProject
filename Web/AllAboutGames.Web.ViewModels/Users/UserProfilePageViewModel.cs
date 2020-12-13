@@ -4,6 +4,9 @@
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
     using AutoMapper;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
 
     public class UserProfilePageViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
@@ -21,19 +24,21 @@
 
         public int ReviewsCount { get; set; }
 
-        public int CommentsCount { get; set; }
+        public int GameCommentsCount { get; set; }
 
         public string ProfilePicture { get; set; }
+
+        public int ForumPostsCount { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ApplicationUser, UserProfilePageViewModel>()
                 .ForMember(x => x.DateOfBirth, opt =>
-                    opt.MapFrom(x => x.DateOfBirth.ToString("dd/MM/yyyy")))
+                    opt.MapFrom(x => x.DateOfBirth.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(x => x.CountryName, opt =>
                     opt.MapFrom(x => x.City.Country.Name))
                 .ForMember(x => x.CreatedOn, opt =>
-                    opt.MapFrom(x => x.CreatedOn.ToString("dd/MM/yyy")));
+                    opt.MapFrom(x => x.CreatedOn.ToString("dd/MM/yyy", CultureInfo.InvariantCulture)));
         }
     }
 }

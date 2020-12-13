@@ -1,9 +1,11 @@
 ﻿@using AllAboutGames.Web.ViewModels.Platforms
 @model CreatePlatformViewModel
-
+@{
+    this.ViewData["Title"] = "Add new platform";
+}
 <form class="text-center border border-light p-5" method="post" enctype="multipart/form-data">
     <center>
-        <p class="h1 mb-4">Add new platform</p>
+        <p class="h1 mb-4">@this.ViewData["Title"]</p>
         <div class="form-group col-md-4">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control mb-4">

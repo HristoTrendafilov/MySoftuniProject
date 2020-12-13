@@ -18,6 +18,7 @@
 
             await SeedRoleAsync(roleManager, GlobalConstants.AdministratorRoleName);
             await SeedRoleAsync(roleManager, GlobalConstants.ReviwerRoleName);
+            await SeedRoleAsync(roleManager, GlobalConstants.ReviwerRoleName);
         }
 
         private static async Task SeedRoleAsync(RoleManager<ApplicationRole> roleManager, string roleName)

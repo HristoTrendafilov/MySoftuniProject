@@ -1,8 +1,11 @@
 ﻿@using AllAboutGames.Web.ViewModels.Game
 @model AddGameViewModel
+@{
+    this.ViewData["Title"] = "Add new video game";
+}
 <form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <h1>Add new video game</h1>
+    <h1>@this.ViewData["Title"]</h1>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Name"></label>

@@ -1,17 +1,16 @@
 ﻿
 .nav-link {
     font-size: 15px;
-    color:white;
+    color:blue;
 }
 .navbar-brand{
-    color:white;
+    color:blue;
 }
 
 .navbar{
-    position:absolute;
+    position:relative;
     width:100%;
     z-index:99;
-    background-color:transparent;
 }
 
 

@@ -56,6 +56,8 @@
 
         public DbSet<ForumComment> ForumComments { get; set; }
 
+        public DbSet<ForumLike> ForumLikes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

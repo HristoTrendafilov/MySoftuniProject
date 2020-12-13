@@ -1,6 +1,9 @@
 ﻿@using AllAboutGames.Web.ViewModels.Reviews
 @model AllReviewsListViewModel
-@section Css{
+@{
+    this.ViewData["Title"] = "Reviews";
+}
+@section CustomCss{
     <link href="~/css/Cards.css" rel="stylesheet" asp-append-version="true" />
 }
 <center style="margin-top:50px"> <h1>Reviews</h1> </center>

@@ -1,9 +1,12 @@
 ﻿@using AllAboutGames.Web.ViewModels.Platforms
 @model AllGamesListViewModel
-
-@section Css{
+@{
+    this.ViewData["Title"] = this.ViewData["ActionName"] + " games";
+}
+@section CustomCss{
     <link href="~/css/AllGames.css" rel="stylesheet" asp-append-version="true" />
 }
+
 <div>
     <center>
         <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["ActionName"] Games</h1>

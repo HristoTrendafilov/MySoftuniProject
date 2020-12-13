@@ -125,7 +125,9 @@
 }
 
 .m-t-10 {
+    width:110%;
     margin-top: 10px;
+    margin-right:100px
 }
 
 .p-20 {

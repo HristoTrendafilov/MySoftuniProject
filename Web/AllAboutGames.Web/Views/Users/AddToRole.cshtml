@@ -1,6 +1,9 @@
 ﻿@using AllAboutGames.Web.ViewModels.Users
 @model AddUserToRoleViewModel
-@{ 
+@{
+    this.ViewData["Title"] = "Add user to role";
+}
+@{
     var usersItems = this.Model.Users.Select(x => new SelectListItem(x.Value, x.Value));
     var roleItems = this.Model.Roles.Select(x => new SelectListItem(x.Value, x.Value));
 }

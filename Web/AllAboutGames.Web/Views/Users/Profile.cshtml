@@ -1,7 +1,9 @@
 ﻿@using AllAboutGames.Web.ViewModels.Users
 @model UserProfilePageViewModel
-
-@section Css{ 
+@{
+    this.ViewData["Title"] = "User profile";
+}
+@section CustomCss{
     <link href="/css/UserProfile.css" rel="stylesheet" asp-append-version="true" />
 }
 <div class="container">
@@ -12,10 +14,10 @@
                     <h5>Profile</h5>
                 </div>
                 <form method="post" asp-controller="Users" asp-action="Profile" enctype="multipart/form-data" id="form">
-                    <input name="id" value="@Model.Id" hidden/>
-                    <input name="username" value="@Model.UserName" hidden/>
+                    <input name="id" value="@Model.Id" hidden />
+                    <input name="username" value="@Model.UserName" hidden />
                     <input asp-for="ProfilePicture" id='fileid' type='file' hidden />
-                    <input id='buttonid' type='button' class="btn btn-outline-info" value="Change profile picture" style="margin-left:80px"/>
+                    <input id='buttonid' type='button' class="btn btn-outline-info" value="Change profile picture" style="margin-left:80px" />
                 </form>
                 <div class="card-block">
                     <div class="user-image">
@@ -33,8 +35,16 @@
                                 <p>@Model.ReviewsCount</p>
                             </div>
                             <div class="col-6">
-                                <p>Comments</p>
-                                <p>@Model.CommentsCount</p>
+                                <p>Game comments</p>
+                                <p>@Model.GameCommentsCount</p>
+                            </div>
+                            <div class="col-6">
+                                <p>Forum posts</p>
+                                <p>@Model.ForumPostsCount</p>
+                            </div>
+                            <div class="col-6">
+                                <p>Forum comments</p>
+                                <p>0</p>
                             </div>
                         </div>
                     </div>
@@ -52,7 +62,7 @@
         </div>
     </div>
 </div>
-@section Scripts{ 
+@section Scripts{
     <script>
         document.getElementById('buttonid').addEventListener('click', openDialog);
 

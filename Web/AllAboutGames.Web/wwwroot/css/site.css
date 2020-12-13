@@ -103,12 +103,13 @@ label{
 }
 
 .nav-link {
-    color: white;
+    color: blue;
 }
 
 .nav-link:hover {
     color: dodgerblue;
 }
+
 
 
 

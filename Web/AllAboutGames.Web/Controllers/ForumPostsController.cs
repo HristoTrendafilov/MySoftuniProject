@@ -51,5 +51,29 @@
             var viewModel = await this.forumService.GetPostByIdAsync<PostViewModel>(id);
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.forumService.DeletePostAsync(id);
+            return this.RedirectToAction("Index", "Forum");
+
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var categories = await this.forumService.GetAllAsync<CategoryDropDownViewModel>();
+            var viewModel = await this.forumService.GetCurrentPost(id);
+            viewModel.ForumCategories = categories;
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, AddForumPostInputModel model)
+        {
+            await this.forumService.EditPostAsync(id, model);
+            return this.RedirectToAction("Details", "ForumCategories", new { id = model.ForumCategoryId });
+        }
     }
 }

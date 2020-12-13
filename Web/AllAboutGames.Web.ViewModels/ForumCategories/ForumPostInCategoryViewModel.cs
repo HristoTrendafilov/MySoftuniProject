@@ -28,7 +28,7 @@ namespace AllAboutGames.Web.ViewModels.ForumCategories
 
         public int CommentsCount { get; set; }
 
-        public int Likes { get; set; }
+        public int ForumLikesCount { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -4,14 +4,16 @@ using AllAboutGames.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AllAboutGames.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201213093040_AddedForumLikesEntity")]
+    partial class AddedForumLikesEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,6 +235,10 @@ namespace AllAboutGames.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
@@ -318,6 +324,9 @@ namespace AllAboutGames.Data.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -777,7 +786,7 @@ namespace AllAboutGames.Data.Migrations
             modelBuilder.Entity("AllAboutGames.Data.Models.ForumLike", b =>
                 {
                     b.HasOne("AllAboutGames.Data.Models.ForumPost", "ForumPost")
-                        .WithMany("ForumLikes")
+                        .WithMany()
                         .HasForeignKey("ForumPostId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

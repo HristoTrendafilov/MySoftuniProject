@@ -2,14 +2,17 @@
 @using AllAboutGames.Common
 @using System.Security.Claims;
 @model AllUserReviewsListViewModel
-@section Css{
+@{
+    this.ViewData["Title"] = "Review: " + Model.Reviews.GameName;
+}
+@section CustomCss{
     <link href="/css/reviewDetails.css" rel="stylesheet" asp-append-version="true" />
 }
 <div class="container">
     <div class="col-md-12">
         <div class="tab-pane fade active show" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
             <div class="bg-white rounded shadow-sm p-4 mb-4 clearfix graph-star-rating">
-                <h5 class="mb-0 mb-4">Ratings and Reviews for: <span style="color:red">@Model.Reviews.GameName</span></h5>
+                <h5 class="mb-0 mb-4">Ratings and Reviews for: <span class="text-danger">@Model.Reviews.GameName</span></h5>
                 <div class="graph-star-rating-header">
                     <div class="star-rating">
                         <a href="#"><i class="icofont-ui-rating active"></i></a>
@@ -18,7 +21,7 @@
                         <a href="#"><i class="icofont-ui-rating active"></i></a>
                     </div>
                     <center>
-                        <p class="text-black mb-4 mt-2" style="font-size:30px">Rated <span style="color:red">@Model.Reviews.AverageRating </span>out of 5</p>
+                        <p class="text-black mb-4 mt-2" style="font-size:30px">Rated <span class="text-danger">@Model.Reviews.AverageRating </span>out of 5</p>
                     </center>
                 </div>
                 <div class="graph-star-rating-body">
@@ -108,7 +111,7 @@
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) ||
-                                this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
+                               this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
                                     {
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteReview">Delete</button>
                                     }
