@@ -19,6 +19,7 @@
             var viewModel = new IndexViewModel
             {
                 Categories = await this.forumService.GetAllAsync<IndexCategoryViewMode>(),
+                TotalPostsCount = this.forumService.GetTotalPostsCount(),
             };
 
             return this.View(viewModel);

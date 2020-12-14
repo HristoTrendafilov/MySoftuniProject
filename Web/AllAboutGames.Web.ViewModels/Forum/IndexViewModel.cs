@@ -5,5 +5,7 @@
     public class IndexViewModel
     {
         public IEnumerable<IndexCategoryViewMode> Categories { get; set; }
+
+        public int TotalPostsCount { get; set; }
     }
 }

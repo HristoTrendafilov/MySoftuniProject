@@ -94,8 +94,10 @@
             </div>
             <div class="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
                 <h5 class="mb-1">All Ratings and Reviews</h5>
+                @{ var i = 0;}
                 @foreach (var review in Model.Reviews.UserReviews)
                 {
+                    i++;
                     <div class="reviews-members pt-4 pb-4">
                         <div class="media">
                             <a asp-controller="Users" asp-action="Profile" asp-route-id="@review.ReviewerId"><img alt="Generic placeholder image" src="@review.Image" class="mr-3 rounded-pill"></a>
@@ -111,14 +113,14 @@
                                 @if (this.User.Identity.IsAuthenticated)
                                 {
                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) ||
-                               this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
+                              this.User.FindFirst(ClaimTypes.NameIdentifier).Value == review.ReviewerId)
                                     {
-                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteReview">Delete</button>
+                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteReview@(i)">Delete</button>
                                     }
                                 }
                             </div>
                             <div id="myModal">
-                                <div class="modal fade" id="deleteReview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="deleteReview@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -148,7 +150,7 @@
         </div>
     </div>
 </div>
-<partial name="_ReviewsPagingPartial" model="@Model" view-data="ViewData" />
+<partial name="_ListPagingPartial" model="@Model" view-data="ViewData" />
 @section Scripts{
     <script>
         $('#myModal').on('shown.bs.modal', function () {

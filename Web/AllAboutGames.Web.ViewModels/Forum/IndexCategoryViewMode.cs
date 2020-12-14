@@ -1,5 +1,6 @@
 ﻿using AllAboutGames.Data.Models;
 using AllAboutGames.Services.Mapping;
+using Ganss.XSS;
 
 namespace AllAboutGames.Web.ViewModels.Forum
 {

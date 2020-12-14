@@ -1,4 +1,5 @@
-﻿using AllAboutGames.Web.ViewModels.ForumPosts;
+﻿using AllAboutGames.Web.ViewModels.ForumCategories;
+using AllAboutGames.Web.ViewModels.ForumPosts;
 using AllAboutGames.Web.ViewModels.InputModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace AllAboutGames.Services.Data
     {
         Task<IEnumerable<T>> GetAllAsync<T>(int? count = null);
 
-        Task<T> GetByIdAsync<T>(string id, string orderBy = null);
+        Task<T> GetByIdAsync<T>(string id);
 
         Task<string> AddForumPostAsync(AddForumPostInputModel model, string userId);
 
@@ -30,5 +31,15 @@ namespace AllAboutGames.Services.Data
         Task EditPostAsync(string id, AddForumPostInputModel model);
 
         Task<EditPostViewModel> GetCurrentPost(string id);
+
+        Task<IEnumerable<ForumPostInCategoryViewModel>> GetAllForumPostsByCategory(string id, int page, int itemsToShow);
+
+        Task<int> GetCurrentCategoryPostsCount(string id);
+
+        int GetTotalPostsCount();
+
+        Task AddCommentAsync(string text, string postId, string userId);
+
+        Task DeleteCommentAsync(string id);
     }
 }

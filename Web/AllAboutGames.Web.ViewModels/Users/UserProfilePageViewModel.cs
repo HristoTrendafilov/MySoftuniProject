@@ -24,8 +24,6 @@
 
         public int ReviewsCount { get; set; }
 
-        public int GameCommentsCount { get; set; }
-
         public string ProfilePicture { get; set; }
 
         public int ForumPostsCount { get; set; }

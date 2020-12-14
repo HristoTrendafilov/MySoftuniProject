@@ -1,6 +1,7 @@
 ﻿using AllAboutGames.Data.Common.Repositories;
 using AllAboutGames.Data.Models;
 using AllAboutGames.Services.Mapping;
+using AllAboutGames.Web.ViewModels.ForumCategories;
 using AllAboutGames.Web.ViewModels.ForumPosts;
 using AllAboutGames.Web.ViewModels.InputModels;
 using Microsoft.EntityFrameworkCore;
@@ -15,15 +16,18 @@ namespace AllAboutGames.Services.Data
     {
         private readonly IDeletableEntityRepository<ForumCategory> categoryRepository;
         private readonly IDeletableEntityRepository<ForumPost> postRepository;
+        private readonly IDeletableEntityRepository<ForumComment> commentsRepository;
         private readonly IRepository<ForumLike> likeRepository;
 
         public ForumService(
             IDeletableEntityRepository<ForumCategory> categoryRepository,
             IDeletableEntityRepository<ForumPost> postRepository,
+            IDeletableEntityRepository<ForumComment> commentsRepository,
             IRepository<ForumLike> likeRepository)
         {
             this.categoryRepository = categoryRepository;
             this.postRepository = postRepository;
+            this.commentsRepository = commentsRepository;
             this.likeRepository = likeRepository;
         }
 
@@ -54,20 +58,9 @@ namespace AllAboutGames.Services.Data
             return await query.To<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync<T>(string id, string orderBy = null)
+        public async Task<T> GetByIdAsync<T>(string id)
         {
-            IQueryable<ForumCategory> query = this.categoryRepository.All().Where(x => x.Id == id);
-
-            if (orderBy == "Asc")
-            {
-                query.OrderBy(x => x.ForumPosts.OrderBy(x => x.CreatedOn));
-            }
-            else if (orderBy == "Desc")
-            {
-                query.OrderByDescending(x => x.ForumPosts.OrderByDescending(x => x.CreatedOn));
-            }
-
-            return await query.To<T>().FirstOrDefaultAsync();
+            return await this.categoryRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
         }
 
         public async Task<T> GetPostByIdAsync<T>(string id)
@@ -113,22 +106,54 @@ namespace AllAboutGames.Services.Data
 
         public async Task DeleteCategoryAsync(string id)
         {
-            var category = await this.categoryRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var category = await this.categoryRepository.All().Include(x => x.ForumPosts).FirstOrDefaultAsync(x => x.Id == id);
 
             category.IsDeleted = true;
             category.DeletedOn = DateTime.UtcNow;
             this.categoryRepository.Update(category);
             await this.categoryRepository.SaveChangesAsync();
+
+            var posts = category.ForumPosts;
+
+            foreach (var post in posts)
+            {
+                foreach (var comment in post.ForumComments)
+                {
+                    comment.IsDeleted = true;
+                    comment.DeletedOn = DateTime.UtcNow;
+                    this.commentsRepository.Update(comment);
+                }
+
+                post.IsDeleted = true;
+                post.DeletedOn = DateTime.UtcNow;
+                this.postRepository.Update(post);
+            }
+
+            await this.commentsRepository.SaveChangesAsync();
+            await this.postRepository.SaveChangesAsync();
         }
 
         public async Task DeletePostAsync(string id)
         {
-            var post = await this.postRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var post = await this.postRepository.All()
+                .Include(x => x.ForumComments)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             post.IsDeleted = true;
             post.DeletedOn = DateTime.UtcNow;
             this.postRepository.Update(post);
             await this.postRepository.SaveChangesAsync();
+
+            var comments = post.ForumComments;
+
+            foreach (var comment in comments)
+            {
+                comment.IsDeleted = true;
+                comment.DeletedOn = DateTime.UtcNow;
+                this.commentsRepository.Update(comment);
+            }
+
+            await this.commentsRepository.SaveChangesAsync();
         }
 
         public async Task EditCategoryAsync(string id, AddForumCategoryInputModel model)
@@ -161,6 +186,54 @@ namespace AllAboutGames.Services.Data
                 Title = x.Title,
             })
             .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ForumPostInCategoryViewModel>> GetAllForumPostsByCategory(string id, int page, int itemsToShow)
+        {
+            var posts = await this.postRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.CreatedOn)
+                .Where(x => x.ForumCategoryId == id)
+                .Skip((page - 1) * itemsToShow)
+                .Take(itemsToShow)
+                .To<ForumPostInCategoryViewModel>()
+                .ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<int> GetCurrentCategoryPostsCount(string id)
+        {
+            var category = await this.categoryRepository.All().Include(x => x.ForumPosts).FirstOrDefaultAsync(x => x.Id == id);
+
+            return category.ForumPosts.Count();
+        }
+
+        public int GetTotalPostsCount()
+        {
+            return this.postRepository.All().Count();
+        }
+
+        public async Task AddCommentAsync(string text, string postId, string userId)
+        {
+            var comment = new ForumComment
+            {
+                Text = text,
+                ForumPostId = postId,
+                UserId = userId,
+            };
+
+            await this.commentsRepository.AddAsync(comment);
+            await this.commentsRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteCommentAsync(string id)
+        {
+            var comment = await this.commentsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            comment.IsDeleted = true;
+            comment.DeletedOn = DateTime.UtcNow;
+            this.commentsRepository.Update(comment);
+            await this.commentsRepository.SaveChangesAsync();
         }
     }
 }

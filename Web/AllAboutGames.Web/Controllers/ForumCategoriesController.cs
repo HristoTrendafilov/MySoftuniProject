@@ -1,6 +1,7 @@
 ﻿using AllAboutGames.Common;
 using AllAboutGames.Services.Data;
 using AllAboutGames.Web.ViewModels.ForumCategories;
+using AllAboutGames.Web.ViewModels.ForumPosts;
 using AllAboutGames.Web.ViewModels.InputModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace AllAboutGames.Web.Controllers
 {
     public class ForumCategoriesController : Controller
     {
+        private const int ItemsPerPage = 6;
         private readonly IForumService forumService;
 
         public ForumCategoriesController(IForumService forumService)
@@ -20,9 +22,17 @@ namespace AllAboutGames.Web.Controllers
             this.forumService = forumService;
         }
 
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, int pageNumber = 1)
         {
-            var viewModel = await this.forumService.GetByIdAsync<CategoryViewModel>(id, "Desc");
+            this.ViewData["ActionName"] = this.ControllerContext.ActionDescriptor.ActionName;
+            var viewModel = new CategoryListViewModel
+            {
+                ForumCategory = await this.forumService.GetByIdAsync<CategoryViewModel>(id),
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = pageNumber,
+                Count = await this.forumService.GetCurrentCategoryPostsCount(id),
+            };
+            viewModel.ForumCategory.Posts = await this.forumService.GetAllForumPostsByCategory(id, pageNumber, ItemsPerPage);
 
             return this.View(viewModel);
         }

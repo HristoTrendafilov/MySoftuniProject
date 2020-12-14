@@ -185,7 +185,12 @@
         {
             await this.CheckIfGameExistsByIdAsync(id);
 
-            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var game = await this.gameRepository.All()
+                .Include(x => x.GameGenres)
+                .Include(x => x.GameLanguages)
+                .Include(x => x.GameGenres)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             var imagePath = await GlobalMethods.UploadedFile(model.Image, model.Name, rootPath, MainFileName);
 
             var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
@@ -248,7 +253,11 @@
         {
             await this.CheckIfGameExistsByIdAsync(id);
 
-            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var game = await this.gameRepository.All()
+                .Include(x => x.GameGenres)
+                .Include(x => x.GameLanguages)
+                .Include(x => x.GameGenres)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             game.IsDeleted = true;
             game.DeletedOn = DateTime.UtcNow;

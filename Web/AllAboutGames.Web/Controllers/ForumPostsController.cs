@@ -52,10 +52,10 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, string categoryId)
         {
             await this.forumService.DeletePostAsync(id);
-            return this.RedirectToAction("Index", "Forum");
+            return this.RedirectToAction("Details", "ForumCategories", new { id = categoryId });
 
         }
 

@@ -26,7 +26,7 @@
 
                     <div class="forum-title">
                         <div class="pull-right forum-desc">
-                            <samll>Total posts: 320,800</samll>
+                            <samll>Total posts: @Model.TotalPostsCount</samll>
                         </div>
                         <h3 style="color:black">Categories</h3>
                         @if (this.User.Identity.IsAuthenticated)
@@ -37,8 +37,10 @@
                             }
                         }
                     </div>
+                    @{ var i = 0;}
                     @foreach (var category in Model.Categories)
                     {
+                        i++;
                         <div class="forum-item active">
                             <div class="row">
                                 <div class="col-md-9">
@@ -51,7 +53,7 @@
                                     {
                                         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                         {
-                                            <a asp-controller="ForumCategories" asp-action="Delete" asp-route-id="@category.Id" type="button" class="btn btn-outline-danger" style="width:150px;">Delete category</a>
+                                            <button type="button" class="btn btn-outline-danger" style="width:150px" data-toggle="modal" data-target="#deleteCategory@(i)">Delete category</button>
                                             <a asp-controller="ForumCategories" asp-action="Edit" asp-route-id="@category.Id" type="button" class="btn btn-outline-info" style="width:150px;">Edit category</a>
                                         }
                                     }
@@ -64,6 +66,28 @@
                                     </span>
                                     <div>
                                         <small>Posts</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div id="myModal">
+                            <div class="modal fade" id="deleteCategory@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-info" id="exampleModalLabel">Warning</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="text-info">Do you want to delete the category?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a type="button" class="btn btn-outline-danger" asp-controller="ForumCategories" asp-action="Delete" asp-route-id="@category.Id">Delete category</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

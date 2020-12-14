@@ -14,6 +14,10 @@ namespace AllAboutGames.Web.ViewModels.ForumCategories
 
         public string Description { get; set; }
 
-        public IEnumerable<ForumPostInCategoryViewModel> ForumPosts { get; set; }
+        public IEnumerable<ForumPostInCategoryViewModel> Posts { get; set; }
+
+        public int PageNumber { get; set; }
+
+        public int ForumPostsCount { get; set; }
     }
 }
