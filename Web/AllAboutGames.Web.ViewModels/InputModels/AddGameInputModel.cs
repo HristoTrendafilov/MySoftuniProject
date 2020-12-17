@@ -23,6 +23,7 @@
 
         public string Trailer { get; set; }
 
+        [Required(ErrorMessage = "Release date is required.")]
         public DateTime ReleaseDate { get; set; }
 
         [MinLength(3)]

@@ -1,23 +1,23 @@
-﻿using AllAboutGames.Common;
-using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-using System;
-
-namespace AllAboutGames.Web.ViewModels.ForumPosts
+﻿namespace AllAboutGames.Web.ViewModels.FeedBack
 {
-    public class ForumPostCommentViewModel : IMapFrom<ForumComment>
+    using System;
+
+    using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
+
+    public class AllFeedBackViewModel : IMapFrom<FeedBack>
     {
         public string Id { get; set; }
 
-        public string Text { get; set; }
-
-        public string FilterText => new Censor().CensorText(this.Text);
+        public string About { get; set; }
 
         public string UserId { get; set; }
 
         public string UserProfilePicture { get; set; }
 
-        public int UserForumPostsCount { get; set; }
+        public string UserUserName { get; set; }
+
+        public string Text { get; set; }
 
         public DateTime UserCreatedOn { get; set; }
 
@@ -26,7 +26,5 @@ namespace AllAboutGames.Web.ViewModels.ForumPosts
         public DateTime CreatedOn { get; set; }
 
         public string CreatedOnAsString => this.CreatedOn.ToString("dd/MM/yyyy hh:mm", System.Globalization.CultureInfo.InvariantCulture);
-
-        public string UserUserName { get; set; }
     }
 }

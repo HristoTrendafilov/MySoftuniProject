@@ -21,8 +21,8 @@ namespace AllAboutGames.Data.Models
 
             this.Ratings = new HashSet<Rating>();
             this.Reviews = new HashSet<Review>();
-            this.GameComments = new HashSet<GameComment>();
             this.ForumPosts = new HashSet<ForumPost>();
+            this.FeedBacks = new HashSet<FeedBack>();
         }
 
         // Audit info
@@ -56,8 +56,10 @@ namespace AllAboutGames.Data.Models
 
         public virtual ICollection<Review> Reviews { get; set; }
 
-        public virtual ICollection<GameComment> GameComments { get; set; }
-
         public virtual ICollection<ForumPost> ForumPosts { get; set; }
+
+        public virtual ICollection<ForumComment> ForumComments { get; set; }
+
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
     }
 }

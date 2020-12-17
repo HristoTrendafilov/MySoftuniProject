@@ -1,6 +1,7 @@
 ﻿namespace AllAboutGames.Services.Data
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -161,11 +162,10 @@
                     TrailerUrl = x.TrailerUrl != null ? x.TrailerUrl.Replace("watch?v=", "embed/") : null,
                     Website = x.Website ?? "No website available.",
                     Summary = x.Summary,
-                    ReleaseDate = x.ReleaseDate.ToString("dd/MM/yyyy"),
+                    ReleaseDate = x.ReleaseDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                     Genres = string.Join(", ", x.GameGenres.Select(gg => gg.Genre.Name)),
                     Languages = string.Join(", ", x.GameLanguages.Select(gl => gl.Language.Name)),
                     Platforms = string.Join(", ", x.GamePlatforms.Select(gp => gp.Platform.Name)),
-                    Comments = x.Comments.Select(c => new GameCommentsViewModel { Text = c.Text, User = c.User.UserName }),
                 })
                 .FirstOrDefaultAsync();
 

@@ -44,7 +44,7 @@
             model.UserId = userId;
             await this.reviewService.AddAsync(model);
 
-            return this.RedirectToAction("Details", "Games", new { id = model.GameId, success = true });
+            return this.RedirectToAction("Details", "Games", new { id = model.GameId, success = "true" });
         }
 
         public async Task<IActionResult> Details(string id, int pageNumber = 1)

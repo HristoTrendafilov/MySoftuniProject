@@ -20,12 +20,12 @@
             </li>
         }
         <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.FindFirst(ClaimTypes.NameIdentifier).Value">Hello  @(this.User.Identity.Name)!</a>
+            <a class="nav-link" style="border:solid; border-width:1px" asp-area="" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.FindFirst(ClaimTypes.NameIdentifier).Value">@(this.User.Identity.Name)</a>
         </li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
             <li class="nav-item">
-                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
+                <a class="nav-link" asp-area="" asp-controller="FeedBack" asp-action="All">FeedBack</a>
             </li>
         }
         <li class="nav-item">

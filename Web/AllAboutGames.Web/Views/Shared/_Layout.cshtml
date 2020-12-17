@@ -44,7 +44,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Contacts" asp-action="Index">Contact us</a>
+                            <a class="nav-link" asp-area="" asp-controller="FeedBack" asp-action="Contacts">Contact us</a>
                         </li>
                     </ul>
                 </div>
@@ -58,12 +58,80 @@
             @this.RenderBody()
         </main>
     </div>
+        <!-- Footer -->
+        <footer class="bg-dark text-center text-lg-start border-top" style="position:absolute; bottom:0; width:100%; height:auto">
+            <!-- Grid container -->
+            <div class="container-fluid">
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 mb-2">
+                        <h5 class="text-uppercase">About the site:</h5>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+                        <p>
+                            Keep track of the newest games on this website. You can rate every game and see the reviews that some people have written.
+                            If there is some topic you want to discuss with other people, you can always go to the forum and share you'r thoughts.
+                            Contact us if there is something that you want to discuss.
+                        </p>
+                    </div>
+                    <!--Grid column-->
+                    <!--Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Games</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Platforms" asp-action="Playstation">Playstation</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Platforms" asp-action="Xbox">Xbox</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Platforms" asp-action="Nintendo">Nintendo</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Platforms" asp-action="Android">Android</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Platforms" asp-action="iOS">iOS</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Platforms" asp-action="PC">PC</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+                    <!--Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-0">Visit</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Reviews" asp-action="All">Reviews</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
+                            </li>
+                            <li>
+                                <a class="text-info" asp-area="" asp-controller="FeedBack" asp-action="Contacts">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </div>
+            <!-- Grid container -->
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                <div style="color:white">
+                    © 2020 - @DateTime.UtcNow.Year
+                    <span>AllAboutGames</span>
+                </div>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>

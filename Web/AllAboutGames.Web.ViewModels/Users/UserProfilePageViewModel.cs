@@ -28,6 +28,8 @@
 
         public int ForumPostsCount { get; set; }
 
+        public int ForumCommentsCount { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ApplicationUser, UserProfilePageViewModel>()

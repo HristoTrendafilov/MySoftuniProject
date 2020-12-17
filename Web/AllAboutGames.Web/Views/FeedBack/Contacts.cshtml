@@ -1,0 +1,62 @@
+﻿@using AllAboutGames.Web.ViewModels.FeedBack
+@model FeedBackContactsViewModel
+@{
+    this.ViewData["Title"] = "Contacts";
+}
+@if (this.ViewData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <center>
+            <strong>Thank you for the feedback!</strong>
+        </center>
+    </div>
+}
+<section>
+    <div class="container">
+        <div class="container">
+            <center>
+                <h1 class="text-primary" style="border:solid; border-width:2px; font-size:50px">Contact us</h1>
+            </center>
+            <h4>Google maps</h4>
+            <div class="container">
+                <div id="wrapper-9cd199b9cc5410cd3b1ad21cab2e54d3">
+                    <div id="map-9cd199b9cc5410cd3b1ad21cab2e54d3"></div>
+                    <script>
+                        (function () {
+                            var setting = { "height": 350, "width": 1000, "zoom": 11, "queryString": "Burgas, Bulgaria", "place_id": "ChIJkZ38-WaSpkAR8E2_aRKgAAQ", "satellite": false, "centerCoord": [42.526583117074416, 27.45196582958317], "cid": "0x400a01269bf4df0", "lang": "en", "cityUrl": "/bulgaria/burgas-38918", "cityAnchorText": "Map of Burgas, Black Sea Region Bulgaria, Bulgaria", "id": "map-9cd199b9cc5410cd3b1ad21cab2e54d3", "embed_id": "328977" };
+                            var d = document;
+                            var s = d.createElement('script');
+                            s.src = 'https://1map.com/js/script-for-user.js?embed_id=328977';
+                            s.async = true;
+                            s.onload = function (e) {
+                                window.OneMap.initMap(setting)
+                            };
+                            var to = d.getElementsByTagName('script')[0];
+                            to.parentNode.insertBefore(s, to);
+                        })();</script><a href="https://1map.com/map-embed">1 Map</a>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <form role="form" method="post">
+                <div class="form-group">
+                    <label asp-for="About" class="control-label"></label>
+                    <input asp-for="About" class="form-control" />
+                    <span asp-validation-for="About"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Text" class="control-label">Write to us</label>
+                    <textarea asp-for="Text" rows="5" cols="30" class="form-control"></textarea>
+                    <span asp-validation-for="Text"></span>
+                </div>
+                <div class="form-group">
+                    <center>
+                        <input type="submit" class="btn btn-outline-success" style="width:200px" value="Send">
+                    </center>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,4 +1,4 @@
-﻿namespace AllAboutGames.Web.ViewModels.Users
+﻿namespace AllAboutGames.Web.ViewModels.InputModels
 {
     using System.ComponentModel.DataAnnotations;
 

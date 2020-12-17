@@ -4,14 +4,16 @@ using AllAboutGames.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AllAboutGames.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201216155544_RemovedGameCommentsEntity")]
+    partial class RemovedGameCommentsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,41 +210,6 @@ namespace AllAboutGames.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Developers");
-                });
-
-            modelBuilder.Entity("AllAboutGames.Data.Models.FeedBack", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("About")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FeedBack");
                 });
 
             modelBuilder.Entity("AllAboutGames.Data.Models.ForumCategory", b =>
@@ -774,15 +741,6 @@ namespace AllAboutGames.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AllAboutGames.Data.Models.FeedBack", b =>
-                {
-                    b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
-                        .WithMany("FeedBacks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("AllAboutGames.Data.Models.ForumComment", b =>
                 {
                     b.HasOne("AllAboutGames.Data.Models.ForumPost", "ForumPost")
@@ -790,7 +748,7 @@ namespace AllAboutGames.Data.Migrations
                         .HasForeignKey("ForumPostId");
 
                     b.HasOne("AllAboutGames.Data.Models.ApplicationUser", "User")
-                        .WithMany("ForumComments")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 

@@ -21,22 +21,21 @@
         private readonly IDeletableEntityRepository<Platform> platformRepository;
         private readonly IDeletableEntityRepository<Developer> developerRepository;
         private readonly IDeletableEntityRepository<Game> gameRepository;
-        private readonly IGamesService gamesService;
 
         public PlatformsService(
             IDeletableEntityRepository<Platform> platformRepository,
             IDeletableEntityRepository<Developer> developerRepository,
-            IDeletableEntityRepository<Game> gameRepository,
-            IGamesService gamesService)
+            IDeletableEntityRepository<Game> gameRepository)
         {
             this.platformRepository = platformRepository;
             this.developerRepository = developerRepository;
             this.gameRepository = gameRepository;
-            this.gamesService = gamesService;
         }
 
         public async Task AddPlatformAsync(AddPlatformInputModel model, string rootPath)
         {
+            await this.CheckIfPlatformExistsByNameAsync(model.Name);
+
             var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
 
             if (developer == null)
@@ -66,7 +65,7 @@
         {
             var platform = await this.platformRepository.All().FirstOrDefaultAsync(x => x.Name == name);
 
-            if (platform == null)
+            if (platform != null)
             {
                 throw new ArgumentException("Platform already exists.");
             }

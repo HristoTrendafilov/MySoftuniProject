@@ -48,8 +48,6 @@
 
         public DbSet<GameLanguage> GamesLanguages { get; set; }
 
-        public DbSet<GameComment> GameComments { get; set; }
-
         public DbSet<ForumCategory> ForumCategories { get; set; }
 
         public DbSet<ForumPost> ForumPosts { get; set; }

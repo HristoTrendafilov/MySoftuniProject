@@ -1,0 +1,71 @@
+﻿@using AllAboutGames.Web.ViewModels.FeedBack
+@using AllAboutGames.Common
+@using System.Security.Claims;
+@model IEnumerable<AllFeedBackViewModel>
+@section CustomCss{
+    <link href="/css/forumDetails.css" rel="stylesheet" asp-append-version="true" />
+}
+@{
+    this.ViewData["Title"] = "FeedBack";
+}
+<center>
+    <h1>@this.ViewData["Title"]</h1>
+</center>
+<div class="mb-md-5">
+    @{ var i = 0;}
+    @foreach (var feedback in Model)
+    {
+        <div class="container-fluid mt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <span>
+                            <button type="button" class="btn btn-outline-danger" style="width:150px" data-toggle="modal" data-target="#deleteFeedBack@(i)">Delete FeedBack</button>
+                        </span>
+                        <div class="card-header">
+                            <div class="media flex-wrap w-100 align-items-center">
+                                <img src="@feedback.UserProfilePicture" class="d-block ui-w-40 rounded-circle" alt="">
+                                <div class="media-body ml-3">
+                                    <a asp-controller="Users" asp-action="Profile" asp-route-id="@feedback.UserId" data-abc="true">@feedback.UserUserName</a>
+                                    <div class="text-muted small">@feedback.CreatedOnAsString</div>
+                                </div>
+                                <div class="text-muted small ml-3">
+                                    <div>Member since <strong>@feedback.UserCreatedOnAsString</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <center>
+                                <div class="justify-content-center" style="font-size:20px; margin-bottom:10px"><strong><span class="text-danger">About:</span> <u>@feedback.About</u></strong></div>
+                            </center>
+                            <p style="color:black; font-size:17px">
+                                @feedback.Text
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal">
+            <div class="modal fade" id="deleteFeedBack@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-info" id="exampleModalLabel">Warning</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-info">Do you want to delete the feedback?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a type="button" class="btn btn-outline-danger" asp-controller="FeedBack" asp-action="Delete" asp-route-id="@feedback.Id">Delete FeedBack</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

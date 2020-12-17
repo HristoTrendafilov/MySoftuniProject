@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Services.Data
 {
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -64,7 +65,7 @@
                 {
                     Id = x.Id,
                     GameId = x.GameId,
-                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy"),
+                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                     GameName = x.Game.Name,
                     GameRating = x.Rating.Value,
                     ReviewedByUserName = x.ReviewedBy.UserName,
