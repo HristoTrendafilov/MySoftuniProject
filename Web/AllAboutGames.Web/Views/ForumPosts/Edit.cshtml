@@ -1,10 +1,10 @@
-﻿@using AllAboutGames.Web.ViewModels.ForumPosts
-@model EditPostViewModel
+﻿@using AllAboutGames.Web.ViewModels.InputModels
+@model AddForumPostInputModel
 @{
     this.ViewData["Title"] = "Edit post";
 }
-<center>
-    <h1>Edit post: <span class="text-info">@Model.Title</span></h1>
+<center class="mt-md-3">
+    <h1 class="text-danger">Edit post: <span class="text-info">@Model.Title</span></h1>
 </center>
 
 <form class="text-center border border-light p-5" method="post">

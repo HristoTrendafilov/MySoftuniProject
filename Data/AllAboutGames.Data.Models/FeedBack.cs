@@ -1,12 +1,11 @@
-﻿using AllAboutGames.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-
-namespace AllAboutGames.Data.Models
+﻿namespace AllAboutGames.Data.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using AllAboutGames.Data.Common.Models;
+
     public class FeedBack : IDeletableEntity
     {
         public FeedBack()
@@ -26,14 +25,14 @@ namespace AllAboutGames.Data.Models
 
         public DateTime CreatedOn { get; set; }
 
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
+
         [Required]
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

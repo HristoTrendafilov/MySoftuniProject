@@ -1,11 +1,12 @@
 ﻿namespace AllAboutGames.Web.ViewModels.FeedBack
 {
-    using System;
+    using System.Globalization;
 
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
+    using AutoMapper;
 
-    public class AllFeedBackViewModel : IMapFrom<FeedBack>
+    public class AllFeedBackViewModel : IMapFrom<FeedBack>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -19,12 +20,17 @@
 
         public string Text { get; set; }
 
-        public DateTime UserCreatedOn { get; set; }
+        public string UserCreatedOn { get; set; }
 
-        public string UserCreatedOnAsString => this.UserCreatedOn.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+        public string CreatedOn { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public string CreatedOnAsString => this.CreatedOn.ToString("dd/MM/yyyy hh:mm", System.Globalization.CultureInfo.InvariantCulture);
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<FeedBack, AllFeedBackViewModel>()
+                .ForMember(x => x.UserCreatedOn, opt =>
+                    opt.MapFrom(x => x.User.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(x => x.CreatedOn, opt =>
+                    opt.MapFrom(x => x.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)));
+        }
     }
 }

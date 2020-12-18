@@ -21,7 +21,8 @@
 
         public double GetAverageRating(string gameId)
         {
-            var rating = this.ratingsRepository.All().Where(x => x.GameId == gameId);
+            var rating = this.ratingsRepository.All()
+                .Where(x => x.GameId == gameId);
 
             if (rating == null)
             {
@@ -33,8 +34,11 @@
 
         public async Task SetRatingAsync(string gameId, string userId, int value)
         {
-            var rating = await this.ratingsRepository.All().FirstOrDefaultAsync(x => x.GameId == gameId && x.UserId == userId);
-            var game = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Id == gameId);
+            var rating = await this.ratingsRepository.All()
+                .FirstOrDefaultAsync(x => x.GameId == gameId && x.UserId == userId);
+
+            var game = await this.gameRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == gameId);
 
             if (rating == null)
             {

@@ -1,7 +1,7 @@
 ﻿@using AllAboutGames.Web.ViewModels.Games
 @model GameDetailsViewModel
 @section CustomCss{
-    <link href="~/css/GameDetails.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/gameDetails.css" rel="stylesheet" asp-append-version="true" />
 }
 @{
     this.ViewData["Title"] = Model.Name;
@@ -15,7 +15,7 @@
         </center>
     </div>
 }
-<div class="container-fluid" style="margin-top:20px">
+<div class="container-fluid mt-md-2">
     <center>
         <span>
             @if (this.User.IsInRole("Administrator"))
@@ -23,13 +23,9 @@
                 <a asp-controller="Games" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-info" style="width:200px">
                     Edit
                 </a>
-            }
-        </span>
-        <span>
-            @if (this.User.IsInRole("Administrator"))
-            {
-                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteGame" style="width:200px">Delete</button>
-
+                <span class="ml-md-3">
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteGame" style="width:200px">Delete</button>
+                </span>
             }
         </span>
     </center>
@@ -47,16 +43,23 @@
                 <span class="fa fa-star star unchecked"></span>
             }
         }
-        <span style="color:white; font-size:30px; margin-left:20px"><span class="text-danger">@Model.AverageRating</span>/5</span>
+        <span class="ml-md-3 text-white" style="font-size:30px;"><span class="text-danger">@Model.AverageRating</span> / 5</span>
     </div>
-    <h4 style="color:white; margin-top:10px">Votes: <span class="text-danger">@Model.RatingsCount</span></h4>
-    <h1 style="margin-top:10px">@Model.Name</h1>
+    <h4 class="mt-md-2">Votes: <span class="text-danger">@Model.RatingsCount</span></h4>
+    <h1 class="mt-md-2">@Model.Name</h1>
     <h2><span class="text-danger">Developer: </span>@Model.Developer</h2>
     <h3><span class="text-danger">Release date: </span>@Model.ReleaseDate</h3>
     <h2><span class="text-danger">Price: </span>@Model.Price</h2>
-    <a asp-controller="Reviews" asp-action="Details" asp-route-id="@Model.Id" type="button" class="btn btn-info btn-lg">Check the reviews</a>
+    @if (Model.ReviewsCount > 0)
+    {
+        <a asp-controller="Reviews" asp-action="Details" asp-route-id="@Model.Id" type="button" class="btn btn-info btn-lg">Check the reviews</a>
+    }
+    else
+    {
+        <button type="button" class="btn btn-info btn-lg">No Reviews yet</button>
+    }
 </center>
-<div style="margin-top:60px">
+<div class="mt-md-3">
     <div class="row no-gutters">
         <div class="col-md-8">
             <div class="container-fluid">
@@ -65,10 +68,10 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h2 style="margin-left:200px">Trailer</h2>
+            <h2 class="ml-md-2">Trailer</h2>
             @if (Model.TrailerUrl == null)
             {
-                <h2 class="text-danger" margin-left:100px">No trailer available</h2>
+                <h2 class="text-danger ml-md-3">No trailer available</h2>
             }
             else
             {
@@ -78,20 +81,20 @@
             }
         </div>
     </div>
-    <div class="info" style="margin-left:10px; margin-top:20px">
+    <div class="info ml-md-3 mt-md-3">
         <h5><span class="text-danger">Languages: </span>@Model.Languages</h5>
         <h5><span class="text-danger">Platforms: </span>@Model.Platforms</h5>
         <h5><span class="text-danger">Genres: </span>@Model.Genres</h5>
     </div>
-    <div style="margin-top:50px">
+    <div style="margin-top:4rem">
         <center>
-            <a type="button" class="btn btn-info btn-lg" href="@Model.Website" style="font-size:23px">Click here to visit the official website</a>
+            <a type="button" class="btn btn-info btn-lg" href="@Model.Website">Click here to visit the official website</a>
         </center>
     </div>
     @if (this.User.Identity.IsAuthenticated)
     {
         <center>
-            <h2 style="position:relative; top:40px; color:blue">Rate the game</h2>
+            <h2 class="text-info" style="position:relative; top:40px;">Rate the game</h2>
             <div class="row no-gutters">
                 <div class="addreview col-md-12" style="width:100%">
                     <div class="post">
@@ -115,7 +118,7 @@
                                 <div asp-validation-summary="All" class="text-danger"></div>
                                 <header></header>
                                 <div class="textarea">
-                                    <textarea class="form-control" cols="100" rows="10" asp-for="ReviewText" name="text" cols="30" placeholder="Describe your experience.."></textarea>
+                                    <textarea class="form-control" cols="100" rows="10" asp-for="ReviewText" name="text" placeholder="Describe your experience.."></textarea>
                                     <input name="gameId" value="@Model.Id" type="hidden" />
                                 </div>
                                 <button type="submit" class="btn btn-outline-success">Post</button>
@@ -130,11 +133,11 @@
     else
     {
         <center>
-            <h2 style="position:relative; top:40px; color:deepskyblue; border:solid; border-width:2px; margin-left:500px; margin-right:500px">Login to rate this game.</h2>
+            <h2 class="mt-md-5 text-danger"><u>Login to rate this game.</u></h2>
         </center>
     }
 </div>
-<div class="container-fluid" style="margin-top:100px">
+<div class="container-fluid" style="margin-top:3rem">
     <center>
         <h2>Summary</h2>
     </center>
@@ -148,19 +151,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+                    <h5 class="modal-title text-dark" id="exampleModalLabel">Warning</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Do you want to delete the game?</p>
+                    <p class="text-dark">Do you want to delete the game?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a asp-controller="Games" asp-action="Delete" asp-route-id="@Model.Id">
-                        <button type="button" class="btn btn-primary">Delete</button>
-                    </a>
+                    <a asp-controller="Games" asp-action="Delete" asp-route-id="@Model.Id" type="button" class="btn btn-danger">Delete</a>
                 </div>
             </div>
         </div>

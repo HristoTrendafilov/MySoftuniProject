@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.FeedBack
+﻿namespace AllAboutGames.Web.ViewModels.FeedBack
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class FeedBackContactsViewModel
     {
         [Required(ErrorMessage = "Text should be atleast 5 characters.")]

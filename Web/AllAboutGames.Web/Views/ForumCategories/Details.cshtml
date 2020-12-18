@@ -3,12 +3,12 @@
 @section CustomCss{
     <link href="/css/forumDetails.css" rel="stylesheet" asp-append-version="true" />
 }
-<center style="margin-top:20px">
-    <h1 style="color:dodgerblue; border:solid; border-width:2px; font-size:50px">@Model.ForumCategory.Name</h1>
+<center class="mt-md-4">
+    <h1 class="text-info" style="border:solid; border-width:2px; font-size:50px">@Model.ForumCategory.Name</h1>
     <h2>@Model.ForumCategory.Description</h2>
     <a asp-controller="ForumPosts" asp-action="Add" type="button" class="btn btn-info" style="width:200px">Create post</a>
 </center>
-<div style="margin-bottom:50px">
+<div>
     @foreach (var post in Model.ForumCategory.Posts)
     {
         <div class="container-fluid mt-100">
@@ -20,19 +20,19 @@
                                 <img src="@post.UserProfilePicture" class="d-block ui-w-40 rounded-circle" alt="">
                                 <div class="media-body ml-3">
                                     <a asp-controller="Users" asp-action="Profile" asp-route-id="@post.UserId">@post.UserUserName</a>
-                                    <div class="text-muted small">@post.CreatedOnAsString</div>
+                                    <div class="text-muted small">@post.CreatedOn</div>
                                 </div>
                                 <div class="text-muted small ml-3">
-                                    <div>Member since <strong>@post.UserCreatedOnAsString</strong></div>
+                                    <div>Member since <strong>@post.UserCreatedOn</strong></div>
                                     <div><strong>@post.UserForumPostsCount</strong> posts</div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
                             <center>
-                                <div class="justify-content-center" style="font-size:20px; margin-bottom:10px"><strong><u>@post.Title</u></strong></div>
+                                <div class="justify-content-center mb-md-1" style="font-size:20px;"><strong><u>@post.Title</u></strong></div>
                             </center>
-                            <p style="color:black; font-size:16px">
+                            <p class="text-dark" style="font-size:16px">
                                 @post.ShortContent
                             </p>
                         </div>

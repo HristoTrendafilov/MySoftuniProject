@@ -4,12 +4,12 @@
     this.ViewData["Title"] = this.ViewData["ActionName"] + " games";
 }
 @section CustomCss{
-    <link href="~/css/AllGames.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/allGames.css" rel="stylesheet" asp-append-version="true" />
 }
 
 <div>
     <center>
-        <h1 style="margin-top:50px; margin-bottom:50px">@this.ViewData["ActionName"] Games</h1>
+        <h1 class="mt-md-5 mb-md-5">@this.ViewData["ActionName"] Games</h1>
     </center>
     <div class="cards-list">
         @foreach (var game in Model.Games)

@@ -4,11 +4,11 @@
     this.ViewData["Title"] = "Reviews";
 }
 @section CustomCss{
-    <link href="~/css/Cards.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/cards.css" rel="stylesheet" asp-append-version="true" />
 }
-<center style="margin-top:50px"> <h1>Reviews</h1> </center>
-<div class="container-fluid" style="margin-top:100px">
-    <div class="row justify-content-center" style="margin-top:100px">
+<center class="mt-md-5 mb-md-5"> <h1>Reviews</h1> </center>
+<div class="container-fluid">
+    <div class="row justify-content-center">
         @foreach (var game in @Model.Reviews)
         {
             <div class="col-auto mb-3">

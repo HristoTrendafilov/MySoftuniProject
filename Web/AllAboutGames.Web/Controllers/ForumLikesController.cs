@@ -1,16 +1,14 @@
-﻿using AllAboutGames.Services.Data;
-using AllAboutGames.Web.ViewModels.ForumLikes;
-using AllAboutGames.Web.ViewModels.InputModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace AllAboutGames.Web.Controllers
+﻿namespace AllAboutGames.Web.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using AllAboutGames.Services.Data;
+    using AllAboutGames.Web.ViewModels.ForumLikes;
+    using AllAboutGames.Web.ViewModels.InputModels;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     [ApiController]
     [Route("api/[controller]")]
     public class ForumLikesController : Controller

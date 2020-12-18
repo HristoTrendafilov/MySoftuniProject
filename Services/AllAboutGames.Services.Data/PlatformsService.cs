@@ -2,16 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+
     using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Platforms;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
 
     public class PlatformsService : IPlatformsService
@@ -36,7 +35,8 @@
         {
             await this.CheckIfPlatformExistsByNameAsync(model.Name);
 
-            var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
+            var developer = await this.developerRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == model.Developer);
 
             if (developer == null)
             {
@@ -63,7 +63,8 @@
 
         public async Task CheckIfPlatformExistsByNameAsync(string name)
         {
-            var platform = await this.platformRepository.All().FirstOrDefaultAsync(x => x.Name == name);
+            var platform = await this.platformRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == name);
 
             if (platform != null)
             {

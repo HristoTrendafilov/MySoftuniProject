@@ -1,9 +1,10 @@
 ﻿namespace AllAboutGames.Data.Models
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Models;
 
     public class ForumCategory : IDeletableEntity
@@ -18,6 +19,7 @@
         public string Id { get; set; }
 
         [Required]
+        [MaxLength(GlobalConstants.ForumCategoryNameMaxLength)]
         public string Name { get; set; }
 
         [Required]

@@ -1,9 +1,10 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.Forum;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     public class ForumController : Controller
     {
@@ -18,7 +19,7 @@
         {
             var viewModel = new IndexViewModel
             {
-                Categories = await this.forumService.GetAllAsync<IndexCategoryViewMode>(),
+                Categories = await this.forumService.GetAllCategoriesAsync<IndexCategoryViewMode>(),
                 TotalPostsCount = this.forumService.GetTotalPostsCount(),
             };
 

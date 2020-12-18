@@ -21,7 +21,6 @@
             foreach (var language in languages)
             {
                 await dbContext.Languages.AddAsync(new Language() { Name = language });
-                await dbContext.SaveChangesAsync();
             }
         }
     }

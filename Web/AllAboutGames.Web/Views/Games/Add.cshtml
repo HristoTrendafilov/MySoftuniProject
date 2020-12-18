@@ -3,9 +3,9 @@
 @{
     this.ViewData["Title"] = "Add new video game";
 }
-<form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
+<form class="text-center border border-light p-5, file-field mt-md-3" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <h1>@this.ViewData["Title"]</h1>
+    <h1 class="text-info">@this.ViewData["Title"]</h1>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Name"></label>
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group, col-md-4">
             <label asp-for="Image"></label>
-            <input asp-for="Image" class="form-control-file">
+            <input asp-for="Image" class="form-control-file text-white">
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
     </div>
@@ -50,12 +50,12 @@
         </div>
     </div>
     <div class="form-row justify-content-center">
-        <textarea asp-for="Summary" style="width:1000px; position:relative; bottom:20px" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" placeholder="Summary"></textarea>
+        <textarea asp-for="Summary" style="width:80%" class="form-control rounded-0" id="exampleFormControlTextarea2" rows="8" placeholder="Summary"></textarea>
     </div>
     <span asp-validation-for="Summary" class="text-danger"></span>
 
     <div>
-        <h5>Select genres</h5>
+        <h5 class="text-info mt-md-2">Select genres</h5>
         @foreach (var genre in Model.Genres)
         {
             <div class="form-check form-check-inline">
@@ -64,8 +64,8 @@
             </div>
         }
     </div>
-    <div style="position:relative; top:20px">
-        <h5>Select languages</h5>
+    <div>
+        <h5 class="text-info mt-md-3">Select languages</h5>
         @foreach (var language in Model.Languages)
         {
             <div class="form-check form-check-inline">
@@ -74,8 +74,8 @@
             </div>
         }
     </div>
-    <div style="position:relative; top:50px">
-        <h5>Select platforms</h5>
+    <div>
+        <h5 class="text-info mt-md-3">Select platforms</h5>
         @foreach (var platform in Model.Platforms)
         {
             <div class="form-check form-check-inline">
@@ -84,5 +84,5 @@
             </div>
         }
     </div>
-    <button style="position:relative; top:100px; margin-bottom:50px; width:200px" type="submit" class="btn btn-outline-primary">Add</button>
+    <button style="position:relative; top:100px; margin-bottom:50px; width:200px" type="submit" class="btn btn-outline-success">Add</button>
 </form>

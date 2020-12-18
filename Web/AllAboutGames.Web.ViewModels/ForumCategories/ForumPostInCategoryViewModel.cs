@@ -1,10 +1,12 @@
-﻿using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-using System;
-
-namespace AllAboutGames.Web.ViewModels.ForumCategories
+﻿namespace AllAboutGames.Web.ViewModels.ForumCategories
 {
-    public class ForumPostInCategoryViewModel : IMapFrom<ForumPost>
+    using System.Globalization;
+
+    using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
+    using AutoMapper;
+
+    public class ForumPostInCategoryViewModel : IMapFrom<ForumPost>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -22,16 +24,21 @@ namespace AllAboutGames.Web.ViewModels.ForumCategories
 
         public int UserForumPostsCount { get; set; }
 
-        public DateTime UserCreatedOn { get; set; }
-
-        public string UserCreatedOnAsString => this.UserCreatedOn.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+        public string UserCreatedOn { get; set; }
 
         public int ForumCommentsCount { get; set; }
 
         public int ForumLikesCount { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
 
-        public string CreatedOnAsString => this.CreatedOn.ToString("dd/MM/yyyy hh:mm", System.Globalization.CultureInfo.InvariantCulture);
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<ForumPost, ForumPostInCategoryViewModel>()
+                .ForMember(x => x.UserCreatedOn, opt =>
+                    opt.MapFrom(x => x.User.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(x => x.CreatedOn, opt =>
+                    opt.MapFrom(x => x.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)));
+        }
     }
 }

@@ -36,6 +36,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddReviewInputModel model)
         {
@@ -50,6 +51,16 @@
         public async Task<IActionResult> Details(string id, int pageNumber = 1)
         {
             this.ViewData["ActionName"] = this.ControllerContext.ActionDescriptor.ActionName;
+
+            try
+            {
+                await this.reviewService.GetReviewDetailsAsync(id, pageNumber, ReviewsPerPage);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Index", "Error404");
+            }
+
             var viewModel = new AllUserReviewsListViewModel
             {
                 ItemsPerPage = ReviewsPerPage,
@@ -64,6 +75,15 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.ReviwerRoleName)]
         public async Task<IActionResult> Delete(DeleteReviewInputModel model)
         {
+            try
+            {
+                await this.reviewService.DeleteReviewsAsync(model.Id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
+
             await this.reviewService.DeleteReviewsAsync(model.Id);
 
             return this.RedirectToAction("Details", new { id = model.GameId, pageNumber = 1 });

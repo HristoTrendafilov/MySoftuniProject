@@ -17,9 +17,10 @@
                         <div class="pull-left m-r-md">
                             <i class="fa fa-globe text-navy mid-icon"></i>
                         </div>
-                        <h2 style="color: black">Welcome to our forum</h2>
+                        <h2 class="text-dark">Welcome to our forum</h2>
                         <span>Feel free to choose topic you're interested in.</span>
                     </div>
+                    <a asp-controller="ForumPosts" asp-action="Add" type="button" class="btn btn-info" style="width:200px">Create post</a>
                 </div>
 
                 <div class="ibox-content forum-container">
@@ -28,7 +29,7 @@
                         <div class="pull-right forum-desc">
                             <samll>Total posts: @Model.TotalPostsCount</samll>
                         </div>
-                        <h3 style="color:black">Categories</h3>
+                        <h3 class="text-dark">Categories</h3>
                         @if (this.User.Identity.IsAuthenticated)
                         {
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -76,17 +77,17 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title text-info" id="exampleModalLabel">Warning</h5>
+                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Warning</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p class="text-info">Do you want to delete the category?</p>
+                                            <p class="text-dark">Do you want to delete the category?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <a type="button" class="btn btn-outline-danger" asp-controller="ForumCategories" asp-action="Delete" asp-route-id="@category.Id">Delete category</a>
+                                            <a type="button" class="btn btn-outline-danger" asp-controller="ForumCategories" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
                                         </div>
                                     </div>
                                 </div>

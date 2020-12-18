@@ -1,16 +1,16 @@
 ﻿namespace AllAboutGames.Services.Data
 {
+    using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+
     using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
     using AllAboutGames.Web.ViewModels.InputModels;
     using AllAboutGames.Web.ViewModels.Users;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
@@ -79,6 +79,13 @@
 
         public async Task<UserProfilePageViewModel> GetUserDetailsAsync(string id)
         {
+            var user = await this.userRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+            {
+                throw new ArgumentException("User does not exist.");
+            }
+
             return await this.userRepository.All()
                 .Where(x => x.Id == id)
                 .To<UserProfilePageViewModel>()

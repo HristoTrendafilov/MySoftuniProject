@@ -11,6 +11,7 @@
         public Review()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         [Key]
@@ -19,7 +20,11 @@
         [Required]
         public string Text { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
 
         [Required]
         [ForeignKey(nameof(Game))]
@@ -38,9 +43,5 @@
         public int RatingId { get; set; }
 
         public virtual Rating Rating { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

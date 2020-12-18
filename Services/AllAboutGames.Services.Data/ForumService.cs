@@ -1,17 +1,17 @@
-﻿using AllAboutGames.Data.Common.Repositories;
-using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-using AllAboutGames.Web.ViewModels.ForumCategories;
-using AllAboutGames.Web.ViewModels.ForumPosts;
-using AllAboutGames.Web.ViewModels.InputModels;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AllAboutGames.Services.Data
+﻿namespace AllAboutGames.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using AllAboutGames.Data.Common.Repositories;
+    using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
+    using AllAboutGames.Web.ViewModels.ForumCategories;
+    using AllAboutGames.Web.ViewModels.InputModels;
+    using Microsoft.EntityFrameworkCore;
+
     public class ForumService : IForumService
     {
         private readonly IDeletableEntityRepository<ForumCategory> categoryRepository;
@@ -46,9 +46,10 @@ namespace AllAboutGames.Services.Data
             return post.ForumCategoryId;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>(int? count = null)
+        public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>(int? count = null)
         {
-            IQueryable<ForumCategory> query = this.categoryRepository.All().OrderBy(x => x.Name);
+            IQueryable<ForumCategory> query = this.categoryRepository.All()
+                .OrderBy(x => x.Name);
 
             if (count.HasValue)
             {
@@ -58,25 +59,46 @@ namespace AllAboutGames.Services.Data
             return await query.To<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync<T>(string id)
+        public async Task<T> GetCategoryByIdAsync<T>(string id)
         {
-            return await this.categoryRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefaultAsync();
+            var category = await this.categoryRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                throw new ArgumentException("Category not found");
+            }
+
+            return await this.categoryRepository.All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
         }
 
         public async Task<T> GetPostByIdAsync<T>(string id)
         {
-            return await this.postRepository.All().Where(x => x.Id == id)
+            var post = await this.postRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (post == null)
+            {
+                throw new ArgumentException("Post not found");
+            }
+
+            return await this.postRepository.All()
+                .Where(x => x.Id == id)
                 .To<T>().FirstOrDefaultAsync();
         }
 
         public int GetLikes(string postId)
         {
-            return this.likeRepository.All().Where(x => x.ForumPostId == postId).Count();
+            return this.likeRepository.All()
+                .Where(x => x.ForumPostId == postId)
+                .Count();
         }
 
         public async Task LikeAsync(string forumPostId, string userId)
         {
-            var like = await this.likeRepository.All().FirstOrDefaultAsync(x => x.ForumPostId == forumPostId && x.UserId == userId);
+            var like = await this.likeRepository.All()
+                .FirstOrDefaultAsync(x => x.ForumPostId == forumPostId && x.UserId == userId);
 
             if (like == null)
             {
@@ -106,7 +128,14 @@ namespace AllAboutGames.Services.Data
 
         public async Task DeleteCategoryAsync(string id)
         {
-            var category = await this.categoryRepository.All().Include(x => x.ForumPosts).FirstOrDefaultAsync(x => x.Id == id);
+            var category = await this.categoryRepository.All()
+                .Include(x => x.ForumPosts)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                throw new ArgumentException("Category does not exist.");
+            }
 
             category.IsDeleted = true;
             category.DeletedOn = DateTime.UtcNow;
@@ -139,6 +168,11 @@ namespace AllAboutGames.Services.Data
                 .Include(x => x.ForumComments)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+            if (post == null)
+            {
+                throw new ArgumentException("Post does not exist.");
+            }
+
             post.IsDeleted = true;
             post.DeletedOn = DateTime.UtcNow;
             this.postRepository.Update(post);
@@ -158,7 +192,13 @@ namespace AllAboutGames.Services.Data
 
         public async Task EditCategoryAsync(string id, AddForumCategoryInputModel model)
         {
-            var category = await this.categoryRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var category = await this.categoryRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category == null)
+            {
+                throw new ArgumentException("Category does not exist.");
+            }
 
             category.Name = model.Name;
             category.Description = model.Description;
@@ -169,7 +209,13 @@ namespace AllAboutGames.Services.Data
 
         public async Task EditPostAsync(string id, AddForumPostInputModel model)
         {
-            var post = await this.postRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var post = await this.postRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (post == null)
+            {
+                throw new ArgumentException("Post does not exist.");
+            }
 
             post.Title = model.Title;
             post.Content = model.Content;
@@ -178,9 +224,11 @@ namespace AllAboutGames.Services.Data
             await this.postRepository.SaveChangesAsync();
         }
 
-        public async Task<EditPostViewModel> GetCurrentPost(string id)
+        public async Task<AddForumPostInputModel> GetCurrentPost(string id)
         {
-            return await this.postRepository.All().Where(x => x.Id == id).Select(x => new EditPostViewModel
+            return await this.postRepository.All()
+                .Where(x => x.Id == id)
+                .Select(x => new AddForumPostInputModel
             {
                 Content = x.Content,
                 Title = x.Title,
@@ -203,7 +251,9 @@ namespace AllAboutGames.Services.Data
 
         public async Task<int> GetCurrentCategoryPostsCount(string id)
         {
-            var category = await this.categoryRepository.All().Include(x => x.ForumPosts).FirstOrDefaultAsync(x => x.Id == id);
+            var category = await this.categoryRepository.All()
+                .Include(x => x.ForumPosts)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return category.ForumPosts.Count();
         }
@@ -228,7 +278,13 @@ namespace AllAboutGames.Services.Data
 
         public async Task DeleteCommentAsync(string id)
         {
-            var comment = await this.commentsRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var comment = await this.commentsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (comment == null)
+            {
+                throw new ArgumentException("Comment does not exist.");
+            }
 
             comment.IsDeleted = true;
             comment.DeletedOn = DateTime.UtcNow;

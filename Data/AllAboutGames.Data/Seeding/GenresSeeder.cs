@@ -25,7 +25,6 @@
             foreach (var genre in genres)
             {
                 await dbContext.Genres.AddAsync(new Genre() { Name = genre });
-                await dbContext.SaveChangesAsync();
             }
         }
     }

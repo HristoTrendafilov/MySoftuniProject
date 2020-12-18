@@ -1,16 +1,16 @@
-﻿using AllAboutGames.Web.ViewModels.ForumCategories;
-using AllAboutGames.Web.ViewModels.ForumPosts;
-using AllAboutGames.Web.ViewModels.InputModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace AllAboutGames.Services.Data
+﻿namespace AllAboutGames.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using AllAboutGames.Web.ViewModels.ForumCategories;
+    using AllAboutGames.Web.ViewModels.InputModels;
+
     public interface IForumService
     {
-        Task<IEnumerable<T>> GetAllAsync<T>(int? count = null);
+        Task<IEnumerable<T>> GetAllCategoriesAsync<T>(int? count = null);
 
-        Task<T> GetByIdAsync<T>(string id);
+        Task<T> GetCategoryByIdAsync<T>(string id);
 
         Task<string> AddForumPostAsync(AddForumPostInputModel model, string userId);
 
@@ -30,7 +30,7 @@ namespace AllAboutGames.Services.Data
 
         Task EditPostAsync(string id, AddForumPostInputModel model);
 
-        Task<EditPostViewModel> GetCurrentPost(string id);
+        Task<AddForumPostInputModel> GetCurrentPost(string id);
 
         Task<IEnumerable<ForumPostInCategoryViewModel>> GetAllForumPostsByCategory(string id, int page, int itemsToShow);
 

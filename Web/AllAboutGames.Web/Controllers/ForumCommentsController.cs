@@ -1,15 +1,13 @@
-﻿using AllAboutGames.Services.Data;
-using AllAboutGames.Web.ViewModels.InputModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace AllAboutGames.Web.Controllers
+﻿namespace AllAboutGames.Web.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using AllAboutGames.Services.Data;
+    using AllAboutGames.Web.ViewModels.InputModels;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     public class ForumCommentsController : Controller
     {
         private readonly IForumService forumService;
@@ -32,7 +30,14 @@ namespace AllAboutGames.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(string id, string postId)
         {
-            await this.forumService.DeleteCommentAsync(id);
+            try
+            {
+                await this.forumService.DeleteCommentAsync(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
 
             return this.RedirectToAction("Details", "ForumPosts", new { id = postId });
         }

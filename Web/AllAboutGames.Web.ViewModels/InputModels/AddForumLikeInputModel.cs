@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.InputModels
+﻿namespace AllAboutGames.Web.ViewModels.InputModels
 {
     public class AddForumLikeInputModel
     {

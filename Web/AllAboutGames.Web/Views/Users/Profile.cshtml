@@ -4,7 +4,7 @@
     this.ViewData["Title"] = "User profile";
 }
 @section CustomCss{
-    <link href="/css/UserProfile.css" rel="stylesheet" asp-append-version="true" />
+    <link href="/css/userProfile.css" rel="stylesheet" asp-append-version="true" />
 }
 <div class="container">
     <div class="row justify-content-center">
@@ -45,8 +45,8 @@
                         </div>
                     </div>
                     <hr>
-                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index">
-                        <button type="button" class="btn btn-outline-primary">View profile settings</button>
+                    <a type="button" class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Manage/Index">
+                        View profile settings
                     </a>
                 </div>
             </div>

@@ -1,17 +1,12 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using AllAboutGames.Common;
-    using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Data;
     using AllAboutGames.Web.ViewModels.InputModels;
-    using AllAboutGames.Web.ViewModels.Users;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class UsersController : Controller
@@ -49,8 +44,18 @@
             return this.Redirect("/");
         }
 
+        [Authorize]
         public async Task<IActionResult> Profile(string id)
         {
+            try
+            {
+                await this.usersService.GetUserDetailsAsync(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Index", "Error404");
+            }
+
             var viewModel = await this.usersService.GetUserDetailsAsync(id);
 
             return this.View(viewModel);

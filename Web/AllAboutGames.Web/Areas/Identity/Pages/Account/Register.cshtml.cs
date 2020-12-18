@@ -7,6 +7,7 @@
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+
     using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Repositories;
     using AllAboutGames.Data.Models;
@@ -74,15 +75,15 @@
             [Required(ErrorMessage = "Date of birth is required")]
             public DateTime DateOfBirth { get; set; }
 
-            [Required(ErrorMessage = "Username should be between 3 and 200 characters.")]
             [MinLength(3)]
             [MaxLength(200)]
+            [Required(ErrorMessage = "Username should be between 3 and 200 characters.")]
             public string Username { get; set; }
 
-            [Required(ErrorMessage = "Please select a country.")]
+            [Required(ErrorMessage = "Select a country.")]
             public string Country { get; set; }
 
-            [Required(ErrorMessage = "Please select a city.")]
+            [Required(ErrorMessage = "Select a city.")]
             public string City { get; set; }
         }
 
@@ -130,7 +131,7 @@
                     UserName = this.Input.Username,
                     Email = this.Input.Email,
                     DateOfBirth = this.Input.DateOfBirth,
-                    CityId = city.Id, 
+                    CityId = city.Id,
                     ProfilePicture = "https://bootdey.com/img/Content/avatar/avatar7.png",
                 };
 

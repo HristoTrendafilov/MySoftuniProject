@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using AllAboutGames.Data.Models;
+    using AllAboutGames.Common;
 
     public class City
     {
@@ -19,7 +19,7 @@
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(GlobalConstants.CityNameMaxLength)]
         public string Name { get; set; }
 
         [Required]

@@ -70,14 +70,31 @@
         public async Task<IActionResult> Details(string id, string success = null)
         {
             this.ViewData["Success"] = success;
-            var viewModel = await this.gameService.GetDetailsAsync(id);
+            try
+            {
+                await this.gameService.GetDetailsAsync(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
 
+            var viewModel = await this.gameService.GetDetailsAsync(id);
             return this.View(viewModel);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
+            try
+            {
+                await this.gameService.DeleteGameAsync(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
+
             await this.gameService.DeleteGameAsync(id);
 
             return this.Redirect("/");

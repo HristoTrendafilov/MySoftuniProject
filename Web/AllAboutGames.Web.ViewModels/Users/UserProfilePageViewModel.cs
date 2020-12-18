@@ -1,12 +1,10 @@
 ﻿namespace AllAboutGames.Web.ViewModels.Users
 {
+    using System.Globalization;
 
     using AllAboutGames.Data.Models;
     using AllAboutGames.Services.Mapping;
     using AutoMapper;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
 
     public class UserProfilePageViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {

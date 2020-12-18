@@ -1,12 +1,9 @@
-﻿using AllAboutGames.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-
-namespace AllAboutGames.Data.Models
+﻿namespace AllAboutGames.Data.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class ForumLike
     {
         public ForumLike()
@@ -14,6 +11,7 @@ namespace AllAboutGames.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
+        [Key]
         public string Id { get; set; }
 
         [Required]

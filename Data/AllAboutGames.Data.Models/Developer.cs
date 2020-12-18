@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Models;
 
     public class Developer : IDeletableEntity
@@ -18,13 +19,13 @@
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(GlobalConstants.DeveloperNameMaxLength)]
         public string Name { get; set; }
-
-        public virtual ICollection<Game> Games { get; set; }
 
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual ICollection<Game> Games { get; set; }
     }
 }

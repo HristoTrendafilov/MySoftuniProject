@@ -1,12 +1,10 @@
-﻿using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.InputModels
+﻿namespace AllAboutGames.Web.ViewModels.InputModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
+
     public class AddForumCategoryInputModel : IMapFrom<ForumCategory>
     {
         [Required(ErrorMessage = "Category name should be atleast 4 characters.")]

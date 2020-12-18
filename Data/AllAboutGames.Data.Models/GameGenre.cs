@@ -8,6 +8,10 @@
 
     public class GameGenre : IDeletableEntity
     {
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
+
         [Required]
         [ForeignKey(nameof(Game))]
         public string GameId { get; set; }
@@ -19,9 +23,5 @@
         public string GenreId { get; set; }
 
         public virtual Genre Genre { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

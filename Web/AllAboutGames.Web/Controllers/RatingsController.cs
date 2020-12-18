@@ -21,6 +21,7 @@
         }
 
         [IgnoreAntiforgeryToken]
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<PostRatingViewModel>> Post(PostRatingInputModel input)
         {

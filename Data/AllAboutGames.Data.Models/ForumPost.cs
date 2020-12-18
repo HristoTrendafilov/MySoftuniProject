@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using AllAboutGames.Common;
     using AllAboutGames.Data.Common.Models;
 
     public class ForumPost : IDeletableEntity
@@ -21,10 +22,17 @@
         public string Id { get; set; }
 
         [Required]
+        [MaxLength(GlobalConstants.ForumPostTitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
         public string Content { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         [Required]
         [ForeignKey(nameof(User))]
@@ -41,11 +49,5 @@
         public virtual ICollection<ForumComment> ForumComments { get; set; }
 
         public virtual ICollection<ForumLike> ForumLikes { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
-
-        public DateTime CreatedOn { get; set; }
     }
 }

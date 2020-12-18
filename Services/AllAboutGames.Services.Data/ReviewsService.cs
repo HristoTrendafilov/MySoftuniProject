@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -57,7 +58,8 @@
 
         public async Task<IEnumerable<AllReviewsViewModel>> GetAllAsync(int page, int itemsToShow = 8)
         {
-            return await this.gameRepository.All().Where(x => x.Reviews.Count > 0)
+            return await this.gameRepository.All()
+                .Where(x => x.Reviews.Count > 0)
                 .Skip((page - 1) * itemsToShow)
                 .Take(itemsToShow)
                 .To<AllReviewsViewModel>()
@@ -94,7 +96,7 @@
                 ThreeStarRatingPercent = threeStarRating.ToString("N1") + "%",
                 FourStarRatingPercent = fourStarRating.ToString("N1") + "%",
                 FiveStarRatingPercent = fiveStarRating.ToString("N1") + "%",
-                UserReviews = this.reviewRepository
+                UserReviews = await this.reviewRepository
                 .AllAsNoTracking()
                 .Where(x => x.GameId == id)
                 .OrderByDescending(x => x.CreatedOn)
@@ -104,13 +106,13 @@
                     ReviewerId = x.ReviewedBy.Id,
                     Image = x.ReviewedBy.ProfilePicture,
                     Username = x.ReviewedBy.UserName,
-                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy hh:mm"),
+                    CreatedOn = x.CreatedOn.ToString("dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture),
                     Text = x.Text,
                     Rating = x.Rating.Value,
                 })
                 .Skip((pageNumber - 1) * itemsToShow)
                 .Take(itemsToShow)
-                .ToList(),
+                .ToListAsync(),
             };
 
             return viewModel;
@@ -118,19 +120,24 @@
 
         public int GetReviewsCount()
         {
-            return this.gameRepository.All().Where(x => x.Reviews.Count > 0).Count();
+            return this.gameRepository.All()
+                .Where(x => x.Reviews.Count > 0)
+                .Count();
         }
 
         public async Task<int> GetCurrentGameReviewsCount(string id)
         {
-            var game = await this.gameRepository.All().Include(x => x.Reviews).FirstOrDefaultAsync(x => x.Id == id);
+            var game = await this.gameRepository.All()
+                .Include(x => x.Reviews)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return game.Reviews.Count();
         }
 
         public async Task DeleteReviewsAsync(string id)
         {
-            var review = await this.reviewRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var review = await this.reviewRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (review == null)
             {

@@ -55,9 +55,15 @@
         {
             return new AddGameViewModel
             {
-                Genres = await this.genreRepository.All().OrderBy(x => x.Name).ToListAsync(),
-                Languages = await this.languageRepository.All().OrderBy(x => x.Name).ToListAsync(),
-                Platforms = await this.platformRepository.All().OrderBy(x => x.Name).ToListAsync(),
+                Genres = await this.genreRepository.All()
+                    .OrderBy(x => x.Name)
+                    .ToListAsync(),
+                Languages = await this.languageRepository.All()
+                    .OrderBy(x => x.Name)
+                    .ToListAsync(),
+                Platforms = await this.platformRepository.All()
+                    .OrderBy(x => x.Name)
+                    .ToListAsync(),
             };
         }
 
@@ -74,9 +80,18 @@
                     Summary = x.Summary,
                     Trailer = x.TrailerUrl,
                     Website = x.Website,
-                    GameGenres = this.genreRepository.All().Where(x => x.GamesGenres.Any(gg => gg.GameId == id)).ToList(),
-                    GameLanguages = this.languageRepository.All().Where(x => x.GamesLanguages.Any(gg => gg.GameId == id)).ToList(),
-                    GamePlatforms = this.platformRepository.All().Where(x => x.GamesPlatforms.Any(gg => gg.GameId == id)).ToList(),
+                    GameGenres = this.genreRepository.All()
+                        .Where(x => x.GamesGenres
+                        .Any(gg => gg.GameId == id))
+                        .ToList(),
+                    GameLanguages = this.languageRepository.All()
+                        .Where(x => x.GamesLanguages
+                        .Any(gg => gg.GameId == id))
+                        .ToList(),
+                    GamePlatforms = this.platformRepository.All()
+                        .Where(x => x.GamesPlatforms
+                        .Any(gg => gg.GameId == id))
+                        .ToList(),
                     Genres = this.genreRepository.All().ToList(),
                     Languages = this.languageRepository.All().ToList(),
                     Platforms = this.platformRepository.All().ToList(),
@@ -86,14 +101,16 @@
 
         public async Task AddGameAsync(AddGameInputModel model, string rootPath)
         {
-            var checkGame = await this.gameRepository.All().FirstOrDefaultAsync(x => x.Name == model.Name);
+            var checkGame = await this.gameRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == model.Name);
 
             if (checkGame != null)
             {
                 throw new ArgumentException("Game already exists.");
             }
 
-            var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
+            var developer = await this.developerRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == model.Developer);
 
             if (developer == null)
             {
@@ -155,6 +172,7 @@
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    ReviewsCount = x.Reviews.Count,
                     RatingsCount = x.RatingsCount,
                     Developer = x.Developer.Name,
                     Image = x.Image,
@@ -193,7 +211,8 @@
 
             var imagePath = await GlobalMethods.UploadedFile(model.Image, model.Name, rootPath, MainFileName);
 
-            var developer = await this.developerRepository.All().FirstOrDefaultAsync(x => x.Name == model.Developer);
+            var developer = await this.developerRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == model.Developer);
 
             if (developer == null)
             {

@@ -22,7 +22,7 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var categories = await this.forumService.GetAllAsync<CategoryDropDownViewModel>();
+            var categories = await this.forumService.GetAllCategoriesAsync<CategoryDropDownViewModel>();
             var viewModel = new AddForumPostInputModel()
             {
                 ForumCategories = categories,
@@ -48,21 +48,38 @@
 
         public async Task<IActionResult> Details(string id)
         {
+            try
+            {
+                await this.forumService.GetPostByIdAsync<PostViewModel>(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
+
             var viewModel = await this.forumService.GetPostByIdAsync<PostViewModel>(id);
             return this.View(viewModel);
         }
 
         public async Task<IActionResult> Delete(string id, string categoryId)
         {
+            try
+            {
+                await this.forumService.DeletePostAsync(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
+
             await this.forumService.DeletePostAsync(id);
             return this.RedirectToAction("Details", "ForumCategories", new { id = categoryId });
-
         }
 
         [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
-            var categories = await this.forumService.GetAllAsync<CategoryDropDownViewModel>();
+            var categories = await this.forumService.GetAllCategoriesAsync<CategoryDropDownViewModel>();
             var viewModel = await this.forumService.GetCurrentPost(id);
             viewModel.ForumCategories = categories;
             return this.View(viewModel);

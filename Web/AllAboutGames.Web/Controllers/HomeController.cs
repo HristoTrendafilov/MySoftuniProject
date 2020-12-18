@@ -29,5 +29,11 @@
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
+
+        [Route("error/404")]
+        public IActionResult Error404()
+        {
+            return this.View();
+        }
     }
 }

@@ -1,17 +1,14 @@
-﻿using AllAboutGames.Common;
-using AllAboutGames.Data.Common.Repositories;
-using AllAboutGames.Services.Data;
-using AllAboutGames.Web.ViewModels.InputModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace AllAboutGames.Web.Controllers
+﻿namespace AllAboutGames.Web.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using AllAboutGames.Common;
+    using AllAboutGames.Services.Data;
+    using AllAboutGames.Web.ViewModels.InputModels;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     public class FeedBackController : Controller
     {
         private readonly IFeedBackService feedBackService;
@@ -51,6 +48,15 @@ namespace AllAboutGames.Web.Controllers
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
+            try
+            {
+                await this.feedBackService.DeleteFeedBackAsync(id);
+            }
+            catch (System.Exception)
+            {
+                return this.RedirectToAction("Home", "Error404");
+            }
+
             await this.feedBackService.DeleteFeedBackAsync(id);
 
             return this.RedirectToAction("All");

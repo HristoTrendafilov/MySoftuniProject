@@ -8,6 +8,10 @@
 
     public class GameLanguage : IDeletableEntity
     {
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
+
         [Required]
         [ForeignKey(nameof(Game))]
         public string GameId { get; set; }
@@ -19,9 +23,5 @@
         public string LanguageId { get; set; }
 
         public virtual Language Language { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

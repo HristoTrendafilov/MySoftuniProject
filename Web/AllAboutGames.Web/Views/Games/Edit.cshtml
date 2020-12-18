@@ -4,8 +4,8 @@
     this.ViewData["Title"] = "Edit " + Model.Name;
 }
 
-<form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data" style="margin-top:30px; margin-bottom:50px">
-    <h1 style="color:deepskyblue">Edit <span class="text-danger">@Model.Name</span></h1>
+<form class="text-center border border-light p-5, file-field" method="post" enctype="multipart/form-data">
+    <h1 class="text-danger mt-md-3">Edit <span class="text-info">@Model.Name</span></h1>
     <div class="form-row justify-content-center">
         <div class="form-group col-md-4">
             <label asp-for="Name"></label>
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group, col-md-4">
             <label asp-for="Image"></label>
-            <input asp-for="Image" class="form-control-file">
+            <input asp-for="Image" class="form-control-file text-white">
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
     </div>
@@ -56,7 +56,7 @@
     </div>
 
     <div>
-        <h5>Select genres</h5>
+        <h5 class="text-info">Select genres</h5>
         @foreach (var genre in Model.Genres)
         {
             if (Model.GameGenres.Any(x => x.Name == genre.Name))
@@ -75,8 +75,8 @@
             }
         }
     </div>
-    <div style="position:relative; top:20px">
-        <h5>Select languages</h5>
+    <div class="mt-md-2">
+        <h5 class="text-info">Select languages</h5>
         @foreach (var language in Model.Languages)
         {
             if (Model.GameLanguages.Any(x => x.Name == language.Name))
@@ -95,8 +95,8 @@
             }
         }
     </div>
-    <div style="position:relative; top:50px">
-        <h5>Select platforms</h5>
+    <div class="mt-md-2">
+        <h5 class="text-info">Select platforms</h5>
         @foreach (var platform in Model.Platforms)
         {
             if (Model.GamePlatforms.Any(x => x.Name == platform.Name))

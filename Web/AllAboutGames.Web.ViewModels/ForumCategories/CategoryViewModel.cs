@@ -1,11 +1,10 @@
-﻿using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AllAboutGames.Web.ViewModels.ForumCategories
+﻿namespace AllAboutGames.Web.ViewModels.ForumCategories
 {
+    using System.Collections.Generic;
+
+    using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
+
     public class CategoryViewModel : IMapFrom<ForumCategory>
     {
         public string Id { get; set; }
@@ -14,10 +13,10 @@ namespace AllAboutGames.Web.ViewModels.ForumCategories
 
         public string Description { get; set; }
 
-        public IEnumerable<ForumPostInCategoryViewModel> Posts { get; set; }
-
         public int PageNumber { get; set; }
 
         public int ForumPostsCount { get; set; }
+
+        public IEnumerable<ForumPostInCategoryViewModel> Posts { get; set; }
     }
 }

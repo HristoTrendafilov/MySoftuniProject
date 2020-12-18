@@ -1,9 +1,8 @@
-﻿using AllAboutGames.Data.Models;
-using AllAboutGames.Services.Mapping;
-using Ganss.XSS;
-
-namespace AllAboutGames.Web.ViewModels.Forum
+﻿namespace AllAboutGames.Web.ViewModels.Forum
 {
+    using AllAboutGames.Data.Models;
+    using AllAboutGames.Services.Mapping;
+
     public class IndexCategoryViewMode : IMapFrom<ForumCategory>
     {
         public string Id { get; set; }

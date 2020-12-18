@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using AllAboutGames.Common;
+
     public class Country
     {
         public Country()
@@ -16,7 +18,7 @@
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(GlobalConstants.CountryNameMaxLength)]
         public string Name { get; set; }
 
         public virtual ICollection<City> Cities { get; set; }
