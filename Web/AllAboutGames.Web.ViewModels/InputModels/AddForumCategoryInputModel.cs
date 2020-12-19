@@ -11,7 +11,6 @@
         [MinLength(4)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Choose image")]
         public string Image { get; set; }
 
         [Required(ErrorMessage = "Description should be atlease 4 characters.")]
