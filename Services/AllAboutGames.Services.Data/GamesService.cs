@@ -178,7 +178,7 @@
                     Image = x.Image,
                     Price = x.Price == 0 ? "Free" : x.Price.ToString() + "$",
                     TrailerUrl = x.TrailerUrl != null ? x.TrailerUrl.Replace("watch?v=", "embed/") : null,
-                    Website = x.Website ?? "No website available.",
+                    Website = x.Website,
                     Summary = x.Summary,
                     ReleaseDate = x.ReleaseDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                     Genres = string.Join(", ", x.GameGenres.Select(gg => gg.Genre.Name)),

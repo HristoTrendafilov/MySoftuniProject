@@ -69,6 +69,7 @@
 
         public async Task<IActionResult> Details(string id, string success = null)
         {
+            // fix the exception
             this.ViewData["Success"] = success;
             try
             {

@@ -86,11 +86,22 @@
         <h5><span class="text-danger">Platforms: </span>@Model.Platforms</h5>
         <h5><span class="text-danger">Genres: </span>@Model.Genres</h5>
     </div>
-    <div style="margin-top:4rem">
-        <center>
-            <a type="button" class="btn btn-info btn-lg" href="@Model.Website">Click here to visit the official website</a>
-        </center>
-    </div>
+    @if (Model.Website == null)
+    {
+        <div style="margin-top:4rem">
+            <center>
+                <button type="button" class="btn btn-info btn-lg">No official website</button>
+            </center>
+        </div>
+    }
+    else
+    {
+        <div style="margin-top:4rem">
+            <center>
+                <a type="button" class="btn btn-info btn-lg" href="@Model.Website">Click here to visit the official website</a>
+            </center>
+        </div>
+    }
     @if (this.User.Identity.IsAuthenticated)
     {
         <center>
