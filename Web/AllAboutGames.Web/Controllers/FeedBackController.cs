@@ -57,8 +57,6 @@
                 return this.RedirectToAction("Home", "Error404");
             }
 
-            await this.feedBackService.DeleteFeedBackAsync(id);
-
             return this.RedirectToAction("All");
         }
     }

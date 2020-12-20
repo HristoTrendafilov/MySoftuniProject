@@ -96,8 +96,6 @@
                 return this.RedirectToAction("Home", "Error404");
             }
 
-            await this.gameService.DeleteGameAsync(id);
-
             return this.Redirect("/");
         }
     }

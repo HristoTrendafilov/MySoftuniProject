@@ -84,8 +84,6 @@
                 return this.RedirectToAction("Home", "Error404");
             }
 
-            await this.reviewService.DeleteReviewsAsync(model.Id);
-
             return this.RedirectToAction("Details", new { id = model.GameId, pageNumber = 1 });
         }
     }

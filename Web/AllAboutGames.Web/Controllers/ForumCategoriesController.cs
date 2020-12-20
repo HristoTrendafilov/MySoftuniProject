@@ -75,7 +75,6 @@
                 return this.RedirectToAction("Home", "Error404");
             }
 
-            await this.forumService.DeleteCategoryAsync(id);
             return this.RedirectToAction("Index", "Forum");
         }
 

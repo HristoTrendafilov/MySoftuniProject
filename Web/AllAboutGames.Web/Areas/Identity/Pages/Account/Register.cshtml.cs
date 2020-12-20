@@ -139,6 +139,7 @@
 
                 if (result.Succeeded)
                 {
+                    await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
                     this.logger.LogInformation("User created a new account with password.");
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -168,8 +169,6 @@
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);
                 }
-
-                await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
             }
 
             // If we got this far, something failed, redisplay form
