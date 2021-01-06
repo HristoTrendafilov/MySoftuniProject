@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@
             {
                 await this.forumService.DeleteCommentAsync(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }

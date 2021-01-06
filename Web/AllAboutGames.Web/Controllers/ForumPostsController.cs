@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -52,7 +53,7 @@
             {
                 await this.forumService.GetPostByIdAsync<PostViewModel>(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }
@@ -67,7 +68,7 @@
             {
                 await this.forumService.DeletePostAsync(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }

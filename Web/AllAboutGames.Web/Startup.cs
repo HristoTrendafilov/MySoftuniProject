@@ -62,7 +62,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
             services.AddTransient<IGamesService, GamesService>();
             services.AddTransient<IPlatformsService, PlatformsService>();
             services.AddTransient<IRatingsService, RatingsService>();

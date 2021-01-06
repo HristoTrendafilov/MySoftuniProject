@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -56,7 +57,7 @@
             {
                 await this.reviewService.GetReviewDetailsAsync(id, pageNumber, ReviewsPerPage);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Index", "Error404");
             }
@@ -79,7 +80,7 @@
             {
                 await this.reviewService.DeleteReviewsAsync(model.Id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }

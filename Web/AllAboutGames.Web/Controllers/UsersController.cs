@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using AllAboutGames.Common;
@@ -51,7 +52,7 @@
             {
                 await this.usersService.GetUserDetailsAsync(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Index", "Error404");
             }

@@ -3,8 +3,9 @@
 Web application that i made as a project defence for the Asp.Net Core module at Software University. The site consists of forum where users can talk about everything that interests them, adding rating to games and also reviews.
 
 ## Technology stack:
-* ASP.NET Core 3.1
-* Entity Framework Core 3.1
+* ASP.NET Core 5.0
+* Entity Framework Core 5.0
+* SendGrid -> for email validation on register.
 * MSSQL
 * JavaScript
 * jQuery

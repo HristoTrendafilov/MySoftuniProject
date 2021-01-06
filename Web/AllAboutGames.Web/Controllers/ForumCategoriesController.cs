@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using AllAboutGames.Common;
@@ -27,7 +28,7 @@
             {
                 await this.forumService.GetCategoryByIdAsync<CategoryViewModel>(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }
@@ -70,7 +71,7 @@
             {
                 await this.forumService.DeleteCategoryAsync(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }

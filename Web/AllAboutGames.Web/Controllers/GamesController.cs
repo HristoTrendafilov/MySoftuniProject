@@ -1,5 +1,6 @@
 ﻿namespace AllAboutGames.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using AllAboutGames.Common;
@@ -75,7 +76,7 @@
             {
                 await this.gameService.GetDetailsAsync(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }
@@ -91,7 +92,7 @@
             {
                 await this.gameService.DeleteGameAsync(id);
             }
-            catch (System.Exception)
+            catch (ArgumentException ex)
             {
                 return this.RedirectToAction("Home", "Error404");
             }
